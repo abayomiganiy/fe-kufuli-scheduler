@@ -6,6 +6,7 @@ import Login from "./pages/login";
 import SignUp from "./pages/signUp";
 import ForgotPassword from "./pages/forgotPassword";
 import VerifyAccount from "./pages/verifyAccount";
+import ConnectAccount from "./pages/connectAccount";
 
 export const router = createBrowserRouter([
     {
@@ -21,6 +22,7 @@ export const router = createBrowserRouter([
             { path: "/signup", element: <SignUp /> },
             { path: "/forgot-password", element: <ForgotPassword /> },
             { path: "/verify-account", element: <VerifyAccount /> },
+            { path: "/connect-account", element: <ConnectAccount /> },
         ],
     },
 ]);

@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const VerifyAccount: React.FC = () => {
+    const navigate = useNavigate();
     return (
         <div className="flex flex-row h-lvh relative">
             <div className="w-full py-16 px-4 flex justify-center">
@@ -84,9 +86,8 @@ const VerifyAccount: React.FC = () => {
                                 Verify Your Account
                             </h1>
                             <p className="laptop:text-xl text-base laptop:w-[444px]">
-                                We've sent a verification code to your
-                                email. Enter it below to activate your
-                                account.
+                                We've sent a verification code to your email.
+                                Enter it below to activate your account.
                             </p>
                         </div>
                         <form className="flex flex-col gap-6 laptop:w-[444px] laptop:mx-auto">
@@ -106,7 +107,13 @@ const VerifyAccount: React.FC = () => {
                                     Resend Code
                                 </button>
                             </div>
-                            <button className="h-12 font-semibold laptop:text-xl text-base rounded-lg focus:border-2 focus:outline-none bg-gradient-to-bl from-[#91FFDB] to-[#4CCEF7] hover:from-[#4CCEF7] hover:to-[#91FFDB] focus:border-[#4CCEF7]">
+                            <button
+                                className="h-12 font-semibold laptop:text-xl text-base rounded-lg focus:border-2 focus:outline-none bg-gradient-to-bl from-[#91FFDB] to-[#4CCEF7] hover:from-[#4CCEF7] hover:to-[#91FFDB] focus:border-[#4CCEF7]"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    navigate("/connect-account");
+                                }}
+                            >
                                 Verify
                             </button>
                         </form>
