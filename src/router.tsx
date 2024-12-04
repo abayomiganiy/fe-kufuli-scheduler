@@ -7,12 +7,17 @@ import SignUp from "./pages/signUp";
 import ForgotPassword from "./pages/forgotPassword";
 import VerifyAccount from "./pages/verifyAccount";
 import ConnectAccount from "./pages/connectAccount";
+import AuthProvider from "./components/authProvider";
 
 export const router = createBrowserRouter([
     {
         path: "/",
-        element: <DashboardLayout />,
-        children: [{ path: "/", element: <Home /> }],
+        element: (
+            <AuthProvider>
+                <DashboardLayout />
+            </AuthProvider>
+        ),
+        children: [{ index: true, element: <Home /> }],
     },
     {
         path: "/",

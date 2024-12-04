@@ -1,63 +1,92 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import * as z from "zod";
 import loginPng from "../../assets/communication-social-media-icons-smartphone-device.png";
-import { Link, useNavigate } from "react-router-dom";
+import { useLogin } from "../../hooks/auth.hook";
+
+interface ILoginData {
+    email: string;
+    password: string;
+}
+
+const loginValidationSchema = z
+    .object({
+        email: z.string().email(),
+        password: z.string().min(8),
+    })
+    .required();
 
 const Login: React.FC = () => {
-    const navigate = useNavigate();
+    const { mutate: login } = useLogin();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<ILoginData>({
+        resolver: zodResolver(loginValidationSchema),
+    });
+    const onSubmit = (data: ILoginData) => {
+        // API call to login
+        login(data);
+    };
     return (
         <div className="flex flex-row relative">
             <div className="laptop:w-1/2 w-full py-16 px-4 flex justify-center">
-                <svg
-                    width="567"
-                    height="645"
-                    viewBox="0 0 567 645"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="absolute left-0 blur-3xl opacity-40 laptop:block hidden z-10"
-                >
-                    <ellipse
-                        cx="248.806"
-                        cy="322.5"
-                        rx="322.5"
-                        ry="317.806"
-                        transform="rotate(90 248.806 322.5)"
-                        fill="#C5FFEA"
-                    />
-                </svg>
-                <svg
-                    width="112"
-                    height="323"
-                    viewBox="0 0 112 323"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="absolute left-0 blur-3xl opacity-40 laptop:hidden block z-10"
-                >
-                    <ellipse
-                        cx="-47.5968"
-                        cy="161.25"
-                        rx="161.25"
-                        ry="158.903"
-                        transform="rotate(90 -47.5968 161.25)"
-                        fill="#C5FFEA"
-                    />
-                </svg>
-                <svg
-                    width="111"
-                    height="323"
-                    viewBox="0 0 111 323"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="absolute right-0 bottom-1 blur-2xl opacity-40 laptop:hidden block z-10"
-                >
-                    <ellipse
-                        cx="158.903"
-                        cy="161.25"
-                        rx="161.25"
-                        ry="158.903"
-                        transform="rotate(90 158.903 161.25)"
-                        fill="#ACDCFF"
-                    />
-                </svg>
+                <>
+                    <svg
+                        width="567"
+                        height="645"
+                        viewBox="0 0 567 645"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="absolute left-0 blur-3xl opacity-40 laptop:block hidden z-10"
+                    >
+                        <ellipse
+                            cx="248.806"
+                            cy="322.5"
+                            rx="322.5"
+                            ry="317.806"
+                            transform="rotate(90 248.806 322.5)"
+                            fill="#C5FFEA"
+                        />
+                    </svg>
+                    <svg
+                        width="112"
+                        height="323"
+                        viewBox="0 0 112 323"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="absolute left-0 blur-3xl opacity-40 laptop:hidden block z-10"
+                    >
+                        <ellipse
+                            cx="-47.5968"
+                            cy="161.25"
+                            rx="161.25"
+                            ry="158.903"
+                            transform="rotate(90 -47.5968 161.25)"
+                            fill="#C5FFEA"
+                        />
+                    </svg>
+                    <svg
+                        width="111"
+                        height="323"
+                        viewBox="0 0 111 323"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="absolute right-0 bottom-1 blur-2xl opacity-40 laptop:hidden block z-10"
+                    >
+                        <ellipse
+                            cx="158.903"
+                            cy="161.25"
+                            rx="161.25"
+                            ry="158.903"
+                            transform="rotate(90 158.903 161.25)"
+                            fill="#ACDCFF"
+                        />
+                    </svg>
+                </>
                 <div className="w-[444px] flex flex-col laptop:gap-6 gap-11 px-1 z-10">
                     <div>
                         <img src="/kufuli-logo.svg" alt="kufuli-logo" />
@@ -72,16 +101,25 @@ const Login: React.FC = () => {
                                 influencers, and grow your reach.
                             </p>
                         </div>
-                        <form className="flex flex-col gap-6">
+                        <form
+                            className="flex flex-col gap-6"
+                            onSubmit={handleSubmit(onSubmit)}
+                        >
                             <div className="flex flex-col gap-2">
                                 <label className="font-semibold laptop:text-base text-xs">
                                     Email
                                 </label>
                                 <input
                                     type="email"
+                                    {...register("email")}
                                     placeholder="Enter your email address"
                                     className="font-normal laptop:text-base text-xs w-full px-4 py-3 border-2 border-[#D9D9D9] bg-transparent rounded-lg focus:outline-none focus:border-[#4CCEF7]"
                                 />
+                                {errors.email && (
+                                    <p className="text-xs text-red-500">
+                                        {errors.email.message}
+                                    </p>
+                                )}
                             </div>
                             <div className="flex flex-col gap-2">
                                 <label className="font-semibold laptop:text-base text-xs">
@@ -89,9 +127,15 @@ const Login: React.FC = () => {
                                 </label>
                                 <input
                                     type="password"
+                                    {...register("password")}
                                     placeholder="Enter your password"
                                     className="font-normal laptop:text-base text-xs w-full px-4 py-3 border-2 border-[#D9D9D9] bg-transparent rounded-lg focus:outline-none focus:border-[#4CCEF7]"
                                 />
+                                {errors.password && (
+                                    <p className="text-xs text-red-500">
+                                        {errors.password.message}
+                                    </p>
+                                )}
                             </div>
                             <div className="flex justify-end px-2 font-semibold laptop:text-base text-xs">
                                 <Link
@@ -101,13 +145,7 @@ const Login: React.FC = () => {
                                     Forgot password?
                                 </Link>
                             </div>
-                            <button
-                                className="h-12 font-semibold laptop:text-xl text-base rounded-lg focus:border-2 focus:outline-none bg-gradient-to-bl from-[#91FFDB] to-[#4CCEF7] hover:from-[#4CCEF7] hover:to-[#91FFDB] focus:border-[#4CCEF7]"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    navigate("/verify-account");
-                                }}
-                            >
+                            <button className="h-12 font-semibold laptop:text-xl text-base rounded-lg focus:border-2 focus:outline-none bg-gradient-to-bl from-[#91FFDB] to-[#4CCEF7] hover:from-[#4CCEF7] hover:to-[#91FFDB] focus:border-[#4CCEF7]">
                                 Login
                             </button>
                         </form>
