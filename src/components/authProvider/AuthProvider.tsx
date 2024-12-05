@@ -1,15 +1,25 @@
 import { AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
-import React, { ReactElement, useLayoutEffect, useState } from "react";
+import React, {
+    ReactElement,
+    useEffect,
+    // useLayoutEffect,
+    useState,
+} from "react";
 import { client, request } from "../../utils/axios-utils";
 import AuthContext from "../../contexts/AuthContext";
 
 const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
-    const [token, setToken] = useState<string | null>(null);
+    const [token, setToken] = useState<{
+        token: string | null;
+        isLoading: boolean;
+    }>({
+        token: null,
+        isLoading: true,
+    });
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const fetchMe = async () => {
             try {
-                console.log("Fetching me...");
                 const response: {
                     accessToken: string;
                     message: string;
@@ -21,21 +31,28 @@ const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
                 if (response.ok && response.accessToken) {
                     const accessToken: string = response.accessToken!;
                     console.log(`response from server fetchMe: ${accessToken}`);
-                    setToken(accessToken);
+                    if (accessToken) {
+                        setToken({ token: accessToken, isLoading: false });
+                    } else {
+                        setToken({ token: null, isLoading: true });
+                    }
                 }
             } catch (error) {
                 console.error("Error fetching user:", error);
-                setToken(null);
+                setToken({
+                    token: null,
+                    isLoading: false,
+                });
             }
         };
         fetchMe();
     }, []);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const authInterceptor = client.interceptors.request.use(
             (config: InternalAxiosRequestConfig & { _retry?: boolean }) => {
-                if (!config._retry && token) {
-                    config.headers.Authorization = `Bearer ${token}`;
+                if (!config._retry && token.token) {
+                    config.headers.Authorization = `Bearer ${token.token}`;
                 }
                 return config; // Ensure this matches the expected return type
             },
@@ -45,9 +62,9 @@ const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
         return () => {
             client.interceptors.request.eject(authInterceptor);
         };
-    }, [token]);
+    }, [token.token]);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const refreshTokenInterceptor = client.interceptors.response.use(
             (response) => response,
             async (error) => {
@@ -72,7 +89,10 @@ const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
                         }
                     } catch (error) {
                         console.error("Error refreshing token:", error);
-                        setToken(null);
+                        setToken({
+                            token: null,
+                            isLoading: false,
+                        });
                     }
                 }
                 return Promise.reject(error);
@@ -84,7 +104,7 @@ const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
     }, [token]);
 
     return (
-        <AuthContext.Provider value={token ?? null}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={token}>{children}</AuthContext.Provider>
     );
 };
 

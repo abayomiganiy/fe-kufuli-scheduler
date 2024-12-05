@@ -1,11 +1,11 @@
 import React from "react";
-import whatsapp from "../../assets/whatsapp.png";
+import { useNavigate } from "react-router-dom";
 import facebook from "../../assets/facebook.png";
 import instagram from "../../assets/instagram.png";
-import tiktok from "../../assets/tiktok.png";
 import telegram from "../../assets/telegram.png";
+import tiktok from "../../assets/tiktok.png";
+import whatsapp from "../../assets/whatsapp.png";
 import x from "../../assets/x.png";
-import { Link } from "react-router-dom";
 
 type ConnectionNameTypes =
     | "WhatsApp"
@@ -32,6 +32,7 @@ type ConnectedAccountType = {
 };
 
 const ConnectAccount: React.FC = () => {
+    const navigate = useNavigate();
     const connections: ConnectionType[] = [
         {
             name: "WhatsApp",
@@ -249,15 +250,20 @@ const ConnectAccount: React.FC = () => {
                                     </button>
                                 </div>
                             </div>
-                                <div className="flex justify-center items-center gap-2 laptop:text-base text-xs">
-                                    <span>Not ready to connect now?</span>
-                                    <Link
-                                        to="/signup"
-                                        className="font-extrabold"
-                                    >
-                                        Skip and Do This Later
-                                    </Link>
-                                </div>
+                            <div className="flex justify-center items-center gap-2 laptop:text-base text-xs">
+                                <span>Not ready to connect now?</span>
+                                <button
+                                    onClick={() => {
+                                        localStorage.removeItem(
+                                            "showConnectAccount"
+                                        );
+                                        navigate("/");
+                                    }}
+                                    className="font-extrabold"
+                                >
+                                    Skip and Do This Later
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -293,8 +299,7 @@ const Connections: React.FC<{ connections: ConnectionType[] }> = ({
                 <button
                     key={index}
                     className={`h-14 w-14 relative ${
-                        !connection.available &&
-                        "grayscale"
+                        !connection.available && "grayscale"
                     }`}
                     disabled={!connection.available}
                     onClick={connection.handleConnect}

@@ -7,17 +7,17 @@ import SignUp from "./pages/signUp";
 import ForgotPassword from "./pages/forgotPassword";
 import VerifyAccount from "./pages/verifyAccount";
 import ConnectAccount from "./pages/connectAccount";
-import AuthProvider from "./components/authProvider";
+import Campaigns from "./pages/campaigns";
 
 export const router = createBrowserRouter([
     {
         path: "/",
-        element: (
-            <AuthProvider>
-                <DashboardLayout />
-            </AuthProvider>
-        ),
-        children: [{ index: true, element: <Home /> }],
+        element: <DashboardLayout />,
+        children: [
+            { index: true, element: <Home /> },
+            { path: "/campaigns", element: <Campaigns /> },
+            { path: "/connect-account", element: <ConnectAccount /> },
+        ],
     },
     {
         path: "/",
@@ -27,7 +27,6 @@ export const router = createBrowserRouter([
             { path: "/signup", element: <SignUp /> },
             { path: "/forgot-password", element: <ForgotPassword /> },
             { path: "/verify-account", element: <VerifyAccount /> },
-            { path: "/connect-account", element: <ConnectAccount /> },
         ],
     },
 ]);

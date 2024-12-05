@@ -1,8 +1,47 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { useResendVerifyEmail, useVerifyEmail } from "../../hooks/email.hook";
+
+interface IVerificationData {
+    verificationCode: string;
+    email: string;
+}
+
+const verificationValidationSchema = z
+    .object({
+        verificationCode: z.string().min(6).max(6),
+        email: z.string().email(),
+    })
+    .required({
+        verificationCode: true,
+        email: true,
+    });
 
 const VerifyAccount: React.FC = () => {
-    const navigate = useNavigate();
+    const emailToVerify = localStorage.getItem("emailToVerify")!;
+    const { mutate: verify } = useVerifyEmail();
+    const { mutate: resendVerification } = useResendVerifyEmail();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<IVerificationData>({
+        mode: "onBlur",
+        reValidateMode: "onSubmit",
+        defaultValues: {
+            verificationCode: "",
+            email: emailToVerify,
+        },
+        resolver: zodResolver(verificationValidationSchema),
+    });
+
+    const onSubmit = (data: IVerificationData) => {
+        // API call to verify account
+        verify(data);
+    };
+
     return (
         <div className="flex flex-row h-lvh relative">
             <div className="w-full py-16 px-4 flex justify-center">
@@ -90,33 +129,49 @@ const VerifyAccount: React.FC = () => {
                                 Enter it below to activate your account.
                             </p>
                         </div>
-                        <form className="flex flex-col gap-6 laptop:w-[444px] laptop:mx-auto">
+                        <form
+                            onSubmit={handleSubmit(onSubmit)}
+                            className="flex flex-col gap-6 laptop:w-[444px] laptop:mx-auto"
+                        >
                             <div className="flex flex-col gap-2">
                                 <label className="font-semibold laptop:text-base text-xs">
                                     Verification Code
                                 </label>
                                 <input
                                     type="text"
+                                    {...register("verificationCode")}
                                     placeholder="Enter Verification Code"
                                     className="font-normal laptop:text-base text-xs w-full px-4 py-3 border-2 border-[#D9D9D9] bg-transparent rounded-lg focus:outline-none focus:border-[#4CCEF7]"
                                 />
+                                {errors.verificationCode && (
+                                    <p className="text-xs text-red-500">
+                                        {errors.verificationCode.message}
+                                    </p>
+                                )}
                             </div>
-                            <div className="flex justify-center items-center gap-2 laptop:text-base text-xs">
-                                <span>Didn't receive the code?</span>
-                                <button className="font-extrabold">
-                                    Resend Code
-                                </button>
-                            </div>
+
                             <button
+                                type="submit"
                                 className="h-12 font-semibold laptop:text-xl text-base rounded-lg focus:border-2 focus:outline-none bg-gradient-to-bl from-[#91FFDB] to-[#4CCEF7] hover:from-[#4CCEF7] hover:to-[#91FFDB] focus:border-[#4CCEF7]"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    navigate("/connect-account");
-                                }}
                             >
                                 Verify
                             </button>
                         </form>
+                        <div className="flex justify-center items-center gap-2 laptop:text-base text-xs">
+                            <span>Didn't receive the code?</span>
+                            <button
+                                type="button"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    resendVerification({
+                                        email: emailToVerify,
+                                    });
+                                }}
+                                className="font-extrabold"
+                            >
+                                Resend Code
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

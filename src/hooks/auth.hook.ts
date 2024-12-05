@@ -1,17 +1,55 @@
-import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import { request } from "../utils/axios-utils";
-import toast from "react-hot-toast";
 import { useContext } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
+import { request } from "../utils/axios-utils";
 
 export const useAuthContext = () => {
     const context = useContext(AuthContext);
-    console.log("AuthContext value:", context);
     return context;
 };
-export const useLogin = () => {
+export const useSignUp = () => {
     const navigate = useNavigate();
+    return useMutation({
+        mutationKey: ["login"],
+        mutationFn: async ({
+            fullName,
+            email,
+            password,
+        }: {
+            fullName: string;
+            email: string;
+            password: string;
+        }) => {
+            const resp = await request({
+                url: "/auth/sign-up",
+                method: "POST",
+                data: {
+                    fullName,
+                    email,
+                    password,
+                },
+            });
+            return resp;
+        },
+        onSuccess: (data: { ok: boolean; message: string; email: string }) => {
+            console.log("Signup successfully", data.email);
+            toast.success("Signup successfully");
+            localStorage.setItem("emailToVerify", data.email);
+            navigate(`/verify-account`, {
+                state: data,
+            });
+        },
+        onError: (error: { data: { message: string } }) => {
+            console.error(error);
+            toast.error(error!.data!.message);
+        },
+    });
+};
+
+export const useLogin = () => {
+    // const navigate = useNavigate();
     return useMutation({
         mutationKey: ["login"],
         mutationFn: async ({
@@ -38,7 +76,14 @@ export const useLogin = () => {
         }) => {
             console.log("Logged in successfully", data);
             toast.success("Logged in successfully");
-            navigate("/");
+            // TODO: Make auth work without reloading page
+            // navigate("/", { replace: true });
+            if (localStorage.getItem("showConnectAccount") === "true") {
+                localStorage.removeItem("showConnectAccount");
+                window.location.href = "/connect-account";
+                return
+            }
+            window.location.href = "/";
         },
         onError: (error: { data: { message: string } }) => {
             console.error(error);
@@ -48,7 +93,7 @@ export const useLogin = () => {
 };
 
 export const useLogout = () => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     return useMutation({
         mutationKey: ["logout"],
         mutationFn: async () => {
@@ -60,14 +105,8 @@ export const useLogout = () => {
             console.log(resp.data);
             return resp;
         },
-        onSuccess: (data: {
-            ok: boolean;
-            message: string;
-            accessToken: string;
-        }) => {
-            console.log("Logged out successfully", data);
-            toast.success("Logged out successfully");
-            navigate("/login");
+        onSuccess: () => {
+            window.location.href = "/login";
         },
         onError: (error: { data: { message: string } }) => {
             console.error(error);
