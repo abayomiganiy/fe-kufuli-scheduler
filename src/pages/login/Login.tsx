@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import * as z from "zod";
 import loginPng from "../../assets/communication-social-media-icons-smartphone-device.png";
 import { useLogin } from "../../hooks/auth.hook";
+import Button from "../../components/button";
 
 interface ILoginData {
     email: string;
@@ -145,9 +146,7 @@ const Login: React.FC = () => {
                                     Forgot password?
                                 </Link>
                             </div>
-                            <button className="h-12 font-semibold laptop:text-xl text-base rounded-lg focus:border-2 focus:outline-none bg-gradient-to-bl from-[#91FFDB] to-[#4CCEF7] hover:from-[#4CCEF7] hover:to-[#91FFDB] focus:border-[#4CCEF7]">
-                                Login
-                            </button>
+                            <Button className="">Login</Button>
                         </form>
                         <div className="flex justify-center items-center gap-2 laptop:text-base text-xs">
                             <span>New to Kufuli?</span>{" "}
@@ -158,7 +157,7 @@ const Login: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className="max-h-lvh w-1/2  laptop:flex hidden justify-center items-center bg-gradient-to-bl from-[#91FFDB] to-[#4CCEF7]">
+            <div className="max-h-lvh w-1/2 laptop:flex hidden justify-center items-center bg-gradient-to-bl from-[#91FFDB] to-[#4CCEF7]">
                 <img
                     src={loginPng}
                     alt="communication-social-media-icons-smartphone-device"

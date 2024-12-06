@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Button from "../../components/button";
 
 const ForgotPassword: React.FC = () => {
     return (
@@ -100,9 +101,7 @@ const ForgotPassword: React.FC = () => {
                                     className="font-normal laptop:text-base text-xs w-full px-4 py-3 border-2 border-[#D9D9D9] bg-transparent rounded-lg focus:outline-none focus:border-[#4CCEF7]"
                                 />
                             </div>
-                            <button className="h-12 font-semibold laptop:text-xl text-base rounded-lg focus:border-2 focus:outline-none bg-gradient-to-bl from-[#91FFDB] to-[#4CCEF7] hover:from-[#4CCEF7] hover:to-[#91FFDB] focus:border-[#4CCEF7]">
-                                Send Reset Link
-                            </button>
+                            <Button className="">Send Reset Link</Button>
                         </form>
                         <div className="flex justify-center items-center gap-2 laptop:text-base text-xs">
                             <span>Remember your password?</span>{" "}

@@ -5,6 +5,7 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSignUp } from "../../hooks/auth.hook";
+import Button from "../../components/button";
 
 interface ISignUpnData {
     fullName: string;
@@ -175,9 +176,7 @@ const SignUp: React.FC = () => {
                                 </Link>
                                 .
                             </div>
-                            <button className="h-12 font-semibold laptop:text-xl text-base rounded-lg focus:border-2 focus:outline-none bg-gradient-to-bl from-[#91FFDB] to-[#4CCEF7] hover:from-[#4CCEF7] hover:to-[#91FFDB] focus:border-[#4CCEF7]">
-                                SignUp
-                            </button>
+                            <Button className="">SignUp</Button>
                         </form>
                         <div className="flex justify-center items-center gap-2 laptop:text-base text-xs">
                             <span>Already have an account?</span>

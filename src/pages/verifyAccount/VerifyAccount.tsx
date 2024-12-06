@@ -3,6 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useResendVerifyEmail, useVerifyEmail } from "../../hooks/email.hook";
+import Button from "../../components/button";
 
 interface IVerificationData {
     verificationCode: string;
@@ -150,12 +151,9 @@ const VerifyAccount: React.FC = () => {
                                 )}
                             </div>
 
-                            <button
-                                type="submit"
-                                className="h-12 font-semibold laptop:text-xl text-base rounded-lg focus:border-2 focus:outline-none bg-gradient-to-bl from-[#91FFDB] to-[#4CCEF7] hover:from-[#4CCEF7] hover:to-[#91FFDB] focus:border-[#4CCEF7]"
-                            >
+                            <Button type="submit" className="">
                                 Verify
-                            </button>
+                            </Button>
                         </form>
                         <div className="flex justify-center items-center gap-2 laptop:text-base text-xs">
                             <span>Didn't receive the code?</span>

@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 import Home from "./pages/home";
 import AuthLayout from "./layouts/authLayout";
 import DashboardLayout from "./layouts/dashboardLayout";
@@ -8,6 +8,7 @@ import ForgotPassword from "./pages/forgotPassword";
 import VerifyAccount from "./pages/verifyAccount";
 import ConnectAccount from "./pages/connectAccount";
 import Campaigns from "./pages/campaigns";
+import Influencers from "./pages/influencers";
 
 export const router = createBrowserRouter([
     {
@@ -16,8 +17,13 @@ export const router = createBrowserRouter([
         children: [
             { index: true, element: <Home /> },
             { path: "/campaigns", element: <Campaigns /> },
-            { path: "/connect-account", element: <ConnectAccount /> },
+            { path: "/influencers", element: <Influencers /> },
         ],
+    },
+    {
+        path: "/",
+        element: <Outlet />,
+        children: [{ path: "/connect-account", element: <ConnectAccount /> }],
     },
     {
         path: "/",
