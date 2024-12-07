@@ -5,6 +5,7 @@ interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: "primary" | "secondary";
     className?: string;
     disabled?: boolean;
+    onClick?: () => void;
 }
 
 const Button: React.FC<IButton> = ({
@@ -12,6 +13,7 @@ const Button: React.FC<IButton> = ({
     variant = "primary",
     className = "",
     disabled = false,
+    onClick,
 }) => {
     return (
         <button
@@ -23,6 +25,7 @@ const Button: React.FC<IButton> = ({
                 disabled && "disabled:bg-[#E0E0E0] disabled:text-black"
             } ${className}`}
             disabled={disabled}
+            onClick={onClick}
         >
             {children}
         </button>

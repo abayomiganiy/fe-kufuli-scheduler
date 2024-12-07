@@ -40,7 +40,7 @@ const SideNavBar: React.FC = () => {
                 </svg>
             ),
 
-            to: "/",
+            to: "/dashboard",
         },
         {
             label: "Campaigns",
@@ -120,7 +120,7 @@ const SideNavBar: React.FC = () => {
     return (
         <div className="fixed top-0 left-0 laptop:flex flex-col gap-12 pt-12 shadow-2xl hidden w-72 h-dvh px-5">
             <div className="w-full flex justify-center">
-                <img src={logo} alt="logo" />
+                <img src={logo} alt="logo" className="h-14 w-48" />
             </div>
             <div className="flex flex-col gap-5">
                 <Button variant="primary" type="button" className="w-full">

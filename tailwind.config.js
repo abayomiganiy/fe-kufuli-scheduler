@@ -3,6 +3,16 @@ export default {
     content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
     theme: {
         extend: {
+            width: {
+                fill: "fill-available",
+                "webkit-fill": "-webkit-fill-available",
+                "moz-fill": "-moz-available",
+            },
+            height: {
+                fill: "fill-available",
+                "webkit-fill": "-webkit-fill-available",
+                "moz-fill": "-moz-available",
+            },
         },
         screens: {
             mobile: "320px",

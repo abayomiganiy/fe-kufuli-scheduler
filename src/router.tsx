@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import Home from "./pages/home";
 import AuthLayout from "./layouts/authLayout";
 import DashboardLayout from "./layouts/dashboardLayout";
@@ -15,7 +15,8 @@ export const router = createBrowserRouter([
         path: "/",
         element: <DashboardLayout />,
         children: [
-            { index: true, element: <Home /> },
+            { index: true, element: <Navigate to="/dashboard" /> },
+            { path: "/dashboard", element: <Home /> },
             { path: "/campaigns", element: <Campaigns /> },
             { path: "/influencers", element: <Influencers /> },
         ],

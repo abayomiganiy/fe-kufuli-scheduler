@@ -20,4 +20,15 @@
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
     }
+
+    .w-fill {
+        width: -webkit-fill-available;
+        width: -moz-available;
+        width: stretch;
+    }
+    .h-fill {
+        height: -webkit-fill-available;
+        height: -moz-available;
+        height: stretch;
+    }
 }
