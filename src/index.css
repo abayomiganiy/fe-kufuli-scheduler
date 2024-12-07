@@ -22,13 +22,13 @@
     }
 
     .w-fill {
-        width: -webkit-fill-available;
-        width: -moz-available;
+        width: -webkit-stretch;
+        width: -moz-stretch;
         width: stretch;
     }
     .h-fill {
-        height: -webkit-fill-available;
-        height: -moz-available;
+        height: -webkit-stretch;
+        height: -moz-stretch;
         height: stretch;
     }
 }

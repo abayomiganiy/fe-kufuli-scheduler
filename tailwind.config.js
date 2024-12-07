@@ -4,14 +4,14 @@ export default {
     theme: {
         extend: {
             width: {
-                fill: "fill-available",
-                "webkit-fill": "-webkit-fill-available",
-                "moz-fill": "-moz-available",
+                fill: "stretch",
+                "webkit-fill": "-webkit-stretch",
+                "moz-fill": "-moz-stretch",
             },
             height: {
-                fill: "fill-available",
-                "webkit-fill": "-webkit-fill-available",
-                "moz-fill": "-moz-available",
+                fill: "stretch",
+                "webkit-fill": "-webkit-stretch",
+                "moz-fill": "-moz-stretch",
             },
         },
         screens: {
