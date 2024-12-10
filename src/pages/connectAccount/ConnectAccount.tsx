@@ -6,44 +6,44 @@ import telegram from "../../assets/telegram.png";
 import tiktok from "../../assets/tiktok.png";
 import whatsapp from "../../assets/whatsapp.png";
 import x from "../../assets/x.png";
-
-type ConnectionNameTypes =
-    | "WhatsApp"
-    | "Facebook"
-    | "Instagram"
-    | "TikTok"
-    | "Telegram"
-    | "X";
-
-type ConnectionType = {
-    name: ConnectionNameTypes;
-    icon: string;
-    available: boolean;
-    handleConnect: () => void;
-};
-
-type ConnectedAccountType = {
-    connection: ConnectionType;
-    accounts: {
-        id: string;
-        dp: string;
-        lastUpdated: Date;
-    }[];
-};
+import {
+    // useConnectSocialAccount,
+    useConnectWhatsapp,
+    useDeleteSocialAccount,
+    useGetSocialAccounts,
+} from "../../hooks/socialAccount.hook";
+import {
+    ConnectionType,
+    ISocialAccount,
+} from "../../interfaces/socialAccount.interface";
 
 const ConnectAccount: React.FC = () => {
     const navigate = useNavigate();
+    const { data: connectedAccounts, isLoading: connectAccountIsLoading } =
+        useGetSocialAccounts();
+    // const { mutate: connectAccount } = useConnectSocialAccount();
+
+    const { message, query } = useConnectWhatsapp();
+    const { refetch } = query;
+
+    console.log(message);
+
+    if (connectAccountIsLoading) {
+        return <div>Loading...</div>;
+    }
+
     const connections: ConnectionType[] = [
         {
-            name: "WhatsApp",
+            type: "WHATSAPP",
             icon: whatsapp,
             available: true,
             handleConnect: () => {
                 console.log("Whatsapp");
+                refetch();
             },
         },
         {
-            name: "Facebook",
+            type: "FACEBOOK",
             icon: facebook,
             available: false,
             handleConnect: () => {
@@ -51,7 +51,7 @@ const ConnectAccount: React.FC = () => {
             },
         },
         {
-            name: "Instagram",
+            type: "INSTAGRAM",
             icon: instagram,
             available: false,
             handleConnect: () => {
@@ -59,7 +59,7 @@ const ConnectAccount: React.FC = () => {
             },
         },
         {
-            name: "X",
+            type: "X",
             icon: x,
             available: false,
             handleConnect: () => {
@@ -67,7 +67,7 @@ const ConnectAccount: React.FC = () => {
             },
         },
         {
-            name: "TikTok",
+            type: "TIKTOK",
             icon: tiktok,
             available: false,
             handleConnect: () => {
@@ -75,35 +75,12 @@ const ConnectAccount: React.FC = () => {
             },
         },
         {
-            name: "Telegram",
+            type: "TELEGRAM",
             icon: telegram,
             available: false,
             handleConnect: () => {
                 console.log("Telegram");
             },
-        },
-    ];
-
-    const connectedAccounts: ConnectedAccountType[] = [
-        {
-            connection: connections[0],
-            accounts: [
-                {
-                    id: "123456789",
-                    dp: whatsapp,
-                    lastUpdated: new Date("1995-08-21T12:37:00"),
-                },
-            ],
-        },
-        {
-            connection: connections[1],
-            accounts: [
-                {
-                    id: "123456789",
-                    dp: instagram,
-                    lastUpdated: new Date("1995-08-21T12:37:00"),
-                },
-            ],
         },
     ];
 
@@ -198,7 +175,7 @@ const ConnectAccount: React.FC = () => {
                                 </p>
                             </div>
                             <Connections connections={connections} />
-                            {connectedAccounts.length ? (
+                            {connectedAccounts?.length ? (
                                 <div className="laptop:max-w-xl mx-auto w-[90svw]">
                                     <ConnectedAccounts
                                         connectedAccounts={connectedAccounts}
@@ -209,7 +186,7 @@ const ConnectAccount: React.FC = () => {
                                 <div className="flex flex-col laptop:gap-4 gap-3 laptop:w-4/5 mx-auto">
                                     <button
                                         className={`${
-                                            connectedAccounts.length
+                                            connectedAccounts?.length
                                                 ? "flex"
                                                 : "hidden"
                                         } h-12 items-center justify-center gap-2 font-semibold laptop:text-xl text-base rounded-lg focus:border-2 focus:outline-none bg-gradient-to-bl from-[#91FFDB] to-[#4CCEF7] hover:from-[#4CCEF7] hover:to-[#91FFDB] focus:border-[#4CCEF7]`}
@@ -243,7 +220,7 @@ const ConnectAccount: React.FC = () => {
                                         </svg>
                                     </button>
                                     <button
-                                        disabled={!connectedAccounts.length}
+                                        disabled={!connectedAccounts?.length}
                                         className="h-12 font-semibold laptop:text-xl text-base rounded-lg focus:border-2 focus:outline-none bg-black text-white disabled:bg-[#E0E0E0] disabled:text-black"
                                     >
                                         Create Account
@@ -330,7 +307,7 @@ const Connections: React.FC<{ connections: ConnectionType[] }> = ({
                     </div>
                     <img
                         src={connection.icon}
-                        alt={connection.name}
+                        alt={connection.type}
                         className="object-contain rounded-full"
                     />
                 </button>
@@ -340,12 +317,12 @@ const Connections: React.FC<{ connections: ConnectionType[] }> = ({
 };
 
 const ConnectedAccounts: React.FC<{
-    connectedAccounts: ConnectedAccountType[];
+    connectedAccounts: ISocialAccount[];
 }> = ({ connectedAccounts }) => {
     return (
         <div className="rounded-2xl flex overflow-auto no-scrollbar py-8 bg-white border-[#E0E0E0] border-[1px]">
             <div className="flex flex-nowrap">
-                {connectedAccounts.map((connectedAccount, index) => (
+                {connectedAccounts?.map((connectedAccount, index) => (
                     <ConnectedAccount
                         key={index}
                         connectedAccount={connectedAccount}
@@ -357,20 +334,46 @@ const ConnectedAccounts: React.FC<{
 };
 
 const ConnectedAccount: React.FC<{
-    connectedAccount: ConnectedAccountType;
+    connectedAccount: ISocialAccount;
 }> = ({ connectedAccount }) => {
+    const { mutate: deleteSocialAccont } = useDeleteSocialAccount();
     return (
         <div className="relative w-20 h-20 mx-3">
+            <button
+                onClick={() =>
+                    deleteSocialAccont({
+                        id: connectedAccount.id,
+                        sessionId: connectedAccount.name,
+                    })
+                }
+                className="absolute top-[-10px] right-[-10px] flex justify-center items-center p-1 h-6 w-6 rounded-full bg-[#FF3B30]"
+            >
+                <svg
+                    width="8"
+                    height="8"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M14 2L8 8M8 8L2 14M8 8L14 14M8 8L2 2"
+                        stroke="#ffffff"
+                        stroke-width="3"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+            </button>
             <div className="w-5 h-5 rounded-full bg-[#fff] p-[1px] flex justify-center items-center absolute bottom-0 right-0">
                 <img
-                    src={connectedAccount.accounts[0].dp}
-                    alt={connectedAccount.accounts[0].id}
+                    src={connectedAccount.dp}
+                    alt={connectedAccount.id}
                     className="object-contain w-full h-full"
                 />
             </div>
             <img
-                src={connectedAccount.connection.icon}
-                alt={connectedAccount.connection.name}
+                src={connectedAccount.type === "WHATSAPP" ? whatsapp : ""}
+                alt={connectedAccount.type as unknown as string}
                 className="object-contain w-full h-full"
             />
         </div>

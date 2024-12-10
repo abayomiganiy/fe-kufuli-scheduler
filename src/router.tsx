@@ -1,14 +1,15 @@
-import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
-import Home from "./pages/home";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import AuthLayout from "./layouts/authLayout";
 import DashboardLayout from "./layouts/dashboardLayout";
+import DashboardLayoutPlain from "./layouts/dashboardLayoutPlain";
+import Campaigns from "./pages/campaigns";
+import ConnectAccount from "./pages/connectAccount";
+import ForgotPassword from "./pages/forgotPassword";
+import Home from "./pages/home";
+import Influencers from "./pages/influencers";
 import Login from "./pages/login";
 import SignUp from "./pages/signUp";
-import ForgotPassword from "./pages/forgotPassword";
 import VerifyAccount from "./pages/verifyAccount";
-import ConnectAccount from "./pages/connectAccount";
-import Campaigns from "./pages/campaigns";
-import Influencers from "./pages/influencers";
 
 export const router = createBrowserRouter([
     {
@@ -23,7 +24,7 @@ export const router = createBrowserRouter([
     },
     {
         path: "/",
-        element: <Outlet />,
+        element: <DashboardLayoutPlain />,
         children: [{ path: "/connect-account", element: <ConnectAccount /> }],
     },
     {
