@@ -1,13 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import facebook from "../../assets/facebook.png";
-import instagram from "../../assets/instagram.png";
-import telegram from "../../assets/telegram.png";
-import tiktok from "../../assets/tiktok.png";
-import whatsapp from "../../assets/whatsapp.png";
-import x from "../../assets/x.png";
 import {
-    // useConnectSocialAccount,
     useConnectWhatsapp,
     useDeleteSocialAccount,
     useGetSocialAccounts,
@@ -16,12 +9,12 @@ import {
     ConnectionType,
     ISocialAccount,
 } from "../../interfaces/socialAccount.interface";
+import { getAccountImageWithType } from "../../utils/getAccountImageWithType";
 
 const ConnectAccount: React.FC = () => {
     const navigate = useNavigate();
     const { data: connectedAccounts, isLoading: connectAccountIsLoading } =
         useGetSocialAccounts();
-    // const { mutate: connectAccount } = useConnectSocialAccount();
 
     const { message, query } = useConnectWhatsapp();
     const { refetch } = query;
@@ -35,7 +28,7 @@ const ConnectAccount: React.FC = () => {
     const connections: ConnectionType[] = [
         {
             type: "WHATSAPP",
-            icon: whatsapp,
+
             available: true,
             handleConnect: () => {
                 console.log("Whatsapp");
@@ -44,7 +37,7 @@ const ConnectAccount: React.FC = () => {
         },
         {
             type: "FACEBOOK",
-            icon: facebook,
+
             available: false,
             handleConnect: () => {
                 console.log("Facebook");
@@ -52,7 +45,7 @@ const ConnectAccount: React.FC = () => {
         },
         {
             type: "INSTAGRAM",
-            icon: instagram,
+
             available: false,
             handleConnect: () => {
                 console.log("Instagram");
@@ -60,7 +53,7 @@ const ConnectAccount: React.FC = () => {
         },
         {
             type: "X",
-            icon: x,
+
             available: false,
             handleConnect: () => {
                 console.log("X");
@@ -68,7 +61,7 @@ const ConnectAccount: React.FC = () => {
         },
         {
             type: "TIKTOK",
-            icon: tiktok,
+
             available: false,
             handleConnect: () => {
                 console.log("TikTok");
@@ -76,7 +69,7 @@ const ConnectAccount: React.FC = () => {
         },
         {
             type: "TELEGRAM",
-            icon: telegram,
+
             available: false,
             handleConnect: () => {
                 console.log("Telegram");
@@ -306,7 +299,7 @@ const Connections: React.FC<{ connections: ConnectionType[] }> = ({
                         </svg>
                     </div>
                     <img
-                        src={connection.icon}
+                        src={getAccountImageWithType(connection.type)}
                         alt={connection.type}
                         className="object-contain rounded-full"
                     />
@@ -372,7 +365,7 @@ const ConnectedAccount: React.FC<{
                 />
             </div>
             <img
-                src={connectedAccount.type === "WHATSAPP" ? whatsapp : ""}
+                src={getAccountImageWithType(connectedAccount.type)}
                 alt={connectedAccount.type as unknown as string}
                 className="object-contain w-full h-full"
             />

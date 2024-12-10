@@ -3,11 +3,13 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/kufuli-logo.svg";
 import { useLogout } from "../../hooks/auth.hook";
 import { useGetSocialAccounts } from "../../hooks/socialAccount.hook";
-import { ISocialAccount } from "../../interfaces/socialAccount.interface";
+import {
+    ISocialAccount,
+} from "../../interfaces/socialAccount.interface";
 import Button from "../button";
 
-import whatsapp from "../../assets/whatsapp.png";
 import { useCurrentSocialAccount } from "../../store/currentSocialAccountStore";
+import { getAccountImageWithType } from "../../utils/getAccountImageWithType";
 
 const SideNavBar: React.FC = () => {
     const { mutate: logout } = useLogout();
@@ -219,22 +221,18 @@ const ConnectedSocialAccounts = () => {
                     onClick={() => setCurrentSocialAccount(account)}
                 >
                     <div className="flex justify-between items-center gap-2">
-                        {account.type === "WHATSAPP" ? (
-                            <div className="relative h-8 w-8">
-                                <img
-                                    src={whatsapp}
-                                    alt={account.name}
-                                    className="h-8 w-8"
-                                />
-                                <img
-                                    src={account.dp}
-                                    alt={account.id}
-                                    className="object-contain w-3 h-3 rounded-full absolute right-0 bottom-0"
-                                />
-                            </div>
-                        ) : (
-                            ""
-                        )}
+                        <div className="relative h-8 w-8">
+                            <img
+                                src={getAccountImageWithType(account.type)}
+                                alt={account.name}
+                                className="h-8 w-8"
+                            />
+                            <img
+                                src={account.dp}
+                                alt={account.id}
+                                className="object-contain w-3 h-3 rounded-full absolute right-0 bottom-0"
+                            />
+                        </div>
                         <div>{account.name}</div>
                     </div>
                     {account.id === connectedAccountStore?.id && (

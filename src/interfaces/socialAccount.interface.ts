@@ -8,7 +8,6 @@ export type ConnectionNameTypes =
 
 export type ConnectionType = {
     type: ConnectionNameTypes;
-    icon: string;
     available: boolean;
     handleConnect: () => void;
 };
