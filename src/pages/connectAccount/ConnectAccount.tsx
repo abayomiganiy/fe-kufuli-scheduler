@@ -1,81 +1,21 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import {
-    useConnectWhatsapp,
-    useDeleteSocialAccount,
-    useGetSocialAccounts,
-} from "../../hooks/socialAccount.hook";
-import {
-    ConnectionType,
-    ISocialAccount,
-} from "../../interfaces/socialAccount.interface";
-import { getAccountImageWithType } from "../../utils/getAccountImageWithType";
+import { ConnectedAccounts } from "../../components/connectedAccounts/ConnectedAccounts";
+import Connections from "../../components/socialConnections/SocialConnections";
+import { useGetSocialAccounts } from "../../hooks/socialAccount.hook";
 
 const ConnectAccount: React.FC = () => {
     const navigate = useNavigate();
     const { data: connectedAccounts, isLoading: connectAccountIsLoading } =
         useGetSocialAccounts();
 
-    const { message, query } = useConnectWhatsapp();
-    const { refetch } = query;
-
-    console.log(message);
+    // const { message, query } = useConnectWhatsapp();
+    // const { refetch } = query;
+    // console.log(message);
 
     if (connectAccountIsLoading) {
         return <div>Loading...</div>;
     }
-
-    const connections: ConnectionType[] = [
-        {
-            type: "WHATSAPP",
-
-            available: true,
-            handleConnect: () => {
-                console.log("Whatsapp");
-                refetch();
-            },
-        },
-        {
-            type: "FACEBOOK",
-
-            available: false,
-            handleConnect: () => {
-                console.log("Facebook");
-            },
-        },
-        {
-            type: "INSTAGRAM",
-
-            available: false,
-            handleConnect: () => {
-                console.log("Instagram");
-            },
-        },
-        {
-            type: "X",
-
-            available: false,
-            handleConnect: () => {
-                console.log("X");
-            },
-        },
-        {
-            type: "TIKTOK",
-
-            available: false,
-            handleConnect: () => {
-                console.log("TikTok");
-            },
-        },
-        {
-            type: "TELEGRAM",
-
-            available: false,
-            handleConnect: () => {
-                console.log("Telegram");
-            },
-        },
-    ];
 
     return (
         <div className="flex laptop:flex-row flex-col">
@@ -167,7 +107,7 @@ const ConnectAccount: React.FC = () => {
                                     platforms.
                                 </p>
                             </div>
-                            <Connections connections={connections} />
+                            <Connections />
                             {connectedAccounts?.length ? (
                                 <div className="laptop:max-w-xl mx-auto w-[90svw]">
                                     <ConnectedAccounts
@@ -256,119 +196,6 @@ const ConnectAccount: React.FC = () => {
                     </ul>
                 </div>
             </div>
-        </div>
-    );
-};
-
-const Connections: React.FC<{ connections: ConnectionType[] }> = ({
-    connections,
-}) => {
-    return (
-        <div className="flex flex-wrap justify-center laptop:gap-10 gap-8">
-            {connections.map((connection, index) => (
-                <button
-                    key={index}
-                    className={`h-14 w-14 relative ${
-                        !connection.available && "grayscale"
-                    }`}
-                    disabled={!connection.available}
-                    onClick={connection.handleConnect}
-                >
-                    <div className="w-5 h-5 rounded-full bg-[#FF3B30] flex justify-center items-center absolute bottom-0 right-0">
-                        <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 13 13"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                d="M6.75012 2.5V10.5"
-                                stroke="white"
-                                stroke-width="2.25"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
-                            <path
-                                d="M2.75 6.5H10.75"
-                                stroke="white"
-                                stroke-width="2.25"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
-                        </svg>
-                    </div>
-                    <img
-                        src={getAccountImageWithType(connection.type)}
-                        alt={connection.type}
-                        className="object-contain rounded-full"
-                    />
-                </button>
-            ))}
-        </div>
-    );
-};
-
-const ConnectedAccounts: React.FC<{
-    connectedAccounts: ISocialAccount[];
-}> = ({ connectedAccounts }) => {
-    return (
-        <div className="rounded-2xl flex overflow-auto no-scrollbar py-8 bg-white border-[#E0E0E0] border-[1px]">
-            <div className="flex flex-nowrap">
-                {connectedAccounts?.map((connectedAccount, index) => (
-                    <ConnectedAccount
-                        key={index}
-                        connectedAccount={connectedAccount}
-                    />
-                ))}
-            </div>
-        </div>
-    );
-};
-
-const ConnectedAccount: React.FC<{
-    connectedAccount: ISocialAccount;
-}> = ({ connectedAccount }) => {
-    const { mutate: deleteSocialAccont } = useDeleteSocialAccount();
-    return (
-        <div className="relative w-20 h-20 mx-3">
-            <button
-                onClick={() =>
-                    deleteSocialAccont({
-                        id: connectedAccount.id,
-                        sessionId: connectedAccount.name,
-                    })
-                }
-                className="absolute top-[-10px] right-[-10px] flex justify-center items-center p-1 h-6 w-6 rounded-full bg-[#FF3B30]"
-            >
-                <svg
-                    width="8"
-                    height="8"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M14 2L8 8M8 8L2 14M8 8L14 14M8 8L2 2"
-                        stroke="#ffffff"
-                        stroke-width="3"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    />
-                </svg>
-            </button>
-            <div className="w-5 h-5 rounded-full bg-[#fff] p-[1px] flex justify-center items-center absolute bottom-0 right-0">
-                <img
-                    src={connectedAccount.dp}
-                    alt={connectedAccount.id}
-                    className="object-contain w-full h-full"
-                />
-            </div>
-            <img
-                src={getAccountImageWithType(connectedAccount.type)}
-                alt={connectedAccount.type as unknown as string}
-                className="object-contain w-full h-full"
-            />
         </div>
     );
 };

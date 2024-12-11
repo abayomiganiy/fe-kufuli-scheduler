@@ -206,10 +206,10 @@ const SideNavBar: React.FC = () => {
 
 const ConnectedSocialAccounts = () => {
     const { data: connectedAccounts } = useGetSocialAccounts();
-    const connectedAccountStore = useCurrentSocialAccount(
+    const currentSocialAccount = useCurrentSocialAccount(
         (state) => state.currentAccount
     );
-    console.log(connectedAccountStore);
+    console.log(currentSocialAccount);
     const setCurrentSocialAccount = useCurrentSocialAccount(
         (state) => state.setCurrentAccount
     );
@@ -235,7 +235,7 @@ const ConnectedSocialAccounts = () => {
                         </div>
                         <div>{account.name}</div>
                     </div>
-                    {account.id === connectedAccountStore?.id && (
+                    {account.id === currentSocialAccount?.id && (
                         <div className="rounded-full bg-green-400 p-1">
                             <svg
                                 width="12"
