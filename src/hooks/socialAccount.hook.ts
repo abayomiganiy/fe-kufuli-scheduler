@@ -6,8 +6,13 @@ import { useAuthContext } from "./auth.hook";
 import { EventSource } from "eventsource";
 
 export const useConnectWhatsapp = () => {
+    const queryClient = useQueryClient();
     const { token } = useAuthContext();
-    const [message, setMessage] = useState();
+    const [message, setMessage] = useState<
+        | { qr: string }
+        | { connection: string; receivedPendingNotifications: boolean }
+        | { isNewLogin: boolean }
+    >();
     const query = useQuery({
         queryKey: ["connect-whatsapp"],
         queryFn: async () => {
@@ -26,19 +31,24 @@ export const useConnectWhatsapp = () => {
                 }
             );
             event.addEventListener("connect-whatsapp", (event) => {
-                setMessage(event.data);
-                
+                const eventData = JSON.parse(event.data);
+                if (eventData.isNewLogin) {
+                    toast.success("New WhatsApp login detected!");
+                    queryClient.invalidateQueries({
+                        queryKey: ["social-accounts"],
+                    });
+                }
+                setMessage(eventData);
             });
             event.addEventListener("session-id", (e) => console.log(e.data));
         },
-        enabled: false,
+        // enabled: false,
         refetchInterval: false,
         refetchOnWindowFocus: false,
         refetchOnReconnect: false,
         refetchOnMount: false,
-        retry: 3,
     });
-    return { message,query };
+    return { message, query };
 };
 
 export const useGetSocialAccounts = () => {

@@ -9,10 +9,6 @@ const ConnectAccount: React.FC = () => {
     const { data: connectedAccounts, isLoading: connectAccountIsLoading } =
         useGetSocialAccounts();
 
-    // const { message, query } = useConnectWhatsapp();
-    // const { refetch } = query;
-    // console.log(message);
-
     if (connectAccountIsLoading) {
         return <div>Loading...</div>;
     }
