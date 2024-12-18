@@ -20,7 +20,7 @@ const loginValidationSchema = z
     .required();
 
 const Login: React.FC = () => {
-    const { mutate: login } = useLogin();
+    const { mutate: login, isPending: logingIsPending } = useLogin();
     const {
         register,
         handleSubmit,
@@ -146,7 +146,7 @@ const Login: React.FC = () => {
                                     Forgot password?
                                 </Link>
                             </div>
-                            <Button className="">Login</Button>
+                            <Button className="" isLoading={logingIsPending}>Login</Button>
                         </form>
                         <div className="flex justify-center items-center gap-2 laptop:text-base text-xs">
                             <span>New to Kufuli?</span>{" "}

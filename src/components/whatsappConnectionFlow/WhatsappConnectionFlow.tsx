@@ -1,7 +1,10 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import React, { useState } from "react";
 import Button from "../button";
-import { useConnectWhatsapp } from "../../hooks/socialAccount.hook";
+import { useQRConnectWhatsapp, usePhoneConnectWhatsapp } from "../../hooks/socialAccount.hook";
 import GridLoader from "react-spinners/GridLoader";
+import { useForm } from "react-hook-form";
 
 type connectionType = "QR Code" | "Phone Number" | undefined;
 
@@ -15,15 +18,7 @@ const WhatsappConnectionFlow: React.FC<{ onClose: () => void }> = ({
             component = <ConnectQRCode onClose={onClose} />;
             break;
         case "Phone Number":
-            component = (
-                <div className="flex justify-center gap-6">
-                    <input
-                        type="text"
-                        placeholder="Enter Whatsapp Number"
-                        className="h-[56px] w-[312px] border-2 border-gray-300 rounded-md"
-                    />
-                </div>
-            );
+            component = <PhoneNumber onClose={onClose} />;
             break;
         default:
             component = (
@@ -73,7 +68,7 @@ const WhatsappConnectionFlow: React.FC<{ onClose: () => void }> = ({
                                     </svg>
                                 ),
                                 instruction:
-                                    "Point your phone at this screen to scan the QR Code",
+                                    "You'll proceed to scan the QR Code",
                                 disabled: false,
                             },
                             {
@@ -112,8 +107,8 @@ const WhatsappConnectionFlow: React.FC<{ onClose: () => void }> = ({
                                     </svg>
                                 ),
                                 instruction:
-                                    "You'll proceed with your whatsapp number and 6 digit password",
-                                disabled: true,
+                                    "You'll proceed with your whatsapp number",
+                                disabled: false,
                             },
                         ].map((connection, index) => (
                             <Button
@@ -147,7 +142,7 @@ const WhatsappConnectionFlow: React.FC<{ onClose: () => void }> = ({
 };
 
 const ConnectQRCode: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-    const { message } = useConnectWhatsapp();
+    const { message } = useQRConnectWhatsapp();
     let component;
     if (message && (message as { qr: string })?.qr) {
         component = (
@@ -164,10 +159,7 @@ const ConnectQRCode: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     ) {
         component = (
             <div className="h-[178px] w-[178px] flex justify-center items-center">
-                <GridLoader
-                size={30}
-                color="#3BA0BF"
-                />
+                <GridLoader size={30} color="#3BA0BF" />
             </div>
         );
     } else if (
@@ -176,7 +168,75 @@ const ConnectQRCode: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     ) {
         onClose();
     }
-    return <div className="flex justify-center items-center gap-6">{component}</div>;
+    return (
+        <div className="flex justify-center items-center gap-6">
+            {component}
+        </div>
+    );
+};
+
+interface IPhoneNumber {
+    phoneNumber: string;
+}
+
+const phoneValidationSchema = z
+    .object({
+        phoneNumber: z.string(),
+    })
+    .required();
+
+const PhoneNumber: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+    const {
+        register,
+        handleSubmit,
+        getValues,
+        formState: { errors },
+    } = useForm<IPhoneNumber>({
+        resolver: zodResolver(phoneValidationSchema),
+    });
+    const { message, query } = usePhoneConnectWhatsapp(getValues());
+    const onSubmit = () => {
+        query.refetch();
+    };
+    let component;
+    if (message && (message as { code: string })?.code) {
+        component = <>{(message as { code: string })?.code}</>;
+    } else if (
+        (message &&
+            (message as { connection: string })?.connection === "connecting")
+    ) {
+        component = (
+            <div className="h-[178px] w-[178px] flex justify-center items-center">
+                <GridLoader size={30} color="#3BA0BF" />
+            </div>
+        );
+    } else if (
+        (message as { connection: string })?.connection === "close" ||
+        (message as { isNewLogin: boolean })?.isNewLogin === true
+    ) {
+        onClose();
+    } else {
+        component = (
+            <form
+                className="flex justify-center gap-6"
+                onSubmit={handleSubmit(onSubmit)}
+            >
+                <input
+                    type="text"
+                    {...register("phoneNumber")}
+                    placeholder="Enter Whatsapp Number"
+                    className="h-[56px] w-[312px] border-2 border-gray-300 rounded-md"
+                />
+                {errors.phoneNumber && (
+                    <p className="text-xs text-red-500">
+                        {errors.phoneNumber.message}
+                    </p>
+                )}
+                <Button onClick={() => {}}>Connect</Button>
+            </form>
+        );
+    }
+    return <div>{component}</div>;
 };
 
 export default WhatsappConnectionFlow;

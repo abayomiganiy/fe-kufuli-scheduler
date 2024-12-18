@@ -1,4 +1,5 @@
 import React, { ButtonHTMLAttributes, ReactNode } from "react";
+import BounceLoader from "react-spinners/BounceLoader"
 
 interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: ReactNode;
@@ -6,6 +7,7 @@ interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
     disabled?: boolean;
     onClick?: () => void;
+    isLoading?: boolean;
 }
 
 const Button: React.FC<IButton> = ({
@@ -14,6 +16,7 @@ const Button: React.FC<IButton> = ({
     className = "",
     disabled = false,
     onClick,
+    isLoading = false,
 }) => {
     return (
         <button
@@ -24,10 +27,10 @@ const Button: React.FC<IButton> = ({
                         : "bg-black text-white"
                 }
             ${className}`}
-            disabled={disabled}
+            disabled={disabled || isLoading}
             onClick={onClick}
         >
-            {children}
+            {isLoading && <BounceLoader size={20} />}{children}
         </button>
     );
 };

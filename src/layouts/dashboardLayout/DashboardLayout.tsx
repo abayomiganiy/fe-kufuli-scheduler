@@ -19,7 +19,7 @@ const DashboardLayout: React.FC = () => {
     return (
         <div className="min-h-full">
             <SideNavBar />
-            <div className="laptop:ml-72 laptop:px-8 px-4 laptop:mt-12 mt-10 h-auto flex flex-col gap-6">
+            <div className="laptop:ml-72 laptop:px-8 px-4 laptop:mt-8 mt-10 h-auto flex flex-col gap-6">
                 <TopNavBar />
                 <UpgradeCard />
                 <Outlet />

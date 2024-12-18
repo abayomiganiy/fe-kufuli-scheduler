@@ -2,7 +2,7 @@ import React from "react";
 
 const TopNavBar: React.FC = () => {
     return (
-        <nav className="h-12 w-fill flex laptop:justify-end justify-between items-center">
+        <nav className="h-8 w-fill flex laptop:justify-end justify-between items-center">
             <div className="laptop:hidden">
                 <svg
                     width="24"
