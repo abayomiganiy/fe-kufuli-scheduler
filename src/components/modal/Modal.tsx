@@ -17,7 +17,7 @@ const Modal: React.FC<ModalProps> = ({
         <div
             className={`h-screen w-screen ${
                 isOpen ? "flex" : "hidden"
-            } justify-center items-center absolute top-0 left-0 z-50`}
+            } justify-center items-center fixed top-0 left-0 z-50`}
         >
             <div className="absolute top-0 left-0 h-screen w-screen bg-[#000000] opacity-90"></div>
             <div

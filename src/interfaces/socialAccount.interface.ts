@@ -16,7 +16,7 @@ export type ISocialAccount = {
     type: ConnectionNameTypes;
     id: string;
     name: string;
-    status: string;
+    status: "ACTIVE" | "PENDING" | "DISCONNECTED";
     icon: string;
     dp?: string;
 };

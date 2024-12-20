@@ -218,7 +218,7 @@ const PhoneNumber: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     } else {
         component = (
             <form
-                className="flex justify-center gap-6"
+                className="flex justify-center items-center gap-4"
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <input
@@ -232,7 +232,7 @@ const PhoneNumber: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                         {errors.phoneNumber.message}
                     </p>
                 )}
-                <Button onClick={() => {}}>Connect</Button>
+                <Button>Connect</Button>
             </form>
         );
     }
