@@ -45,7 +45,7 @@ const ConnectedAccount: React.FC<{
                         : "bg-[#4CD964]"
                 } `}
             >
-                {!deleteSocialAccontIsLoading ? (
+                {deleteSocialAccontIsLoading ? (
                     <ClipLoader size={10} color="#fff" />
                 ) : (
                     <svg

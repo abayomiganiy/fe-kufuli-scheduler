@@ -2,7 +2,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import React, { useState } from "react";
 import Button from "../button";
-import { useQRConnectWhatsapp, usePhoneConnectWhatsapp } from "../../hooks/socialAccount.hook";
+import {
+    useQRConnectWhatsapp,
+    usePhoneConnectWhatsapp,
+} from "../../hooks/socialAccount.hook";
 import GridLoader from "react-spinners/GridLoader";
 import { useForm } from "react-hook-form";
 
@@ -194,16 +197,17 @@ const PhoneNumber: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     } = useForm<IPhoneNumber>({
         resolver: zodResolver(phoneValidationSchema),
     });
-    const { message, query } = usePhoneConnectWhatsapp(getValues());
+    const { message, mutation } = usePhoneConnectWhatsapp();
+    const { mutate, isPending } = mutation;
     const onSubmit = () => {
-        query.refetch();
+        mutate(getValues());
     };
     let component;
     if (message && (message as { code: string })?.code) {
         component = <>{(message as { code: string })?.code}</>;
     } else if (
-        (message &&
-            (message as { connection: string })?.connection === "connecting")
+        message &&
+        (message as { connection: string })?.connection === "connecting" || isPending
     ) {
         component = (
             <div className="h-[178px] w-[178px] flex justify-center items-center">
@@ -232,7 +236,7 @@ const PhoneNumber: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                         {errors.phoneNumber.message}
                     </p>
                 )}
-                <Button>Connect</Button>
+                <Button disabled={isPending}>{isPending ? "Loading..." : "Connect"}</Button>
             </form>
         );
     }

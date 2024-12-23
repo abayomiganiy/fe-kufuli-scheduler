@@ -17,17 +17,22 @@ export const useQRConnectWhatsapp = () => {
     const query = useQuery({
         queryKey: ["connect-whatsapp"],
         queryFn: async () => {
-            const event = new EventSource(`${import.meta.env.VITE_API_URL}/connect-whatsapp`, {
-                fetch: (input, init) =>
-                    fetch(input, {
-                        ...init,
-                        headers: {
-                            ...init!.headers,
-                            "Content-Type": "text/event-stream",
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }),
-            });
+            const event = new EventSource(
+                `${
+                    import.meta.env.VITE_API_URL
+                }/social-accounts/connect-whatsapp`,
+                {
+                    fetch: (input, init) =>
+                        fetch(input, {
+                            ...init,
+                            headers: {
+                                ...init!.headers,
+                                "Content-Type": "text/event-stream",
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }),
+                }
+            );
             event.addEventListener("connect-whatsapp", (event) => {
                 const eventData = JSON.parse(event.data);
                 if (eventData.isNewLogin) {
@@ -49,35 +54,33 @@ export const useQRConnectWhatsapp = () => {
     return { message, query };
 };
 
-export const usePhoneConnectWhatsapp = ({
-    phoneNumber,
-}: {
-    phoneNumber: string;
-}) => {
+export const usePhoneConnectWhatsapp = () => {
     const queryClient = useQueryClient();
     const { token } = useAuthContext();
     const [message, setMessage] = useState<
-        | { qr: string }
         | { code: string }
         | { connection: string; receivedPendingNotifications: boolean }
         | { isNewLogin: boolean }
     >();
-    const query = useQuery({
-        queryKey: ["connect-whatsapp", phoneNumber],
-        queryFn: async () => {
-            const event = new EventSource(`${
+    const mutation = useMutation({
+        mutationKey: ["connect-whatsapp"],
+        mutationFn: async ({ phoneNumber }: { phoneNumber: string }) => {
+            const event = new EventSource(
+                `${
                     import.meta.env.VITE_API_URL
-                }/connect-whatsapp?phoneNumber=${phoneNumber}`, {
-                fetch: (input, init) =>
-                    fetch(input, {
-                        ...init,
-                        headers: {
-                            ...init!.headers,
-                            "Content-Type": "text/event-stream",
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }),
-            });
+                }/social-accounts/connect-whatsapp?phoneNumber=${phoneNumber}`,
+                {
+                    fetch: (input, init) =>
+                        fetch(input, {
+                            ...init,
+                            headers: {
+                                ...init!.headers,
+                                "Content-Type": "text/event-stream",
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }),
+                }
+            );
             event.addEventListener("connect-whatsapp", (event) => {
                 const eventData = JSON.parse(event.data);
                 if (eventData.isNewLogin) {
@@ -90,13 +93,13 @@ export const usePhoneConnectWhatsapp = ({
             });
             event.addEventListener("session-id", (e) => console.log(e.data));
         },
-        enabled: !!phoneNumber,
-        refetchInterval: false,
-        refetchOnWindowFocus: false,
-        refetchOnReconnect: false,
-        refetchOnMount: false,
+        // enabled: !!phoneNumber,
+        // refetchInterval: false,
+        // refetchOnWindowFocus: false,
+        // refetchOnReconnect: false,
+        // refetchOnMount: false,
     });
-    return { message, query };
+    return { message, mutation };
 };
 
 export const useGetSocialAccounts = () => {
