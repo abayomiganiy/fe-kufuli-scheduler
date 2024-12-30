@@ -9,7 +9,6 @@ export const client: AxiosInstance = axios.create({
 export const request = async ({ ...options }) => {
     if (options?.headers) {
         const token = options?.headers?.Authorization?.split(" ")[1];
-        console.log(token);
 
         // Verify token before making the request. If not verified, remove the token from headers.
         const verified = token ? verifyToken(token) : false;

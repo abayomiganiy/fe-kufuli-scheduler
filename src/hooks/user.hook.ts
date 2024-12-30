@@ -11,7 +11,5 @@ export const useGetUser = () => {
             });
             return resp;
         },
-        refetchInterval: 60 * 60 * 1000,
-        staleTime: 60 * 60 * 1000,
     });
 };

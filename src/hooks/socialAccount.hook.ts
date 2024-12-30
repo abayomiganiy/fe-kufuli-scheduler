@@ -2,12 +2,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { request } from "../utils/axios-utils";
 import { useState } from "react";
-import { useAuthContext } from "./auth.hook";
 import { EventSource } from "eventsource";
+import { useAuth } from "./auth.hook";
 
 export const useQRConnectWhatsapp = () => {
     const queryClient = useQueryClient();
-    const { token } = useAuthContext();
+    const { token } = useAuth();
     const [message, setMessage] = useState<
         | { qr: string }
         | { code: string }
@@ -56,7 +56,7 @@ export const useQRConnectWhatsapp = () => {
 
 export const usePhoneConnectWhatsapp = () => {
     const queryClient = useQueryClient();
-    const { token } = useAuthContext();
+    const { token } = useAuth();
     const [message, setMessage] = useState<
         | { code: string }
         | { connection: string; receivedPendingNotifications: boolean }
@@ -103,7 +103,6 @@ export const usePhoneConnectWhatsapp = () => {
 };
 
 export const useGetSocialAccounts = () => {
-    const { isLoading } = useAuthContext();
     return useQuery({
         queryKey: ["social-accounts"],
         queryFn: async () => {
@@ -113,7 +112,6 @@ export const useGetSocialAccounts = () => {
             });
             return resp;
         },
-        enabled: !isLoading,
     });
 };
 

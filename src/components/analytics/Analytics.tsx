@@ -45,7 +45,7 @@ const Analytics: React.FC = () => {
     ];
 
     return (
-        <div className="grid grid-cols-4">
+        <div className="grid laptop:grid-cols-4 grid-cols-2">
             <div className="flex flex-col justify-center px-[20px] py-[30px] w-full">
                 <div className="flex flex-col items-baseline gap-2">
                     <h1 className="font-extrabold text-[16px]">Free Plan</h1>
@@ -89,8 +89,8 @@ const Analytics: React.FC = () => {
                 <h3 className="font-extrabold text-[16px]">
                     Top performing campaign
                 </h3>
-                <div className="flex gap-2">
-                    <img src={topPerformingCampaign} alt="tpc" className="w-1/2 rounded-lg" />
+                <div className="flex items-center gap-2">
+                    <img src={topPerformingCampaign} alt="tpc" className="w-24 h-36 rounded-lg" />
                     <div className="w-1/2">
                         <div className="flex items-center gap-2">
                             <svg
@@ -113,7 +113,7 @@ const Analytics: React.FC = () => {
                             </svg>
                             1000 views
                         </div>
-                        <div>
+                        <div className="line-clamp-2">
                             Join us on Open regist futsal championship 2024 on
                             November 30th 2024 at Golf course club...
                         </div>

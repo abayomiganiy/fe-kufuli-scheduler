@@ -24,7 +24,7 @@ const Button: React.FC<ButtonProps> = ({
         <button
             className={`flex justify-center items-center gap-2 p-3 ${
                 size === 'sm' ? 'h-10' : size === 'lg' ? 'h-16' : 'h-12'
-            } font-semibold laptop:text-xl text-base rounded-lg disabled:bg-[#E0E0E0] disabled:text-black ${
+            } font-semibold laptop:text-xl laptop:text-base text-[12px] rounded-lg disabled:bg-[#E0E0E0] disabled:text-black ${
                 variant === 'primary' && !disabled
                     ? 'bg-gradient-to-bl from-[#91FFDB] to-[#4CCEF7] hover:from-[#4CCEF7] hover:to-[#91FFDB]'
                     : 'bg-black text-white'

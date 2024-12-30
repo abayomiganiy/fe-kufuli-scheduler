@@ -1,14 +1,16 @@
 import { useMutation } from "@tanstack/react-query";
-import { useContext } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../contexts/AuthContext";
+import { useAuthStore } from "../store/authStore";
 import { request } from "../utils/axios-utils";
 
-export const useAuthContext = () => {
-    const context = useContext(AuthContext);
-    return context;
+export const useAuth = () => {
+    // const context = useContext(AuthContext);
+    const authState = useAuthStore((state) => state);
+    console.log(authState);
+    return authState;
 };
+
 export const useSignUp = () => {
     const navigate = useNavigate();
     return useMutation({
@@ -49,7 +51,8 @@ export const useSignUp = () => {
 };
 
 export const useLogin = () => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
+    const { login } = useAuth();
     return useMutation({
         mutationKey: ["login"],
         mutationFn: async ({
@@ -74,16 +77,14 @@ export const useLogin = () => {
             message: string;
             accessToken: string;
         }) => {
-            console.log("Logged in successfully", data);
-            toast.success("Logged in successfully");
-            // TODO: Make auth work without reloading page
-            // navigate("/", { replace: true });
             if (localStorage.getItem("showConnectAccount") === "true") {
                 localStorage.removeItem("showConnectAccount");
                 window.location.href = "/connect-account";
-                return
+                return;
             }
-            window.location.href = "/";
+            toast.success("Logged in successfully");
+            login(data.accessToken);
+            navigate("/", { replace: true });
         },
         onError: (error: { data: { message: string } }) => {
             console.error(error);
@@ -93,7 +94,8 @@ export const useLogin = () => {
 };
 
 export const useLogout = () => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
+    const { logout } = useAuth();
     return useMutation({
         mutationKey: ["logout"],
         mutationFn: async () => {
@@ -106,7 +108,8 @@ export const useLogout = () => {
             return resp;
         },
         onSuccess: () => {
-            window.location.href = "/login";
+            navigate("/login");
+            logout();
         },
         onError: (error: { data: { message: string } }) => {
             console.error(error);

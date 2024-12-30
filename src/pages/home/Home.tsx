@@ -1,8 +1,10 @@
 import React from "react";
 import SectionHeader from "../../components/SectionHeader";
 import Analytics from "../../components/analytics";
+import { useGetUser } from "../../hooks/user.hook";
 
 const Home: React.FC = () => {
+    const {data: user} = useGetUser();
   const activeCampaigns = [
     {
       title: "Campaign 1",
@@ -101,6 +103,7 @@ const Home: React.FC = () => {
             </div>
           ))}
         </div>
+        <div>{user?.email}</div>
       </div>
       <SectionHeader title="Analytics" />
       <Analytics />

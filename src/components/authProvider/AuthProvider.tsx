@@ -1,23 +1,14 @@
 import { AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
 import React, {
     ReactElement,
-    useEffect,
-    // useLayoutEffect,
-    useState,
+    useLayoutEffect,
 } from "react";
 import { client, request } from "../../utils/axios-utils";
-import AuthContext from "../../contexts/AuthContext";
+import { useAuthStore } from "../../store/authStore";
 
 const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
-    const [token, setToken] = useState<{
-        token: string | null;
-        isLoading: boolean;
-    }>({
-        token: null,
-        isLoading: true,
-    });
-
-    useEffect(() => {
+    const { login, logout, token } = useAuthStore((state) => state);
+    useLayoutEffect(() => {
         const fetchMe = async () => {
             try {
                 const response: {
@@ -32,27 +23,24 @@ const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
                     const accessToken: string = response.accessToken!;
                     console.log(`response from server fetchMe: ${accessToken}`);
                     if (accessToken) {
-                        setToken({ token: accessToken, isLoading: false });
+                        login(accessToken);
                     } else {
-                        setToken({ token: null, isLoading: true });
+                        logout();
                     }
                 }
             } catch (error) {
                 console.error("Error fetching user:", error);
-                setToken({
-                    token: null,
-                    isLoading: false,
-                });
+                logout();
             }
         };
         fetchMe();
-    }, []);
+    }, [login, logout]);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const authInterceptor = client.interceptors.request.use(
             (config: InternalAxiosRequestConfig & { _retry?: boolean }) => {
-                if (!config._retry && token.token) {
-                    config.headers.Authorization = `Bearer ${token.token}`;
+                if (!config._retry && token) {
+                    config.headers.Authorization = `Bearer ${token}`;
                 }
                 return config; // Ensure this matches the expected return type
             },
@@ -62,9 +50,9 @@ const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
         return () => {
             client.interceptors.request.eject(authInterceptor);
         };
-    }, [token.token]);
+    }, [token]);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const refreshTokenInterceptor = client.interceptors.response.use(
             (response) => response,
             async (error) => {
@@ -82,17 +70,15 @@ const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
                             method: "POST",
                         });
                         if (refreshTokenResponse.ok) {
-                            setToken(refreshTokenResponse.accessToken);
+                            login(refreshTokenResponse.accessToken);
                             originalRequest.headers!.Authorization = `Bearer ${refreshTokenResponse.accessToken}`;
                             originalRequest._retry = true;
                             return await client(originalRequest);
                         }
                     } catch (error) {
                         console.error("Error refreshing token:", error);
-                        setToken({
-                            token: null,
-                            isLoading: false,
-                        });
+                        logout();
+                        window.location.href = "/login";
                     }
                 }
                 return Promise.reject(error);
@@ -101,11 +87,9 @@ const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
         return () => {
             client.interceptors.response.eject(refreshTokenInterceptor);
         };
-    }, [token]);
+    }, [login, logout, token]);
 
-    return (
-        <AuthContext.Provider value={token}>{children}</AuthContext.Provider>
-    );
+    return <>{children}</>;
 };
 
 export default AuthProvider;

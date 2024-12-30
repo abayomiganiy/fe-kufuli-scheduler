@@ -1,16 +1,12 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuthContext } from "../../hooks/auth.hook";
 import SideNavBar from "../../components/sideNavBar";
 import TopNavBar from "../../components/topNavBar";
 import UpgradeCard from "../../components/upgradeCard";
+import { useAuth } from "../../hooks/auth.hook";
 
 const DashboardLayout: React.FC = () => {
-    const { token, isLoading } = useAuthContext();
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
+    const { token } = useAuth();
 
     if (!token) {
         return <Navigate to="/login" replace />;
