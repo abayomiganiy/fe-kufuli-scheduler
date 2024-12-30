@@ -1,13 +1,20 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 
-const TopNavBar: React.FC = () => {
+interface TopNavBarProps {
+    setshowSideNavBar: Dispatch<SetStateAction<boolean>>;
+}
+
+const TopNavBar: React.FC<TopNavBarProps> = ({ setshowSideNavBar }) => {
     return (
-        <nav className="h-8 w-fill flex laptop:justify-end justify-between items-center">
-            <div className="laptop:hidden">
+        <nav className="h-16 bg-white z-50 laptop:shadow-none shadow-sm flex laptop:justify-end justify-between items-center laptop:static fixed px-4 top-0 left-0 right-0">
+            <button
+                className="laptop:hidden"
+                onClick={() => setshowSideNavBar(true)}
+            >
                 <svg
-                    width="24"
-                    height="25"
-                    viewBox="0 0 24 25"
+                    width="30"
+                    height="30"
+                    viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                 >
@@ -33,11 +40,11 @@ const TopNavBar: React.FC = () => {
                         stroke-linejoin="round"
                     />
                 </svg>
-            </div>
+            </button>
             <div className="flex laptop:gap-6 gap-2">
                 <svg
-                    width="24"
-                    height="24"
+                    width="30"
+                    height="30"
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -58,8 +65,8 @@ const TopNavBar: React.FC = () => {
                     />
                 </svg>
                 <svg
-                    width="24"
-                    height="24"
+                    width="30"
+                    height="30"
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"

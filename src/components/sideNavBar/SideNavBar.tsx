@@ -1,19 +1,27 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import logo from "../../assets/kufuli-logo.svg";
 import { useLogout } from "../../hooks/auth.hook";
-import { useGetSocialAccounts } from "../../hooks/socialAccount.hook";
-import {
-    ISocialAccount,
-} from "../../interfaces/socialAccount.interface";
+import ConnectedSocialAccounts from "./ConnectedSocialAccounts";
 import Button from "../button";
 
-import { useCurrentSocialAccount } from "../../store/currentSocialAccountStore";
-import { getAccountImageWithType } from "../../utils/getAccountImageWithType";
+interface INavLink {
+    label: string;
+    icon: React.ReactElement;
+    to: string;
+}
 
-const SideNavBar: React.FC = () => {
+interface SideNavBarProps {
+    showSideNavBar: boolean;
+    onCloseSideNavBar: () => void;
+}
+
+const SideNavBar: React.FC<SideNavBarProps> = ({
+    showSideNavBar,
+    onCloseSideNavBar,
+}) => {
     const { mutate: logout } = useLogout();
-    const navLinks = [
+    const navLinks: INavLink[] = [
         {
             label: "Dashboard",
             icon: (
@@ -46,7 +54,6 @@ const SideNavBar: React.FC = () => {
                     />
                 </svg>
             ),
-
             to: "/dashboard",
         },
         {
@@ -125,138 +132,94 @@ const SideNavBar: React.FC = () => {
     ];
 
     return (
-        <div className="fixed top-0 left-0 laptop:flex flex-col gap-12 pt-12 shadow-2xl hidden w-72 h-dvh px-5">
-            <div className="w-full flex justify-center">
-                <img src={logo} alt="logo" className="h-14 w-48" />
-            </div>
-            <div className="flex flex-col gap-5">
-                <Button variant="primary" type="button" className="w-full">
-                    <svg
-                        width="25"
-                        height="25"
-                        viewBox="0 0 25 25"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="M12.7295 8.17651V16.1765M16.7295 12.1765H8.72949"
-                            stroke="#202020"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
-                        <path
-                            d="M22.7295 12.1765C22.7295 6.65366 18.2523 2.17651 12.7295 2.17651C7.20664 2.17651 2.72949 6.65366 2.72949 12.1765C2.72949 17.6993 7.20664 22.1765 12.7295 22.1765C18.2523 22.1765 22.7295 17.6993 22.7295 12.1765Z"
-                            stroke="#202020"
-                            stroke-width="1.5"
-                        />
-                    </svg>
-                    New campaign
-                </Button>
-                {/* Menu items */}
-                <ul>
-                    {navLinks.map((navLink, index) => (
-                        <li key={index} className="font-semibold text-xl">
-                            <NavLink
-                                to={navLink.to}
-                                className="flex items-center px-5 gap-2 p-2 h-14 text-sm text-gray-800 hover:text-gray-900 aria-[current=page]:bg-[#E5E8F9] hover:bg-[#E5E8F9] mx-[-20px]"
-                            >
-                                {navLink.icon}
-                                {navLink.label}
-                            </NavLink>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <div className="flex flex-col gap-3 items-start absolute bottom-12 w-60">
-                <ConnectedSocialAccounts />
-                <button
-                    onClick={() => {
-                        logout();
-                    }}
-                    className="flex justify-center items-center gap-2 h-14 font-bold text-xl text-[#FF3B30]"
-                >
-                    <svg
-                        width="25"
-                        height="25"
-                        viewBox="0 0 25 25"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="M14.54 3.59502C14.083 3.53241 13.6155 3.5 13.14 3.5C7.83811 3.5 3.54004 7.52944 3.54004 12.5C3.54004 17.4706 7.83811 21.5 13.14 21.5C13.6155 21.5 14.083 21.4676 14.54 21.405"
-                            stroke="#FF3B30"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                        />
-                        <path
-                            d="M21.54 12.5H11.54M21.54 12.5C21.54 11.7998 19.5457 10.4915 19.04 10M21.54 12.5C21.54 13.2002 19.5457 14.5085 19.04 15"
-                            stroke="#FF3B30"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
-                    </svg>
-                    Logout
-                </button>
-            </div>
-        </div>
-    );
-};
-
-const ConnectedSocialAccounts = () => {
-    const { data: connectedAccounts } = useGetSocialAccounts();
-    const currentSocialAccount = useCurrentSocialAccount(
-        (state) => state.currentAccount
-    );
-    console.log(currentSocialAccount);
-    const setCurrentSocialAccount = useCurrentSocialAccount(
-        (state) => state.setCurrentAccount
-    );
-    return (
-        <div className="flex flex-col w-full p-2 gap-2 border-gray-400 border-2 rounded-2xl shadow-xl">
-            {connectedAccounts?.map((account: ISocialAccount) => (
-                <button
-                    className="flex justify-between items-center gap-2"
-                    onClick={() => setCurrentSocialAccount(account)}
-                >
-                    <div className="flex justify-between items-center gap-2">
-                        <div className="relative h-8 w-8">
-                            <img
-                                src={getAccountImageWithType(account.type)}
-                                alt={account.name}
-                                className="h-8 w-8"
+        <div>
+            <div
+                className={`fixed z-[100] top-0 left-0 h-dvh w-screen bg-[#00000099] laptop:hidden ${
+                    showSideNavBar ? "flex" : "hidden"
+                }`}
+                onClick={() => onCloseSideNavBar()}
+            ></div>
+            <div
+                className={`fixed z-[100] top-0 left-0 laptop:flex flex-col gap-12 pt-12 shadow-2xl ${
+                    showSideNavBar ? "flex" : "hidden"
+                } w-72 h-dvh px-5 bg-white`}
+            >
+                <div className="w-full flex justify-center">
+                    <img src={logo} alt="logo" className="h-14 w-48" />
+                </div>
+                <div className="flex flex-col gap-5">
+                    <Button variant="primary" type="button" className="w-full">
+                        <svg
+                            width="25"
+                            height="25"
+                            viewBox="0 0 25 25"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M12.7295 8.17651V16.1765M16.7295 12.1765H8.72949"
+                                stroke="#202020"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
                             />
-                            <img
-                                src={account.dp}
-                                alt={account.id}
-                                className="object-contain w-3 h-3 rounded-full absolute right-0 bottom-0"
+                            <path
+                                d="M22.7295 12.1765C22.7295 6.65366 18.2523 2.17651 12.7295 2.17651C7.20664 2.17651 2.72949 6.65366 2.72949 12.1765C2.72949 17.6993 7.20664 22.1765 12.7295 22.1765C18.2523 22.1765 22.7295 17.6993 22.7295 12.1765Z"
+                                stroke="#202020"
+                                stroke-width="1.5"
                             />
-                        </div>
-                        <div>{account.name}</div>
-                    </div>
-                    {account.id === currentSocialAccount?.id && (
-                        <div className="rounded-full bg-green-400 p-1">
-                            <svg
-                                width="12"
-                                height="12"
-                                viewBox="0 0 14 12"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    d="M1.5 6.65625L4.78125 9.9375L12 2.0625"
-                                    stroke="#fff"
-                                    stroke-width="2.625"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                />
-                            </svg>
-                        </div>
-                    )}
-                </button>
-            ))}
-            <Link to="/connect-account">Connect Account</Link>
+                        </svg>
+                        New campaign
+                    </Button>
+                    {/* Menu items */}
+                    <ul>
+                        {navLinks.map((navLink, index) => (
+                            <li key={index} className="font-semibold text-xl">
+                                <NavLink
+                                    to={navLink.to}
+                                    className="flex items-center px-5 gap-2 p-2 h-14 text-sm text-gray-800 hover:text-gray-900 aria-[current=page]:bg-[#E5E8F9] hover:bg-[#E5E8F9] mx-[-20px]"
+                                    onClick={() => onCloseSideNavBar()}
+                                >
+                                    {navLink.icon}
+                                    {navLink.label}
+                                </NavLink>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                <div className="flex flex-col gap-3 items-start absolute bottom-12 w-60">
+                    <ConnectedSocialAccounts />
+                    <button
+                        onClick={() => {
+                            logout();
+                        }}
+                        className="flex justify-center items-center gap-2 h-14 font-bold text-xl text-[#FF3B30]"
+                    >
+                        <svg
+                            width="25"
+                            height="25"
+                            viewBox="0 0 25 25"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M14.54 3.59502C14.083 3.53241 13.6155 3.5 13.14 3.5C7.83811 3.5 3.54004 7.52944 3.54004 12.5C3.54004 17.4706 7.83811 21.5 13.14 21.5C13.6155 21.5 14.083 21.4676 14.54 21.405"
+                                stroke="#FF3B30"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                            />
+                            <path
+                                d="M21.54 12.5H11.54M21.54 12.5C21.54 11.7998 19.5457 10.4915 19.04 10M21.54 12.5C21.54 13.2002 19.5457 14.5085 19.04 15"
+                                stroke="#FF3B30"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                        Logout
+                    </button>
+                </div>
+            </div>
         </div>
     );
 };
