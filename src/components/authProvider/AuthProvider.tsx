@@ -1,14 +1,12 @@
 import { AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
-import React, {
-    ReactElement,
-    useLayoutEffect,
-} from "react";
-import { client, request } from "../../utils/axios-utils";
+import React, { ReactElement, useLayoutEffect } from "react";
 import { useAuthStore } from "../../store/authStore";
+import { client, request } from "../../utils/axios-utils";
 
 const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
     const { login, logout, token } = useAuthStore((state) => state);
     useLayoutEffect(() => {
+        // Refresh the access token when the user reloads the page
         const fetchMe = async () => {
             try {
                 const response: {
@@ -42,7 +40,7 @@ const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
                 if (!config._retry && token) {
                     config.headers.Authorization = `Bearer ${token}`;
                 }
-                return config; // Ensure this matches the expected return type
+                return config;
             },
             (error) => Promise.reject(error)
         );
@@ -74,11 +72,16 @@ const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
                             originalRequest.headers!.Authorization = `Bearer ${refreshTokenResponse.accessToken}`;
                             originalRequest._retry = true;
                             return await client(originalRequest);
+                        } else {
+                            console.error("Error refreshing token:", refreshTokenResponse.message);
+                            logout();
+                            location.href = "/login";
+                            return Promise.reject(error);
                         }
                     } catch (error) {
                         console.error("Error refreshing token:", error);
+                        location.href = "/login";
                         logout();
-                        window.location.href = "/login";
                     }
                 }
                 return Promise.reject(error);
