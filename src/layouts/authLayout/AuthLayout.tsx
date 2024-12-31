@@ -5,7 +5,7 @@ import { useAuth } from "../../hooks/auth.hook";
 const AuthLayout: React.FC = () => {
     const { token } = useAuth();
 
-    if (token && token !== undefined) {
+    if (token) {
         return <Navigate to="/" replace />;
     }
 

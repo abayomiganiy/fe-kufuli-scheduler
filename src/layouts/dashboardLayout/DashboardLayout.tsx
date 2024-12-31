@@ -13,7 +13,7 @@ const DashboardLayout: React.FC = () => {
         setshowSideNavBar(false);
     };
 
-    if (token === null) {
+    if (!token) {
         return <Navigate to="/login" replace />;
     }
 

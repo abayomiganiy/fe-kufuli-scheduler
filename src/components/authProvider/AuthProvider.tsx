@@ -8,7 +8,6 @@ import { useAuthStore } from "../../store/authStore";
 
 const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
     const { login, logout, token } = useAuthStore((state) => state);
-    console.log(`token: ${token}`);
     useLayoutEffect(() => {
         const fetchMe = async () => {
             try {
@@ -40,10 +39,10 @@ const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
     useLayoutEffect(() => {
         const authInterceptor = client.interceptors.request.use(
             (config: InternalAxiosRequestConfig & { _retry?: boolean }) => {
-                if (!config._retry && token !== null) {
+                if (!config._retry && token) {
                     config.headers.Authorization = `Bearer ${token}`;
                 }
-                return config;
+                return config; // Ensure this matches the expected return type
             },
             (error) => Promise.reject(error)
         );
@@ -63,7 +62,7 @@ const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
                 if (
                     error.response &&
                     error.response.status === 401 &&
-                    !originalRequest._retry && token === null
+                    !originalRequest._retry
                 ) {
                     try {
                         const refreshTokenResponse = await request({
