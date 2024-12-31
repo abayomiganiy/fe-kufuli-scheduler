@@ -7,7 +7,6 @@ import { request } from "../utils/axios-utils";
 export const useAuth = () => {
     // const context = useContext(AuthContext);
     const authState = useAuthStore((state) => state);
-    console.log(authState);
     return authState;
 };
 

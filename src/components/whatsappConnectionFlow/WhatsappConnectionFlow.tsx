@@ -25,11 +25,11 @@ const WhatsappConnectionFlow: React.FC<{ onClose: () => void }> = ({
             break;
         default:
             component = (
-                <div className="max-w-[624px] min-w[624px] flex flex-col gap-8">
-                    <h2 className="font-extrabold text-3xl mx-auto">
+                <div>
+                    <h2 className="font-extrabold laptop:text-3xl mx-auto">
                         Connect your whatsapp via QR Code or Whatsapp Number
                     </h2>
-                    <div className="flex justify-center gap-6">
+                    <div className="flex laptop:flex-row flex-col justify-center items-center gap-6">
                         {[
                             {
                                 type: "QR Code",
@@ -131,7 +131,7 @@ const WhatsappConnectionFlow: React.FC<{ onClose: () => void }> = ({
                             </Button>
                         ))}
                     </div>
-                    <div>
+                    <div className="">
                         Kufuli ensures optimal security of your whastsapp
                         account and end to end encryption. We use advanced
                         encryption and industry-standard protocols to ensure
@@ -141,7 +141,7 @@ const WhatsappConnectionFlow: React.FC<{ onClose: () => void }> = ({
                 </div>
             );
     }
-    return <>{component}</>;
+    return <div className="w-full flex flex-col gap-8">{component}</div>;
 };
 
 const ConnectQRCode: React.FC<{ onClose: () => void }> = ({ onClose }) => {
@@ -172,7 +172,7 @@ const ConnectQRCode: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         onClose();
     }
     return (
-        <div className="flex justify-center items-center gap-6">
+        <div className="flex justify-center items-center mobile:w-screen gap-4">
             {component}
         </div>
     );
@@ -206,8 +206,9 @@ const PhoneNumber: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     if (message && (message as { code: string })?.code) {
         component = <>{(message as { code: string })?.code}</>;
     } else if (
-        message &&
-        (message as { connection: string })?.connection === "connecting" || isPending
+        (message &&
+            (message as { connection: string })?.connection === "connecting") ||
+        isPending
     ) {
         component = (
             <div className="h-[178px] w-[178px] flex justify-center items-center">
@@ -222,7 +223,7 @@ const PhoneNumber: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     } else {
         component = (
             <form
-                className="flex justify-center items-center gap-4"
+                className="flex flex-col justify-center items-center mobile:w-screen gap-4"
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <input
@@ -236,7 +237,9 @@ const PhoneNumber: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                         {errors.phoneNumber.message}
                     </p>
                 )}
-                <Button disabled={isPending}>{isPending ? "Loading..." : "Connect"}</Button>
+                <Button className=" w-[312px]" disabled={isPending}>
+                    {isPending ? "Loading..." : "Connect"}
+                </Button>
             </form>
         );
     }

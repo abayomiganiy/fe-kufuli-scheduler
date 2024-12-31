@@ -19,9 +19,9 @@ const Modal: React.FC<ModalProps> = ({
                 isOpen ? "flex" : "hidden"
             } justify-center items-center fixed top-0 left-0 z-50`}
         >
-            <div className="absolute top-0 left-0 h-screen w-screen bg-[#000000] opacity-90"></div>
+            <div className="absolute top-0 left-0 h-screen w-screen bg-[#00000099] opacity-90"></div>
             <div
-                className={`${className} flex justify-center items-center py-16 relative min-w-[1000px] max-w-[1000px] min-h-96 bg-white rounded-3xl`}
+                className={`${className} flex justify-center items-center overflow-y-auto py-16 relative laptop:min-w-[1000px] laptop:max-w-[1000px] min-h-96 bg-white rounded-3xl`}
             >
                 <button className="absolute right-5 top-5" onClick={onClose}>
                     <svg
