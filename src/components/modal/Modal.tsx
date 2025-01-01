@@ -23,7 +23,7 @@ const Modal: React.FC<ModalProps> = ({
             <div
                 className={`${className} flex justify-center items-center overflow-y-auto py-16 relative laptop:min-w-[1000px] laptop:max-w-[1000px] min-h-96 bg-white rounded-3xl`}
             >
-                <button className="absolute right-5 top-5" onClick={onClose}>
+                <button className="absolute right-5 laptop:top-5 top-16" onClick={onClose}>
                     <svg
                         width="48"
                         height="48"
