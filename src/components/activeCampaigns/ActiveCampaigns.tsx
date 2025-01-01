@@ -1,4 +1,7 @@
 import React from "react";
+import campaign1 from "../../assets/test-campaign/Rectangle 110.png";
+import campaign2 from "../../assets/communication-social-media-icons-smartphone-device.png";
+import campaign3 from "../../assets/test-campaign/top-performing.png";
 
 interface IActiveCampaign {
     title: string;
@@ -21,7 +24,7 @@ const ActiveCampaigns: React.FC = () => {
             impressions: "100,000",
             clicks: "50,000",
             conversions: "25,000",
-            image: "",
+            image: campaign1,
         },
         {
             title: "Campaign 1",
@@ -31,7 +34,7 @@ const ActiveCampaigns: React.FC = () => {
             impressions: "100,000",
             clicks: "50,000",
             conversions: "25,000",
-            image: "",
+            image: campaign2,
         },
         {
             title: "Campaign 1",
@@ -41,17 +44,7 @@ const ActiveCampaigns: React.FC = () => {
             impressions: "100,000",
             clicks: "50,000",
             conversions: "25,000",
-            image: "",
-        },
-        {
-            title: "Campaign 1",
-            status: "Active",
-            date: "2021-01-01",
-            budget: "$10,000",
-            impressions: "100,000",
-            clicks: "50,000",
-            conversions: "25,000",
-            image: "",
+            image: campaign3,
         },
     ];
     return (
@@ -93,15 +86,17 @@ const ActiveCampaign: React.FC<{ campaign: IActiveCampaign }> = ({
     campaign,
 }) => {
     return (
-        <div className="laptop:w-40 w-32 laptop:h-64 h-48 flex cursor-pointer items-center justify-between bg-[#E5E5E5] p-4 rounded-2xl border border-gray-200">
-            <img
-                src={campaign.image}
-                alt={campaign.title}
-                className="w-16 h-16 rounded-full absolute left-0 top-0 transform -translate-x-1/2 -translate-y-1/2"
-            />
-            <div className="ml-4">
+        <div className="relative laptop:w-40 w-32 laptop:h-64 h-48 flex cursor-pointer items-end justify-between p-4 rounded-2xl text-white">
+            <>
+                <img
+                    src={campaign.image}
+                    alt={campaign.title}
+                    className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl"
+                />
+                <div className="absolute top-0 left-0 w-full h-full rounded-2xl bg-gradient-to-t from-0 from-black to-50% to-transparent opacity-80" />
+            </>
+            <div className="ml-4 z-40">
                 <h3 className="text-sm font-medium">{campaign.title}</h3>
-                <p className="text-xs text-gray-500">{campaign.status}</p>
             </div>
         </div>
     );

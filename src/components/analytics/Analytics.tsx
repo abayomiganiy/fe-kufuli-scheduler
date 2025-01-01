@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../button";
 import PremiumIcon from "../icons/premiumIcon";
 import { Link, useNavigate } from "react-router-dom";
-import topPerformingCampaign from "../../assets/top-performing.png";
+import topPerformingCampaign from "../../assets/test-campaign/top-performing.png";
 
 interface IAnalytics {
     name: string;
