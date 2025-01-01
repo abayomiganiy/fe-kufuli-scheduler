@@ -82,13 +82,13 @@ const ConnectAccount: React.FC = () => {
                         />
                     </svg>
                 </>
-                <div className="flex flex-col laptop:items-center laptop:gap-6 gap-11z-10">
+                <div className="flex flex-col laptop:items-center laptop:gap-6 gap-11 z-10">
                     <div>
                         <img src="/kufuli-logo.svg" alt="kufuli-logo" />
                     </div>
                     <div className="laptop:w-3/5 flex flex-col gap-6 z-10">
                         <div className="flex flex-col gap-6 laptop:text-center">
-                            <div className="flex flex-col gap-3z-10">
+                            <div className="flex flex-col gap-3 z-10">
                                 <h1 className="font-extrabold laptop:text-5xl text-4xl">
                                     Connect Your Social Media Accounts
                                 </h1>
