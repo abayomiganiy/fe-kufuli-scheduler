@@ -1,11 +1,11 @@
 import React from "react";
-// import ActiveCampaigns from "../../store/sections/activeCampaigns";
-import AnalyticsSection from "../../store/sections/analyticsSection";
+import ActiveCampaignsSection from "../../sections/activeCampaignsSection";
+import AnalyticsSection from "../../sections/analyticsSection";
 
 const Home: React.FC = () => {
     return (
         <div className="">
-            {/* <ActiveCampaigns /> */}
+            <ActiveCampaignsSection />
             <AnalyticsSection />
         </div>
     );

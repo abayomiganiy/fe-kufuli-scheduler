@@ -1,5 +1,5 @@
-import Analytics from "../../../components/analytics";
-import SectionHeader from "../../../components/SectionHeader";
+import Analytics from "../../components/analytics";
+import SectionHeader from "../../components/SectionHeader";
 
 const AnalyticsSection = () => {
     return (
