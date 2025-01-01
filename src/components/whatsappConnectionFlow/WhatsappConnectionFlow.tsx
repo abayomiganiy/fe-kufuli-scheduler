@@ -20,17 +20,21 @@ const WhatsappConnectionFlow: React.FC<{ onClose: () => void }> = ({
     let component;
     switch (connection) {
         case "QR Code":
-            component = <ConnectQRCode onClose={onClose} />;
+            component = (
+                <ConnectQRCode
+                    onClose={onClose}
+                    setConnection={setConnection}
+                />
+            );
             break;
         case "Phone Number":
-            component = <PhoneNumber onClose={onClose} />;
+            component = (
+                <PhoneNumber onClose={onClose} setConnection={setConnection} />
+            );
             break;
         default:
             component = (
-                <div className="flex flex-col gap-4 laptop:w-min">
-                    <h2 className="font-extrabold laptop:text-3xl text-xl mx-auto">
-                        Connect your whatsapp via QR Code or Whatsapp Number
-                    </h2>
+                <div className="flex flex-col gap-4">
                     <div className="flex laptop:flex-row flex-col justify-center items-center gap-6">
                         {[
                             {
@@ -70,33 +74,50 @@ const WhatsappConnectionFlow: React.FC<{ onClose: () => void }> = ({
                             </Button>
                         ))}
                     </div>
-                    <div className="font-normal text-xs laptop:text-base">
-                        Kufuli ensures optimal security of your whastsapp
-                        account and end to end encryption. We use advanced
-                        encryption and industry-standard protocols to ensure
-                        your social media accounts and personal data remain
-                        protected.
-                    </div>
                 </div>
             );
     }
+    
     return (
-        <div className="w-full px-4 laptop:py-0 py-24 laptop:h-auto laptop:overflow-hidden h-screen overflow-y-auto flex flex-col justify-center items-center gap-8">
+        <div className="w-full laptop:w-min px-4 laptop:py-0 py-24 laptop:h-auto laptop:overflow-hidden h-screen overflow-y-auto flex flex-col justify-center items-center gap-8">
+            <h2 className="font-extrabold laptop:text-3xl text-xl mx-auto">
+                Connect your whatsapp via QR Code or Whatsapp Number
+            </h2>
             {component}
+            <div className="font-normal text-xs laptop:text-base">
+                Kufuli ensures optimal security of your whastsapp account and
+                end to end encryption. We use advanced encryption and
+                industry-standard protocols to ensure your social media accounts
+                and personal data remain protected.
+            </div>
         </div>
     );
 };
 
-const ConnectQRCode: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+const ConnectQRCode: React.FC<{
+    onClose: () => void;
+    setConnection: (
+        connectionType: React.SetStateAction<connectionType>
+    ) => void;
+}> = ({ onClose, setConnection }) => {
     const { message } = useQRConnectWhatsapp();
     let component;
     if (message && (message as { qr: string })?.qr) {
         component = (
-            <img
-                src={(message as { qr: string })?.qr}
-                alt="Whatsapp QR Code"
-                className="h-[200px] w-[200px]"
-            />
+            <>
+                <img
+                    src={(message as { qr: string })?.qr}
+                    alt="Whatsapp QR Code"
+                    className="h-[200px] w-[200px]"
+                />
+                <button
+                    type="button"
+                    onClick={() => setConnection("Phone Number")}
+                    className="font-semibold text-xs laptop:text-base"
+                >
+                    Use phone number instead
+                </button>
+            </>
         );
     } else if (
         !message ||
@@ -127,7 +148,12 @@ const phoneValidationSchema = z
     })
     .required();
 
-const PhoneNumber: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+const PhoneNumber: React.FC<{
+    onClose: () => void;
+    setConnection: (
+        connectionType: React.SetStateAction<connectionType>
+    ) => void;
+}> = ({ onClose, setConnection }) => {
     const {
         register,
         handleSubmit,
@@ -158,7 +184,7 @@ const PhoneNumber: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     } else {
         component = (
             <form
-                className="flex flex-col gap-6"
+                className="flex flex-col items-center gap-6"
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <input
@@ -175,10 +201,17 @@ const PhoneNumber: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                 <Button className=" w-[312px]" disabled={isPending}>
                     {isPending ? "Loading..." : "Connect"}
                 </Button>
+                <button
+                    type="button"
+                    onClick={() => setConnection("QR Code")}
+                    className="font-semibold text-xs laptop:text-base"
+                >
+                    Use QR Code instead
+                </button>
             </form>
         );
     }
-    
+
     return (
         <div className="flex flex-col justify-center items-center w-screen gap-4">
             {component}
