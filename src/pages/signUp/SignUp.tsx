@@ -8,14 +8,14 @@ import { useSignUp } from "../../hooks/auth.hook";
 import Button from "../../components/button";
 
 interface ISignUpnData {
-    fullName: string;
+    username: string;
     email: string;
     password: string;
 }
 
 const signUpValidationSchema = z
     .object({
-        fullName: z.string(),
+        username: z.string(),
         email: z.string().email(),
         password: z.string().min(8),
     })
@@ -113,17 +113,17 @@ const SignUp: React.FC = () => {
                         >
                             <div className="flex flex-col gap-2">
                                 <label className="font-semibold laptop:text-base text-xs">
-                                    Fullname
+                                    username
                                 </label>
                                 <input
                                     type="text"
-                                    {...register("fullName")}
-                                    placeholder="Enter your fullname"
+                                    {...register("username")}
+                                    placeholder="Enter your username"
                                     className="font-normal laptop:text-base text-xs w-full px-4 py-3 border-2 border-[#D9D9D9] bg-transparent rounded-lg focus:outline-none focus:border-[#4CCEF7]"
                                 />
-                                {errors.fullName && (
+                                {errors.username && (
                                     <p className="text-xs text-red-500">
-                                        {errors.fullName.message}
+                                        {errors.username.message}
                                     </p>
                                 )}
                             </div>

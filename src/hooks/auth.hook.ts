@@ -15,11 +15,11 @@ export const useSignUp = () => {
     return useMutation({
         mutationKey: ["login"],
         mutationFn: async ({
-            fullName,
+            username,
             email,
             password,
         }: {
-            fullName: string;
+            username: string;
             email: string;
             password: string;
         }) => {
@@ -27,7 +27,7 @@ export const useSignUp = () => {
                 url: "/auth/sign-up",
                 method: "POST",
                 data: {
-                    fullName,
+                    username,
                     email,
                     password,
                 },
@@ -55,17 +55,17 @@ export const useLogin = () => {
     return useMutation({
         mutationKey: ["login"],
         mutationFn: async ({
-            email,
+            username,
             password,
         }: {
-            email: string;
+            username: string;
             password: string;
         }) => {
             const resp = await request({
                 url: "/auth/login",
                 method: "POST",
                 data: {
-                    email,
+                    username,
                     password,
                 },
             });

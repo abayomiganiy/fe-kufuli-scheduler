@@ -8,13 +8,13 @@ import { useLogin } from "../../hooks/auth.hook";
 import Button from "../../components/button";
 
 interface ILoginData {
-    email: string;
+    username: string;
     password: string;
 }
 
 const loginValidationSchema = z
     .object({
-        email: z.string().email(),
+        username: z.string().min(5).max(15),
         password: z.string().min(8),
     })
     .required();
@@ -108,17 +108,17 @@ const Login: React.FC = () => {
                         >
                             <div className="flex flex-col gap-2">
                                 <label className="font-semibold laptop:text-base text-xs">
-                                    Email
+                                    Username
                                 </label>
                                 <input
-                                    type="email"
-                                    {...register("email")}
-                                    placeholder="Enter your email address"
+                                    type="text"
+                                    {...register("username")}
+                                    placeholder="Enter your username"
                                     className="font-normal laptop:text-base text-xs w-full px-4 py-3 border-2 border-[#D9D9D9] bg-transparent rounded-lg focus:outline-none focus:border-[#4CCEF7]"
                                 />
-                                {errors.email && (
+                                {errors.username && (
                                     <p className="text-xs text-red-500">
-                                        {errors.email.message}
+                                        {errors.username.message}
                                     </p>
                                 )}
                             </div>
