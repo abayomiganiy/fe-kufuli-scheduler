@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import SideNavBar from "../../components/sideNavBar";
 import TopNavBar from "../../components/topNavBar";
 import UpgradeCard from "../../components/upgradeCard";
@@ -7,6 +7,7 @@ import { useAuth } from "../../hooks/auth.hook";
 
 const DashboardLayout: React.FC = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const { token } = useAuth();
     const [showSideNavBar, setshowSideNavBar] = useState(false);
 
@@ -14,9 +15,11 @@ const DashboardLayout: React.FC = () => {
         setshowSideNavBar(false);
     };
 
-    if (!token) {
-        return <Navigate to="/login" state={{ from: location }} replace />;
-    }
+    useEffect(() => {
+        if (token === null) {
+            navigate("/login", { replace: true });
+        }
+    }, [location, navigate, token]);
 
     return (
         <div className="">

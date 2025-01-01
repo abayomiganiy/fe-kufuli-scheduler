@@ -1,11 +1,11 @@
 import { AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
-import React, { ReactElement, useLayoutEffect } from "react";
+import React, { ReactElement, useEffect } from "react";
 import { useAuthStore } from "../../store/authStore";
 import { client, request } from "../../utils/axios-utils";
 
 const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
     const { login, logout, token } = useAuthStore((state) => state);
-    useLayoutEffect(() => {
+    useEffect(() => {
         // Refresh the access token when the user reloads the page
         const fetchMe = async () => {
             try {
@@ -18,13 +18,11 @@ const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
                     method: "GET",
                 });
                 if (response.ok && response.accessToken) {
-                    const accessToken: string = response.accessToken!;
+                    const accessToken: string = response.accessToken;
                     console.log(`response from server fetchMe: ${accessToken}`);
-                    if (accessToken) {
-                        login(accessToken);
-                    } else {
-                        logout();
-                    }
+                    login(accessToken);
+                } else {
+                    logout();
                 }
             } catch (error) {
                 console.error("Error fetching user:", error);
@@ -34,7 +32,7 @@ const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
         fetchMe();
     }, [login, logout]);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const authInterceptor = client.interceptors.request.use(
             (config: InternalAxiosRequestConfig & { _retry?: boolean }) => {
                 if (!config._retry && token) {
@@ -50,7 +48,7 @@ const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
         };
     }, [token]);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const refreshTokenInterceptor = client.interceptors.response.use(
             (response) => response,
             async (error) => {
@@ -73,9 +71,12 @@ const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
                             originalRequest._retry = true;
                             return await client(originalRequest);
                         } else {
-                            console.error("Error refreshing token:", refreshTokenResponse.message);
-                            logout();
+                            console.error(
+                                "Error refreshing token:",
+                                refreshTokenResponse.message
+                            );
                             location.href = "/login";
+                            logout();
                             return Promise.reject(error);
                         }
                     } catch (error) {
@@ -90,7 +91,7 @@ const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
         return () => {
             client.interceptors.response.eject(refreshTokenInterceptor);
         };
-    }, [login, logout, token]);
+    }, [login, logout]);
 
     return <>{children}</>;
 };

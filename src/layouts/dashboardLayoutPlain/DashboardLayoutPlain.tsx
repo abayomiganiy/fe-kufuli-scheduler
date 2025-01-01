@@ -1,14 +1,17 @@
-import React from "react";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/auth.hook";
 
 const DashboardLayoutPlain: React.FC = () => {
     const { token } = useAuth();
     const location = useLocation();
+    const navigate = useNavigate();
 
-    if (!token) {
-        return <Navigate to="/login" state={{from: location}} replace />;
-    }
+    useEffect(() => {
+        if (token === null) {
+            navigate("/login", { replace: true });
+        }
+    }, [location, navigate, token]);
 
     return (
         <div className="min-h-full">

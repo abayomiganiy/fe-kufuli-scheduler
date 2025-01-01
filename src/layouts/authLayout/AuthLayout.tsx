@@ -1,14 +1,17 @@
-import React from "react";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/auth.hook";
 
 const AuthLayout: React.FC = () => {
     const { token } = useAuth();
     const { state } = useLocation();
+    const navigate = useNavigate();
 
-    if (token) {
-        return <Navigate to={state?.from?.pathname || "/"} replace />;
-    }
+    useEffect(() => {
+        if (token) {
+            navigate("/", { replace: true });
+        }
+    }, [navigate, state?.from?.pathname, token]);
 
     return (
         <div>
