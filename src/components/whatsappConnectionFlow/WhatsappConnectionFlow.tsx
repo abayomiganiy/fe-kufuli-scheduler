@@ -34,52 +34,44 @@ const WhatsappConnectionFlow: React.FC<{ onClose: () => void }> = ({
             break;
         default:
             component = (
-                <div className="flex flex-col gap-4">
-                    <div className="flex laptop:flex-row flex-col justify-center items-center gap-6">
-                        {[
-                            {
-                                type: "QR Code",
-                                icon: <img src={qrCode} alt="QR code" />,
-                                instruction: "Proceed to scan QR Code",
-                                disabled: false,
-                            },
-                            {
-                                type: "Phone Number",
-                                icon: (
-                                    <img src={phoneNumber} alt="phone number" />
-                                ),
-                                instruction:
-                                    "Proceed with your whatsapp number",
-                                disabled: false,
-                            },
-                        ].map((connection, index) => (
-                            <Button
-                                key={index}
-                                type="button"
-                                className="laptop:w-[300px] laptop:h-[300px] w-full h-full flex flex-col items-center justify-center"
-                                disabled={connection.disabled}
-                                onClick={() =>
-                                    setConnection(
-                                        connection.type as connectionType
-                                    )
-                                }
-                            >
-                                <div className="font-semibold text-base laptop:text-xl">
-                                    {connection.type}
-                                </div>
-                                <div>{connection.icon}</div>
-                                <div className="font-medium text-xs laptop:text-base">
-                                    {connection.instruction}
-                                </div>
-                            </Button>
-                        ))}
-                    </div>
+                <div className="w-full flex laptop:flex-row flex-col justify-center items-center gap-6">
+                    {[
+                        {
+                            type: "QR Code",
+                            icon: <img src={qrCode} alt="QR code" />,
+                            instruction: "Proceed to scan QR Code",
+                            disabled: false,
+                        },
+                        {
+                            type: "Phone Number",
+                            icon: <img src={phoneNumber} alt="phone number" />,
+                            instruction: "Proceed with your whatsapp number",
+                            disabled: false,
+                        },
+                    ].map((connection, index) => (
+                        <Button
+                            key={index}
+                            type="button"
+                            className="laptop:w-[300px] laptop:h-[300px] w-full h-full flex flex-col items-center justify-center"
+                            disabled={connection.disabled}
+                            onClick={() =>
+                                setConnection(connection.type as connectionType)
+                            }
+                        >
+                            <div className="font-semibold text-base laptop:text-xl">
+                                {connection.type}
+                            </div>
+                            <div>{connection.icon}</div>
+                            <div className="font-medium text-xs laptop:text-base">
+                                {connection.instruction}
+                            </div>
+                        </Button>
+                    ))}
                 </div>
             );
     }
-    
     return (
-        <div className="w-full laptop:w-min px-4 laptop:py-0 py-24 laptop:h-auto laptop:overflow-hidden h-screen overflow-y-auto flex flex-col justify-center items-center gap-8">
+        <div className="flex flex-col laptop:w-min px-4 laptop:py-0 py-24 laptop:h-auto laptop:overflow-hidden h-screen overflow-y-auto justify-center items-center gap-8">
             <h2 className="font-extrabold laptop:text-3xl text-xl mx-auto">
                 Connect your whatsapp via QR Code or Whatsapp Number
             </h2>
@@ -184,7 +176,7 @@ const PhoneNumber: React.FC<{
     } else {
         component = (
             <form
-                className="flex flex-col items-center gap-6"
+                className="w-10/12 laptop:w-[312px] flex flex-col items-center gap-6"
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <input
@@ -198,7 +190,7 @@ const PhoneNumber: React.FC<{
                         {errors.phoneNumber.message}
                     </p>
                 )}
-                <Button className=" w-[312px]" disabled={isPending}>
+                <Button className="w-full" disabled={isPending}>
                     {isPending ? "Loading..." : "Connect"}
                 </Button>
                 <button
