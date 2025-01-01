@@ -69,7 +69,9 @@ const WhatsappConnectionFlow: React.FC<{ onClose: () => void }> = ({
             <h2 className="font-extrabold laptop:text-3xl text-xl mx-auto">
                 Connect your whatsapp via QR Code or Whatsapp Number
             </h2>
-            {component}
+            <div className="w-full laptop:w-[612px] flex flex-col justify-center items-center gap-4">
+                {component}
+            </div>
             <div className="font-normal text-xs laptop:text-base">
                 Kufuli ensures optimal security of your whastsapp account and
                 end to end encryption. We use advanced encryption and

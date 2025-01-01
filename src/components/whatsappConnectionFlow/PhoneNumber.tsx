@@ -81,10 +81,8 @@ const PhoneNumber: React.FC<{
     }
 
     return (
-        <div className="w-full laptop:w-[612px] flex flex-col justify-center items-center gap-4">
-            <div className="w-full flex justify-center items-center">
-                {component}
-            </div>
+        <div className="w-full flex justify-center items-center">
+            {component}
         </div>
     );
 };
