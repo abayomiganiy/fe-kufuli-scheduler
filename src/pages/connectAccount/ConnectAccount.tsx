@@ -9,10 +9,6 @@ const ConnectAccount: React.FC = () => {
     const { data: connectedAccounts, isLoading: connectAccountIsLoading } =
         useGetSocialAccounts();
 
-    if (connectAccountIsLoading) {
-        return <div>Loading...</div>;
-    }
-
     return (
         <div className="flex laptop:flex-row flex-col">
             <div className="laptop:w-4/5 w-full py-16 px-4 flex justify-center overflow-x-hidden">
@@ -104,7 +100,8 @@ const ConnectAccount: React.FC = () => {
                                 </p>
                             </div>
                             <Connections />
-                            {connectedAccounts?.length ? (
+                            {connectedAccounts?.length &&
+                            !connectAccountIsLoading ? (
                                 <div className="laptop:max-w-xl mx-auto w-[90svw]">
                                     <ConnectedAccounts
                                         connectedAccounts={connectedAccounts}
