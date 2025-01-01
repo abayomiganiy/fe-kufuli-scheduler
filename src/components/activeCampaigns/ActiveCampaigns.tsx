@@ -23,6 +23,36 @@ const ActiveCampaigns: React.FC = () => {
             conversions: "25,000",
             image: "",
         },
+        {
+            title: "Campaign 1",
+            status: "Active",
+            date: "2021-01-01",
+            budget: "$10,000",
+            impressions: "100,000",
+            clicks: "50,000",
+            conversions: "25,000",
+            image: "",
+        },
+        {
+            title: "Campaign 1",
+            status: "Active",
+            date: "2021-01-01",
+            budget: "$10,000",
+            impressions: "100,000",
+            clicks: "50,000",
+            conversions: "25,000",
+            image: "",
+        },
+        {
+            title: "Campaign 1",
+            status: "Active",
+            date: "2021-01-01",
+            budget: "$10,000",
+            impressions: "100,000",
+            clicks: "50,000",
+            conversions: "25,000",
+            image: "",
+        },
     ];
     return (
         <div className="flex overflow-auto no-scrollbar">
