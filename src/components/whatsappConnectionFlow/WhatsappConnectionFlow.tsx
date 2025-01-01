@@ -7,7 +7,11 @@ import PhoneNumber from "./PhoneNumber";
 
 export type connectionType = "QR Code" | "Phone Number" | undefined;
 
-const WhatsappConnectionFlow: React.FC<{ onClose: () => void }> = ({
+interface WhatsappConnectionFlowProps {
+    onClose: () => void;
+}
+
+const WhatsappConnectionFlow: React.FC<WhatsappConnectionFlowProps> = ({
     onClose,
 }) => {
     const [connection, setConnection] = useState<connectionType>();
