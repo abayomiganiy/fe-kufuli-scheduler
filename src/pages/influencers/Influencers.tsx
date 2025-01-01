@@ -1,5 +1,5 @@
 import React from "react";
-import SectionHeader from "../../components/SectionHeader";
+import SectionHeader from "../../components/sectionHeader";
 
 const Influencers: React.FC = () => {
     return (

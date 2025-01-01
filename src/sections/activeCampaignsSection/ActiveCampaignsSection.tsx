@@ -1,5 +1,5 @@
 import ActiveCampaigns from "../../components/activeCampaigns";
-import SectionHeader from "../../components/SectionHeader";
+import SectionHeader from "../../components/sectionHeader";
 
 const ActiveCampaignsSection = () => {
     return (
