@@ -1,52 +1,23 @@
 import React from "react";
-import campaign1 from "../../assets/test-campaign/Rectangle 110.png";
-import campaign2 from "../../assets/communication-social-media-icons-smartphone-device.png";
-import campaign3 from "../../assets/test-campaign/top-performing.png";
-
-interface IActiveCampaign {
-    title: string;
-    status: string;
-    date: string;
-    budget: string;
-    impressions: string;
-    clicks: string;
-    conversions: string;
-    image: string;
-}
+import { IActiveCampaign } from "../../interfaces/campaign.interface";
+import { useGetCampaigns } from "../../hooks/campaign.hook";
 
 const ActiveCampaigns: React.FC = () => {
-    const activeCampaigns: IActiveCampaign[] = [
-        {
-            title: "Campaign 1",
-            status: "Active",
-            date: "2021-01-01",
-            budget: "$10,000",
-            impressions: "100,000",
-            clicks: "50,000",
-            conversions: "25,000",
-            image: campaign1,
-        },
-        {
-            title: "Campaign 1",
-            status: "Active",
-            date: "2021-01-01",
-            budget: "$10,000",
-            impressions: "100,000",
-            clicks: "50,000",
-            conversions: "25,000",
-            image: campaign2,
-        },
-        {
-            title: "Campaign 1",
-            status: "Active",
-            date: "2021-01-01",
-            budget: "$10,000",
-            impressions: "100,000",
-            clicks: "50,000",
-            conversions: "25,000",
-            image: campaign3,
-        },
-    ];
+    const { data: activeCampaigns, isLoading: activeCampaignsIsLoading } =
+        useGetCampaigns();
+
+    if (activeCampaignsIsLoading) {
+        return (
+            <div className="flex overflow-auto no-scrollbar">
+                <div className="flex gap-4 flex-nowrap">
+                    {[1, 2, 3]?.map((_, index) => (
+                        <ActiveCampaignLoading key={index} />
+                    ))}
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="flex overflow-auto no-scrollbar">
             <div className="flex gap-4 flex-nowrap">
@@ -74,7 +45,7 @@ const ActiveCampaigns: React.FC = () => {
                     </svg>
                     <div className="">New campaign</div>
                 </div>
-                {activeCampaigns.map((campaign, index) => (
+                {activeCampaigns?.map((campaign, index) => (
                     <ActiveCampaign key={index} campaign={campaign} />
                 ))}
             </div>
@@ -82,22 +53,57 @@ const ActiveCampaigns: React.FC = () => {
     );
 };
 
-const ActiveCampaign: React.FC<{ campaign: IActiveCampaign }> = ({
+const ActiveCampaign: React.FC<{ campaign?: IActiveCampaign }> = ({
     campaign,
 }) => {
     return (
         <div className="relative laptop:w-40 w-32 laptop:h-64 h-48 flex cursor-pointer items-end justify-between p-4 rounded-2xl text-white">
             <>
                 <img
-                    src={campaign.image}
-                    alt={campaign.title}
+                    src={campaign?.image}
+                    alt={campaign?.title}
                     className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl"
                 />
                 <div className="absolute top-0 left-0 w-full h-full rounded-2xl bg-gradient-to-t from-0 from-black to-50% to-transparent opacity-80" />
             </>
             <div className="ml-4 z-40">
-                <h3 className="text-sm font-medium">{campaign.title}</h3>
+                <h3 className="text-sm font-medium">{campaign?.title}</h3>
             </div>
+        </div>
+    );
+};
+
+const ActiveCampaignLoading: React.FC = () => {
+    return (
+        <div className="relative animate-pulse laptop:w-40 w-32 laptop:h-64 h-48 flex cursor-pointer items-end justify-between p-4 rounded-2xl text-white">
+            <div className="w-full h-full flex justify-center items-center bg-[#E5E5E5] absolute top-0 left-0 object-cover rounded-2xl">
+                <svg
+                    width="43"
+                    height="42"
+                    viewBox="0 0 43 42"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M13.625 15.75C15.0747 15.75 16.25 14.5747 16.25 13.125C16.25 11.6753 15.0747 10.5 13.625 10.5C12.1753 10.5 11 11.6753 11 13.125C11 14.5747 12.1753 15.75 13.625 15.75Z"
+                        stroke="#141B34"
+                        stroke-width="2.625"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                    <path
+                        d="M4.875 21C4.875 13.1629 4.875 9.24436 7.30967 6.80967C9.74436 4.375 13.6629 4.375 21.5 4.375C29.337 4.375 33.2556 4.375 35.6904 6.80967C38.125 9.24436 38.125 13.1629 38.125 21C38.125 28.837 38.125 32.7556 35.6904 35.1904C33.2556 37.625 29.337 37.625 21.5 37.625C13.6629 37.625 9.74436 37.625 7.30967 35.1904C4.875 32.7556 4.875 28.837 4.875 21Z"
+                        stroke="#141B34"
+                        stroke-width="2.625"
+                    />
+                    <path
+                        d="M9.25 36.75C16.9018 27.6062 25.4797 15.5471 38.1206 23.6992"
+                        stroke="#141B34"
+                        stroke-width="2.625"
+                    />
+                </svg>
+            </div>
+            <div className="z-40 h-2 w-full bg-gray-500 rounded" />
         </div>
     );
 };
