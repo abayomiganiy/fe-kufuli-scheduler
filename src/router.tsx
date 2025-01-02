@@ -8,6 +8,7 @@ import ForgotPassword from "./pages/forgotPassword";
 import Home from "./pages/home";
 import Influencers from "./pages/influencers";
 import Login from "./pages/login";
+import Pricing from "./pages/pricing";
 import SignUp from "./pages/signUp";
 import VerifyAccount from "./pages/verifyAccount";
 
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
             { path: "/dashboard", element: <Home /> },
             { path: "/campaigns", element: <Campaigns /> },
             { path: "/influencers", element: <Influencers /> },
+            { path: "/pricing", element: <Pricing /> },
         ],
     },
     {

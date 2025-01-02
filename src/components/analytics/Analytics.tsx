@@ -51,7 +51,7 @@ const Analytics: React.FC = () => {
                     <h1 className="font-extrabold text-[16px]">Free Plan</h1>
                     <h4 className="text-[14px]">
                         Upgrade your free plan to enjoy kufuli without limits{" "}
-                        <Link to="/plans" className="text-blue-600">
+                        <Link to="/pricing" className="text-blue-600">
                             Learn more
                         </Link>
                     </h4>
@@ -59,7 +59,7 @@ const Analytics: React.FC = () => {
                         variant="secondary"
                         size="sm"
                         className="w-full laptop:text-sm text-xs"
-                        onClick={() => navigate("/plans")}
+                        onClick={() => navigate("/pricing")}
                     >
                         <PremiumIcon />
                         Upgrade plan
