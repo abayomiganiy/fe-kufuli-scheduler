@@ -40,6 +40,6 @@ export const getCampaigns = async () => {
     return new Promise<IActiveCampaign[]>((resolve) => {
         setTimeout(() => {
             resolve(activeCampaigns);
-        }, 5000);
+        }, 3000);
     });
 };
