@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { login, logout, signup } from "../services/auth";
 import { useAuthStore } from "../store/authStore";
-import { request } from "../utils/axios-utils";
 
 export const useAuth = () => {
     // const context = useContext(AuthContext);
@@ -13,27 +13,8 @@ export const useAuth = () => {
 export const useSignUp = () => {
     const navigate = useNavigate();
     return useMutation({
-        mutationKey: ["login"],
-        mutationFn: async ({
-            username,
-            email,
-            password,
-        }: {
-            username: string;
-            email: string;
-            password: string;
-        }) => {
-            const resp = await request({
-                url: "/auth/sign-up",
-                method: "POST",
-                data: {
-                    username,
-                    email,
-                    password,
-                },
-            });
-            return resp;
-        },
+        mutationKey: ["signup"],
+        mutationFn: signup,
         onSuccess: (data: { ok: boolean; message: string; email: string }) => {
             console.log("Signup successfully", data.email);
             toast.success("Signup successfully");
@@ -51,26 +32,10 @@ export const useSignUp = () => {
 
 export const useLogin = () => {
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const authState = useAuth();
     return useMutation({
         mutationKey: ["login"],
-        mutationFn: async ({
-            username,
-            password,
-        }: {
-            username: string;
-            password: string;
-        }) => {
-            const resp = await request({
-                url: "/auth/login",
-                method: "POST",
-                data: {
-                    username,
-                    password,
-                },
-            });
-            return resp;
-        },
+        mutationFn: login,
         onSuccess: (data: {
             ok: boolean;
             message: string;
@@ -82,7 +47,7 @@ export const useLogin = () => {
                 return;
             }
             toast.success("Logged in successfully");
-            login(data.accessToken);
+            authState.login(data.accessToken);
             navigate("/", { replace: true });
         },
         onError: (error: { data: { message: string } }) => {
@@ -94,21 +59,13 @@ export const useLogin = () => {
 
 export const useLogout = () => {
     const navigate = useNavigate();
-    const { logout } = useAuth();
+    const authState = useAuth();
     return useMutation({
         mutationKey: ["logout"],
-        mutationFn: async () => {
-            const resp = await request({
-                url: "/auth/logout",
-                method: "DELETE",
-                withCredentials: true,
-            });
-            console.log(resp.data);
-            return resp;
-        },
+        mutationFn: logout,
         onSuccess: () => {
             navigate("/login");
-            logout();
+            authState.logout();
         },
         onError: (error: { data: { message: string } }) => {
             console.error(error);
