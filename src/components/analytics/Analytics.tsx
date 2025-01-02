@@ -45,8 +45,8 @@ const Analytics: React.FC = () => {
     ];
 
     return (
-        <div className="grid laptop:grid-cols-4 grid-cols-2">
-            <div className="flex flex-col justify-center px-[20px] py-[30px] w-full">
+        <div className="grid laptop:grid-cols-4 grid-cols-2 gap-4">
+            <div className="flex flex-col justify-start items-start w-full p-4 border border-gray-100 rounded-lg">
                 <div className="flex flex-col items-baseline gap-2">
                     <h1 className="font-extrabold text-[16px]">Free Plan</h1>
                     <h4 className="text-[14px]">
@@ -58,7 +58,7 @@ const Analytics: React.FC = () => {
                     <Button
                         variant="secondary"
                         size="sm"
-                        className="w-full"
+                        className="w-full laptop:text-sm text-xs"
                         onClick={() => navigate("/plans")}
                     >
                         <PremiumIcon />
@@ -70,7 +70,7 @@ const Analytics: React.FC = () => {
             {analytics.map((item: IAnalytics, index: number) => (
                 <div
                     key={index}
-                    className="flex flex-col justify-center px-[20px] py-[30px] w-full"
+                    className="flex flex-col justify-start items-start w-full p-4 border border-gray-100 rounded-lg"
                 >
                     <div className="flex items-baseline gap-2">
                         <h1 className="font-extrabold text-[61px]">
@@ -80,19 +80,21 @@ const Analytics: React.FC = () => {
                             /{item.assigned}
                         </h4>
                     </div>
-                    <h4 className="font-extrabold text-[16px] w-4/5">
-                        {item.name}
-                    </h4>
+                    <h4 className="font-extrabold text-[16px]">{item.name}</h4>
                 </div>
             ))}
-            <div className="flex flex-col justify-center px-[20px] py-[30px] w-full gap-2">
-                <h3 className="font-extrabold text-[16px]">
-                    Top performing campaign
+            <div className="flex flex-col justify-start items-start gap-3 w-full p-4 border border-gray-100 rounded-lg">
+                <h3 className="font-extrabold laptop:text-base text-xs">
+                    Top performing
                 </h3>
                 <div className="flex items-center gap-2">
-                    <img src={topPerformingCampaign} alt="tpc" className="w-24 h-36 rounded-lg" />
-                    <div className="w-1/2">
-                        <div className="flex items-center gap-2">
+                    <img
+                        src={topPerformingCampaign}
+                        alt="tpc"
+                        className="w-24 h-28 object-cover rounded-lg"
+                    />
+                    <div className="">
+                        <div className="flex items-center gap-2 font-semibold text-[10px] laptop:text-sm">
                             <svg
                                 width="12"
                                 height="13"
@@ -113,7 +115,7 @@ const Analytics: React.FC = () => {
                             </svg>
                             1000 views
                         </div>
-                        <div className="line-clamp-2">
+                        <div className="line-clamp-5 text-[10px] laptop:text-sm">
                             Join us on Open regist futsal championship 2024 on
                             November 30th 2024 at Golf course club...
                         </div>
