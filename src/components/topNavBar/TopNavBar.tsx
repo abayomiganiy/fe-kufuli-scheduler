@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
-import logo from "../../assets/kufuli-logo.svg";
+import Logo from "../logo";
 
 interface TopNavBarProps {
     setshowSideNavBar: Dispatch<SetStateAction<boolean>>;
@@ -8,9 +8,7 @@ interface TopNavBarProps {
 const TopNavBar: React.FC<TopNavBarProps> = ({ setshowSideNavBar }) => {
     return (
         <nav className="h-16 bg-white z-50 laptop:shadow-none shadow-sm flex laptop:justify-end justify-between items-center laptop:static laptop:px-0 fixed px-4 top-0 left-0 right-0">
-            <div className="laptop:hidden flex justify-start">
-                <img src={logo} alt="logo" className="h-8" />
-            </div>
+            <Logo className="laptop:hidden" />
             <div className="flex laptop:gap-6 gap-2">
                 <svg
                     width="30"

@@ -1,9 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import logo from "../../assets/kufuli-logo.svg";
 import { useLogout } from "../../hooks/auth.hook";
-import ConnectedSocialAccounts from "./ConnectedSocialAccounts";
 import Button from "../button";
+import Logo from "../logo";
+import ConnectedSocialAccounts from "./ConnectedSocialAccounts";
 
 interface INavLink {
     label: string;
@@ -144,9 +144,7 @@ const SideNavBar: React.FC<SideNavBarProps> = ({
                     showSideNavBar ? "flex" : "hidden"
                 } w-72 h-dvh px-4 bg-white`}
             >
-                <div className="flex laptop:justify-center justify-start">
-                    <img src={logo} alt="logo" className="laptop:h-14 h-8 laptop:w-48" />
-                </div>
+                <Logo />
                 <div className="flex flex-col gap-5">
                     <Button variant="primary" type="button" className="w-full">
                         <svg
