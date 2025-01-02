@@ -132,7 +132,7 @@ const SideNavBar: React.FC<SideNavBarProps> = ({
     ];
 
     return (
-        <div>
+        <div className="absolute min-h-max h-screen overflow-y-scroll">
             <div
                 className={`fixed z-[100] top-0 left-0 h-dvh w-screen bg-[#00000099] laptop:hidden ${
                     showSideNavBar ? "flex" : "hidden"
@@ -185,7 +185,7 @@ const SideNavBar: React.FC<SideNavBarProps> = ({
                         ))}
                     </ul>
                 </div>
-                <div className="flex flex-col gap-5 items-start absolute bottom-12 w-60">
+                <div className="flex flex-col gap-5 items-start mt-auto mb-12 w-60">
                     <ConnectedSocialAccounts />
                     <button
                         onClick={() => {
