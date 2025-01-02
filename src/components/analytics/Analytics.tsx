@@ -46,7 +46,7 @@ const Analytics: React.FC = () => {
 
     return (
         <div className="grid laptop:grid-cols-4 grid-cols-2 gap-4">
-            <div className="flex flex-col justify-start items-start w-full p-4 border border-gray-100 rounded-lg">
+            <div className="flex flex-col justify-start items-start w-full p-4 border border-[#E0E0E0] rounded-xl">
                 <div className="flex flex-col items-baseline gap-2">
                     <h1 className="font-extrabold text-[16px]">Free Plan</h1>
                     <h4 className="text-[14px]">
@@ -70,7 +70,7 @@ const Analytics: React.FC = () => {
             {analytics.map((item: IAnalytics, index: number) => (
                 <div
                     key={index}
-                    className="flex flex-col justify-start items-start w-full p-4 border border-gray-100 rounded-lg"
+                    className="flex flex-col justify-start items-start w-full p-4 border border-[#E0E0E0] rounded-xl"
                 >
                     <div className="flex items-baseline gap-2">
                         <h1 className="font-extrabold text-[61px]">
@@ -83,7 +83,7 @@ const Analytics: React.FC = () => {
                     <h4 className="font-extrabold text-[16px]">{item.name}</h4>
                 </div>
             ))}
-            <div className="flex flex-col justify-start items-start gap-3 w-full p-4 border border-gray-100 rounded-lg">
+            <div className="flex flex-col justify-start items-start gap-3 w-full p-4 border border-[#E0E0E0] rounded-xl">
                 <h3 className="font-extrabold laptop:text-base text-xs">
                     Top performing
                 </h3>

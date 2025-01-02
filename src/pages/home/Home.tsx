@@ -4,7 +4,7 @@ import AnalyticsSection from "../../sections/analyticsSection";
 
 const Home: React.FC = () => {
     return (
-        <div className="">
+        <div className="flex flex-col gap-6 laptop:gap-7">
             <ActiveCampaignsSection />
             <AnalyticsSection />
         </div>
