@@ -1,6 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import logo from "../../assets/kufuli-logo.svg";
+import { useNavigate } from "react-router-dom";
 
 interface LogoProps extends React.HTMLAttributes<HTMLButtonElement> {
     className?: string;
@@ -8,10 +9,14 @@ interface LogoProps extends React.HTMLAttributes<HTMLButtonElement> {
 
 const Logo: React.FC<LogoProps> = ({ className }) => {
     const queryClient = useQueryClient();
+    const navigate = useNavigate();
 
     return (
         <button
-            onClick={() => queryClient.resetQueries()}
+            onClick={() => {
+                navigate("/");
+                queryClient.resetQueries();
+            }}
             className={`${className} flex laptop:justify-center justify-start`}
         >
             <img
