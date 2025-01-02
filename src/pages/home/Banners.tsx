@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const Banners: React.FC = () => {
     const navigate = useNavigate();
     return (
-        <div className="flex laptop:flex-row flex-col gap-4 laptop:gap-6">
+        <div className="flex laptop:flex-row flex-col gap-4">
             {[
                 {
                     heading: "Unlock Your Earning Potential!",
@@ -5954,14 +5954,14 @@ const Banners: React.FC = () => {
                 },
             ].map((item, index) => (
                 <div
-                    className={`flex items-center justify-center laptop:rounded-2xl rounded-xl px-3 py-4 ${
+                    className={`w-1/2 flex items-center justify-center laptop:rounded-2xl rounded-xl px-3 py-4 ${
                         index % 2 === 0
                             ? "bg-gradient-to-bl from-[#91FFDB] to-[#4CCEF7]"
                             : "bg-gradient-to-tl from-[#205CE2] to-[#4CC1FF]"
                     }`}
                     key={index}
                 >
-                    <div>{item.image}</div>
+                    <div className="">{item.image}</div>
                     <div className="flex flex-col laptop:gap-4 gap-3">
                         <h1 className="font-extrabold laptop:text-base text-xs">
                             {item.heading}

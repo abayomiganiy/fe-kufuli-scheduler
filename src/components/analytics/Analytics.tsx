@@ -14,19 +14,19 @@ const Analytics: React.FC = () => {
     if (analyticsIsLoading) {
         return (
             <div className="grid laptop:grid-cols-4 grid-cols-2 gap-4">
-                {[1, 2, 3, 4].map((_, index) => (
+                {[1, 2, 3, 4, 5, 6, 7, 8].map((_, index) => (
                     <div
                         key={index}
                         className="animate-pulse flex flex-col justify-center items-center w-full h-40 p-4 bg-[#E5E5E5] border border-[#E0E0E0] rounded-xl"
                     >
                         <div className="w-full grid flex-1  items-center space-y-6 py-1">
                             <div className="space-y-3">
-                                <div className="grid grid-cols-3 gap-4">
+                                <div className="grid grid-cols-5 gap-4">
                                     <div className="h-2 bg-gray-500 rounded col-span-1"></div>
-                                    <div className="h-2 bg-gray-500 rounded col-span-2"></div>
+                                    <div className="h-2 bg-gray-500 rounded col-span-1"></div>
+                                    <div className="h-2 rounded col-span-3"></div>
                                 </div>
                             </div>
-                            {/* <div className="h-2 bg-gray-500 rounded"></div> */}
                             <div className="h-2 bg-gray-500 rounded"></div>
                         </div>
                     </div>
