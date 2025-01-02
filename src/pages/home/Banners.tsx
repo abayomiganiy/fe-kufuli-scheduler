@@ -5954,7 +5954,7 @@ const Banners: React.FC = () => {
                 },
             ].map((item, index) => (
                 <div
-                    className={`w-1/2 flex items-center justify-center laptop:rounded-2xl rounded-xl px-3 py-4 ${
+                    className={`laptop:w-1/2 flex items-center justify-center laptop:rounded-2xl rounded-xl px-3 py-4 ${
                         index % 2 === 0
                             ? "bg-gradient-to-bl from-[#91FFDB] to-[#4CCEF7]"
                             : "bg-gradient-to-tl from-[#205CE2] to-[#4CC1FF]"
