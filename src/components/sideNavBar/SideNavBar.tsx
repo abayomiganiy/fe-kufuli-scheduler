@@ -191,7 +191,7 @@ const SideNavBar: React.FC<SideNavBarProps> = ({
                         onClick={() => {
                             logout();
                         }}
-                        className="flex justify-center items-center gap-2 h-14 font-bold text-xl text-[#FF3B30]"
+                        className="w-full flex justify-start items-center gap-2 h-14 font-bold text-xl text-[#FF3B30]"
                     >
                         <svg
                             width="25"
