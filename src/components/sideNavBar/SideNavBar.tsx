@@ -140,12 +140,12 @@ const SideNavBar: React.FC<SideNavBarProps> = ({
                 onClick={() => onCloseSideNavBar()}
             ></div>
             <div
-                className={`fixed z-[100] top-0 left-0 laptop:flex flex-col gap-12 pt-12 shadow-2xl ${
+                className={`fixed z-[100] top-0 left-0 laptop:flex flex-col gap-12 laptop:pt-8 pt-4 shadow-2xl ${
                     showSideNavBar ? "flex" : "hidden"
-                } w-72 h-dvh px-5 bg-white`}
+                } w-72 h-dvh px-4 bg-white`}
             >
-                <div className="w-full flex justify-center">
-                    <img src={logo} alt="logo" className="h-14 w-48" />
+                <div className="flex laptop:justify-center justify-start">
+                    <img src={logo} alt="logo" className="laptop:h-14 h-8 laptop:w-48" />
                 </div>
                 <div className="flex flex-col gap-5">
                     <Button variant="primary" type="button" className="w-full">
@@ -177,7 +177,7 @@ const SideNavBar: React.FC<SideNavBarProps> = ({
                             <li key={index} className="font-semibold text-xl">
                                 <NavLink
                                     to={navLink.to}
-                                    className="flex items-center px-5 gap-2 p-2 h-14 text-sm text-gray-800 hover:text-gray-900 aria-[current=page]:bg-[#E5E8F9] hover:bg-[#E5E8F9] mx-[-20px]"
+                                    className="flex items-center px-4 gap-2 p-2 h-14 text-sm text-gray-800 hover:text-gray-900 aria-[current=page]:bg-[#E5E8F9] hover:bg-[#E5E8F9] mx-[-16px]"
                                     onClick={() => onCloseSideNavBar()}
                                 >
                                     {navLink.icon}

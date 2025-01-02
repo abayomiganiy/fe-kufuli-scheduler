@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
+import logo from "../../assets/kufuli-logo.svg";
 
 interface TopNavBarProps {
     setshowSideNavBar: Dispatch<SetStateAction<boolean>>;
@@ -6,41 +7,10 @@ interface TopNavBarProps {
 
 const TopNavBar: React.FC<TopNavBarProps> = ({ setshowSideNavBar }) => {
     return (
-        <nav className="h-16 bg-white z-50 laptop:shadow-none shadow-sm flex laptop:justify-end justify-between items-center laptop:static fixed px-4 top-0 left-0 right-0">
-            <button
-                className="laptop:hidden"
-                onClick={() => setshowSideNavBar(true)}
-            >
-                <svg
-                    width="30"
-                    height="30"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M10 5.63239H20"
-                        stroke="#141B34"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    />
-                    <path
-                        d="M4 12.6324H20"
-                        stroke="#141B34"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    />
-                    <path
-                        d="M4 19.6324H14"
-                        stroke="#141B34"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    />
-                </svg>
-            </button>
+        <nav className="h-16 bg-white z-50 laptop:shadow-none shadow-sm flex laptop:justify-end justify-between items-center laptop:static laptop:px-0 fixed px-4 top-0 left-0 right-0">
+            <div className="laptop:hidden flex justify-start">
+                <img src={logo} alt="logo" className="h-8" />
+            </div>
             <div className="flex laptop:gap-6 gap-2">
                 <svg
                     width="30"
@@ -83,6 +53,40 @@ const TopNavBar: React.FC<TopNavBarProps> = ({ setshowSideNavBar }) => {
                         stroke-linecap="round"
                     />
                 </svg>
+                <button
+                    className="laptop:hidden"
+                    onClick={() => setshowSideNavBar(true)}
+                >
+                    <svg
+                        width="30"
+                        height="30"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M10 5.63239H20"
+                            stroke="#141B34"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M4 12.6324H20"
+                            stroke="#141B34"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M4 19.6324H14"
+                            stroke="#141B34"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                </button>
             </div>
         </nav>
     );
