@@ -187,7 +187,7 @@ const SideNavBar: React.FC<SideNavBarProps> = ({
                         ))}
                     </ul>
                 </div>
-                <div className="flex flex-col gap-3 items-start absolute bottom-12 w-60">
+                <div className="flex flex-col gap-5 items-start absolute bottom-12 w-60">
                     <ConnectedSocialAccounts />
                     <button
                         onClick={() => {
