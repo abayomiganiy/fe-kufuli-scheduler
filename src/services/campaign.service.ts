@@ -3,7 +3,7 @@ import campaign2 from "../assets/communication-social-media-icons-smartphone-dev
 import campaign3 from "../assets/test-campaign/top-performing.png";
 import { IActiveCampaign } from "../interfaces/campaign.interface";
 
-export const getCampaigns = async () => {
+export const getCampaigns = async (): Promise<IActiveCampaign[]> => {
     const activeCampaigns: IActiveCampaign[] = [
         {
             title: "Campaign 1",

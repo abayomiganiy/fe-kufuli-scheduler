@@ -1,48 +1,39 @@
 import React from "react";
-import Button from "../button";
-import PremiumIcon from "../icons/premiumIcon";
 import { Link, useNavigate } from "react-router-dom";
 import topPerformingCampaign from "../../assets/test-campaign/top-performing.png";
-
-interface IAnalytics {
-    name: string;
-    used: number;
-    assigned?: number;
-}
+import { useGetAnalytics } from "../../hooks/analytics.hooks";
+import { IAnalytics } from "../../interfaces/analytic.interface";
+import Button from "../button";
+import PremiumIcon from "../icons/premiumIcon";
 
 const Analytics: React.FC = () => {
     const navigate = useNavigate();
-    const analytics: IAnalytics[] = [
-        {
-            name: "Messages schedule",
-            used: 25,
-            assigned: 500,
-        },
-        {
-            name: "Campaigns",
-            used: 1,
-            assigned: 5,
-        },
-        {
-            name: "WhatsApp Story Scheduling",
-            used: 2,
-            assigned: 5,
-        },
-        {
-            name: "Total Views per Story/Message",
-            used: 94,
-            assigned: +18,
-        },
-        {
-            name: "Average Views per Story",
-            used: 25,
-            assigned: 500,
-        },
-        {
-            name: "Engagement Rate",
-            used: 100,
-        },
-    ];
+    const { data: analytics, isLoading: analyticsIsLoading } =
+        useGetAnalytics();
+
+    if (analyticsIsLoading) {
+        return (
+            <div className="grid laptop:grid-cols-4 grid-cols-2 gap-4">
+                {[1, 2, 3, 4].map((_, index) => (
+                    <div
+                        key={index}
+                        className="animate-pulse flex flex-col justify-center items-center w-full h-40 p-4 bg-[#E5E5E5] border border-[#E0E0E0] rounded-xl"
+                    >
+                        <div className="w-full grid flex-1  items-center space-y-6 py-1">
+                            <div className="space-y-3">
+                                <div className="grid grid-cols-3 gap-4">
+                                    <div className="h-2 bg-gray-500 rounded col-span-1"></div>
+                                    <div className="h-2 bg-gray-500 rounded col-span-2"></div>
+                                </div>
+                            </div>
+                            {/* <div className="h-2 bg-gray-500 rounded"></div> */}
+                            <div className="h-2 bg-gray-500 rounded"></div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        );
+    }
 
     return (
         <div className="grid laptop:grid-cols-4 grid-cols-2 gap-4">
@@ -67,7 +58,7 @@ const Analytics: React.FC = () => {
                 </div>
                 <h4 className="font-extrabold text-[16px] w-4/5"></h4>
             </div>
-            {analytics.map((item: IAnalytics, index: number) => (
+            {analytics?.map((item: IAnalytics, index: number) => (
                 <div
                     key={index}
                     className="flex flex-col justify-start items-start w-full p-4 border border-[#E0E0E0] rounded-xl"
