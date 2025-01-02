@@ -144,7 +144,7 @@ const SideNavBar: React.FC<SideNavBarProps> = ({
                     showSideNavBar ? "flex" : "hidden"
                 } w-72 h-dvh px-4 bg-white`}
             >
-                <Logo />
+                <Logo onCloseSideNavBar={onCloseSideNavBar} />
                 <div className="flex flex-col gap-5">
                     <Button variant="primary" type="button" className="w-full">
                         <svg

@@ -5,9 +5,10 @@ import { useNavigate } from "react-router-dom";
 
 interface LogoProps extends React.HTMLAttributes<HTMLButtonElement> {
     className?: string;
+    onCloseSideNavBar?: () => void;
 }
 
-const Logo: React.FC<LogoProps> = ({ className }) => {
+const Logo: React.FC<LogoProps> = ({ className, onCloseSideNavBar }) => {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
 
@@ -16,6 +17,7 @@ const Logo: React.FC<LogoProps> = ({ className }) => {
             onClick={() => {
                 navigate("/");
                 queryClient.resetQueries();
+                if (onCloseSideNavBar) onCloseSideNavBar();
             }}
             className={`${className} flex laptop:justify-center justify-start`}
         >
