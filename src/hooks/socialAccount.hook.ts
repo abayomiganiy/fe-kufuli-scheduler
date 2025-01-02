@@ -1,8 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
-import { request } from "../utils/axios-utils";
-import { useState } from "react";
 import { EventSource } from "eventsource";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import {
+    connectSocialAccount,
+    deleteSocialAccount,
+    getSocialAccounts,
+} from "../services/socialAccount.service";
 import { useAuth } from "./auth.hook";
 
 export const useQRConnectWhatsapp = () => {
@@ -105,13 +109,7 @@ export const usePhoneConnectWhatsapp = () => {
 export const useGetSocialAccounts = () => {
     return useQuery({
         queryKey: ["social-accounts"],
-        queryFn: async () => {
-            const resp = await request({
-                url: "/social-accounts",
-                method: "GET",
-            });
-            return resp;
-        },
+        queryFn: getSocialAccounts,
     });
 };
 
@@ -119,14 +117,7 @@ export const useConnectSocialAccount = () => {
     const queryClient = useQueryClient();
     return useMutation({
         mutationKey: ["connect-social-accounts"],
-        mutationFn: async (data: { name: string; type: "WHATSAPP" }) => {
-            const resp = await request({
-                url: "/social-accounts",
-                method: "POST",
-                data,
-            });
-            return resp;
-        },
+        mutationFn: connectSocialAccount,
         onError: (error) => {
             // Handle error
             console.error(error);
@@ -145,13 +136,7 @@ export const useDeleteSocialAccount = () => {
     const queryClient = useQueryClient();
     return useMutation({
         mutationKey: ["delete-social-account"],
-        mutationFn: async (data: { id: string; sessionId: string }) => {
-            const resp = await request({
-                url: `/social-accounts/${data.id}/${data.sessionId}`,
-                method: "DELETE",
-            });
-            return resp;
-        },
+        mutationFn: deleteSocialAccount,
         onError: (error) => {
             // Handle error
             console.error(error);

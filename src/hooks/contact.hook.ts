@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { request } from "../utils/axios-utils";
+import { getContacts } from "../services/contact.service";
 import { useCurrentSocialAccount } from "../store/currentSocialAccountStore";
 
 export const useGetContacts = () => {
@@ -8,12 +8,6 @@ export const useGetContacts = () => {
     );
     return useQuery({
         queryKey: ["contacts"],
-        queryFn: async () => {
-            const resp = await request({
-                url: `/contacts/${currentSocialAccount?.name}`,
-                method: "GET",
-            });
-            return resp;
-        },
+        queryFn: () => getContacts(currentSocialAccount),
     });
 };

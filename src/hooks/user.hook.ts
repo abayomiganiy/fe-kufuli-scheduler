@@ -1,15 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { request } from "../utils/axios-utils";
+import { getUser } from "../services/user.service";
 
 export const useGetUser = () => {
     return useQuery({
         queryKey: ["user"],
-        queryFn: async () => {
-            const resp = await request({
-                url: "/users",
-                method: "GET",
-            });
-            return resp;
-        },
+        queryFn: getUser,
     });
 };

@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { login, logout, signup } from "../services/auth";
+import { login, logout, signup } from "../services/auth.service";
 import { useAuthStore } from "../store/authStore";
 
 export const useAuth = () => {

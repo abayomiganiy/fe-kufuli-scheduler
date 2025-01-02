@@ -1,29 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
-import { request } from "../utils/axios-utils";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { resendVerifyEmail, verifyEmail } from "../services/email.service";
 
 export const useVerifyEmail = () => {
     const navigate = useNavigate();
     return useMutation({
         mutationKey: ["verify-email"],
-        mutationFn: async ({
-            email,
-            verificationCode,
-        }: {
-            email: string;
-            verificationCode: string;
-        }) => {
-            const resp = await request({
-                url: "/email/verify-email",
-                method: "POST",
-                data: {
-                    email,
-                    verificationCode,
-                },
-            });
-            return resp;
-        },
+        mutationFn: verifyEmail,
         onSuccess: (data: {
             ok: boolean;
             message: string;
@@ -45,16 +29,7 @@ export const useVerifyEmail = () => {
 export const useResendVerifyEmail = () => {
     return useMutation({
         mutationKey: ["resend-verify-email"],
-        mutationFn: async ({ email }: { email: string }) => {
-            const resp = await request({
-                url: "/email/resend-verify-email",
-                method: "POST",
-                data: {
-                    email,
-                },
-            });
-            return resp;
-        },
+        mutationFn: resendVerifyEmail,
         onSuccess: (data: { ok: boolean; message: string }) => {
             console.log("Email sent successfully", data);
             toast.success("Email sent successfully");
