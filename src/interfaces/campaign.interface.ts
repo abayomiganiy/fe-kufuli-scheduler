@@ -1,6 +1,7 @@
-export interface IActiveCampaign {
+export type CampaignStatus = "active" | "pending" | "inactive";
+export interface ICampaign {
     title: string;
-    status: string;
+    status: CampaignStatus;
     date: string;
     budget: string;
     impressions: string;

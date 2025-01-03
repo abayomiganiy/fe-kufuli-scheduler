@@ -1,10 +1,10 @@
 import React from "react";
-import { IActiveCampaign } from "../../interfaces/campaign.interface";
 import { useGetCampaigns } from "../../hooks/campaign.hook";
+import { ICampaign } from "../../interfaces/campaign.interface";
 
 const ActiveCampaigns: React.FC = () => {
     const { data: activeCampaigns, isLoading: activeCampaignsIsLoading } =
-        useGetCampaigns();
+        useGetCampaigns({ status: "active" });
 
     if (activeCampaignsIsLoading) {
         return (
@@ -53,9 +53,7 @@ const ActiveCampaigns: React.FC = () => {
     );
 };
 
-const ActiveCampaign: React.FC<{ campaign?: IActiveCampaign }> = ({
-    campaign,
-}) => {
+const ActiveCampaign: React.FC<{ campaign?: ICampaign }> = ({ campaign }) => {
     return (
         <div className="relative laptop:w-40 w-32 laptop:h-64 h-48 flex cursor-pointer items-end justify-between p-4 rounded-2xl text-white">
             <>
