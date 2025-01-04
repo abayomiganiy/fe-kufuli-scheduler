@@ -11,7 +11,7 @@ export default function getCampaignContent(campaign: ICampaign) {
                 <img
                     src={campaign.content[0].image}
                     alt={campaign.content[0].caption}
-                    className="object-cover rounded-lg w-full h-full"
+                    className="object-cover rounded-2xl w-full h-full"
                 />
             );
             break;
@@ -19,7 +19,7 @@ export default function getCampaignContent(campaign: ICampaign) {
             content = (
                 <div className={`laptop:h-56 h-56 w-full`}>
                     <div
-                        className={`flex justify-center items-center p-4 laptop:p-5 object-cover rounded-lg w-full h-full bg-[${
+                        className={`flex justify-center items-center p-4 laptop:p-5 object-cover rounded-2xl w-full h-full bg-[${
                             (campaign.content[0] as CreateTextStoryData)
                                 .backgroundColor ?? "#000000"
                         }]`}
@@ -34,13 +34,13 @@ export default function getCampaignContent(campaign: ICampaign) {
                 <img
                     src={campaign.content[0].thumbnail}
                     alt={campaign.content[0].caption}
-                    className="object-cover rounded-lg w-full h-full"
+                    className="object-cover rounded-2xl w-full h-full"
                 />
             );
             break;
         case "audio":
             content = (
-                <div className="flex justify-center items-center object-cover rounded-lg w-full h-full bg-gray-400">
+                <div className="flex justify-center items-center object-cover rounded-2xl w-full h-full bg-gray-400">
                     <svg
                         width="63"
                         height="63"
