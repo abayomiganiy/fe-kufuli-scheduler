@@ -1,6 +1,10 @@
 import React from "react";
 import { useGetCampaigns } from "../../hooks/campaign.hook";
-import { ICampaign } from "../../interfaces/campaign.interface";
+import {
+    CreateImageMessage,
+    CreateTextStoryData,
+    ICampaign,
+} from "../../interfaces/campaign.interface";
 
 const ActiveCampaigns: React.FC = () => {
     const { data: activeCampaigns, isLoading: activeCampaignsIsLoading } =
@@ -46,26 +50,85 @@ const ActiveCampaigns: React.FC = () => {
                     <div className="">New campaign</div>
                 </div>
                 {activeCampaigns?.map((campaign, index) => (
-                    <ActiveCampaign key={index} campaign={campaign} />
+                    <ActiveCampaign key={index} campaign={campaign!} />
                 ))}
             </div>
         </div>
     );
 };
 
-const ActiveCampaign: React.FC<{ campaign?: ICampaign }> = ({ campaign }) => {
-    return (
-        <div className="relative laptop:w-40 w-32 laptop:h-64 h-48 flex cursor-pointer items-end justify-between p-4 rounded-2xl text-white">
-            <>
+const ActiveCampaign: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
+    let content;
+    switch (campaign.content[0].mimetype) {
+        case "image":
+            content = (
                 <img
-                    src={campaign?.image}
-                    alt={campaign?.title}
+                    src={campaign.content[0]?.image}
+                    alt={campaign.content[0]?.caption}
                     className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl"
                 />
-                <div className="absolute top-0 left-0 w-full h-full rounded-2xl bg-gradient-to-t from-0 from-black to-50% to-transparent opacity-80" />
-            </>
-            <div className="ml-4 z-40">
-                <h3 className="text-sm font-medium">{campaign?.title}</h3>
+            );
+            break;
+        case "text":
+            content = (
+                <div
+                    className={`flex items-center justify-center p-4 laptop:p-5 w-full h-full absolute top-0 left-0 object-cover rounded-2xl bg-[${
+                        (campaign.content[0] as CreateTextStoryData)
+                            .backgroundColor ?? "#000000"
+                    }]`}
+                >
+                    {campaign.content[0].text}
+                </div>
+            );
+            break;
+        case "video":
+            content = (
+                <img
+                    src={campaign.content[0].thumbnail}
+                    alt={campaign.content[0].caption}
+                    className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl"
+                />
+            );
+            break;
+        case "audio":
+            content = (
+                <div className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl flex justify-center items-center bg-gray-400">
+                    <svg
+                        width="63"
+                        height="63"
+                        viewBox="0 0 63 63"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="object-cover rounded-lg w-12 h-16 bg-gray-400"
+                    >
+                        <path
+                            d="M44.625 18.375V28.875C44.625 36.1237 38.7487 42 31.5 42C24.2513 42 18.375 36.1237 18.375 28.875V18.375C18.375 11.1263 24.2513 5.25 31.5 5.25C38.7487 5.25 44.625 11.1263 44.625 18.375Z"
+                            stroke="white"
+                            stroke-width="3.9375"
+                        />
+                        <path
+                            d="M52.5 28.875C52.5 40.473 43.098 49.875 31.5 49.875M31.5 49.875C19.902 49.875 10.5 40.473 10.5 28.875M31.5 49.875V57.75M31.5 57.75H39.375M31.5 57.75H23.625"
+                            stroke="white"
+                            stroke-width="3.9375"
+                            stroke-linecap="round"
+                        />
+                    </svg>
+                </div>
+            );
+            break;
+        default:
+            break;
+    }
+
+    return (
+        <div className="relative laptop:w-40 w-32 laptop:h-64 h-48 flex cursor-pointer items-end justify-between p-4 rounded-2xl text-white">
+            {content}
+            <div className="absolute top-0 left-0 w-full h-full rounded-2xl bg-gradient-to-t from-0 from-black to-50% to-transparent opacity-80" />
+
+            <div className="z-40">
+                <h3 className="text-sm font-medium line-clamp-1">
+                    {(campaign.content[0] as CreateImageMessage).caption}
+                </h3>
             </div>
         </div>
     );
