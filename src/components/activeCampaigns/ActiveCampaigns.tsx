@@ -123,8 +123,7 @@ const ActiveCampaign: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
     return (
         <div className="relative laptop:w-40 w-32 laptop:h-64 h-48 flex cursor-pointer items-end justify-between p-4 rounded-2xl text-white">
             {content}
-            <div className="absolute top-0 left-0 w-full h-full rounded-2xl bg-gradient-to-t from-0 from-black to-50% to-transparent opacity-80" />
-
+            {campaign.content[0].mimetype !== "text" && <div className="absolute top-0 left-0 w-full h-full rounded-2xl bg-gradient-to-t from-0 from-black to-50% to-transparent opacity-80" />}
             <div className="z-40">
                 <h3 className="text-sm font-medium line-clamp-1">
                     {(campaign.content[0] as CreateImageMessage).caption}
