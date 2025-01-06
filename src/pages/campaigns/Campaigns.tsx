@@ -1,6 +1,6 @@
 import React from "react";
 import SectionHeader from "../../components/sectionHeader";
-import CampaignContainer from "../../containers/campaignContainer";
+import CampaignContainer from "../../containers/campaignsContainer";
 
 const Campaigns: React.FC = () => {
     return (

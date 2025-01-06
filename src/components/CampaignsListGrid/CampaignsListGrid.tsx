@@ -1,7 +1,7 @@
 import { ICampaign } from "../../interfaces/campaign.interface";
 import CampaignGrid from "../campaignGrid";
 
-const CampaignListGrid: React.FC<{ campaigns: ICampaign[] }> = ({
+const CampaignsListGrid: React.FC<{ campaigns: ICampaign[] }> = ({
     campaigns,
 }) => {
     return (
@@ -13,4 +13,4 @@ const CampaignListGrid: React.FC<{ campaigns: ICampaign[] }> = ({
     );
 };
 
-export default CampaignListGrid;
+export default CampaignsListGrid;

@@ -1,7 +1,7 @@
-import CampaignListGrid from "../../components/campaignListGrid";
+import CampaignsListGrid from "../../components/CampaignsListGrid";
 import { useGetCampaigns } from "../../hooks/campaign.hook";
 
-const CampaignContainer: React.FC = () => {
+const CampaignsContainer: React.FC = () => {
     const { data: campaigns, isLoading: campaignsIsLoading } =
         useGetCampaigns();
 
@@ -9,15 +9,15 @@ const CampaignContainer: React.FC = () => {
         return (
             <div className="animate-pulse grid laptop:grid-cols-5 tablet:grid-cols-4 grid-cols-2 gap-5">
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]?.map((_, index) => (
-                    <CampaignLoading key={index} />
+                    <CampaignsLoading key={index} />
                 ))}
             </div>
         );
     }
-    return <CampaignListGrid campaigns={campaigns!} />;
+    return <CampaignsListGrid campaigns={campaigns!} />;
 };
 
-const CampaignLoading = () => {
+const CampaignsLoading = () => {
     return (
         <div className="flex flex-col items-center space-y-2">
             <div className="relative laptop:h-56 h-56 w-full">
@@ -78,4 +78,4 @@ const CampaignLoading = () => {
     );
 };
 
-export default CampaignContainer;
+export default CampaignsContainer;
