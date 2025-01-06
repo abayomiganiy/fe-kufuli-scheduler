@@ -1,12 +1,12 @@
 import React from "react";
-import SectionHeader from "../../components/sectionHeader";
-import CampaignContainer from "../../containers/campaignsContainer";
+import CampaignsContainer from "../../containers/campaignsContainer";
+import Button from "../../components/button";
 
 const Campaigns: React.FC = () => {
     return (
-        <div>
-            <SectionHeader title="Campaigns" />
-            <CampaignContainer />
+        <div className="relative">
+            <CampaignsContainer />
+            <Button className="fixed bottom-0 left-4 right-4 laptop:hidden">Create campaign</Button>
         </div>
     );
 };
