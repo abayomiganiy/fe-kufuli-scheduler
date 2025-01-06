@@ -53,7 +53,7 @@ export const getCampaigns = async (filter?: {
                     mimetype: "image",
                 } as CreateImageMessage,
             ],
-            status: "active",
+            status: "inactive",
             date: new Date("2021-01-01"),
         },
         {
@@ -81,7 +81,7 @@ export const getCampaigns = async (filter?: {
                     mimetype: "video",
                 } as CreateVideoMessage | CreateVideoStoryData,
             ],
-            status: "active",
+            status: "inactive",
             date: new Date("2021-01-01"),
         },
         {
