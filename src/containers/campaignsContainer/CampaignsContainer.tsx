@@ -6,14 +6,14 @@ const CampaignsContainer: React.FC = () => {
     const { data: campaigns, isLoading: campaignsIsLoading } =
         useGetCampaigns();
 
-    if (campaignsIsLoading) {
-        return <CampaignsLoading />;
-    }
-
     return (
         <div className="pb-16">
             <SectionHeader title="Campaigns" />
-            <CampaignsListGrid campaigns={campaigns!} />
+            {campaignsIsLoading ? (
+                <CampaignsLoading />
+            ) : (
+                <CampaignsListGrid campaigns={campaigns!} />
+            )}
         </div>
     );
 };
