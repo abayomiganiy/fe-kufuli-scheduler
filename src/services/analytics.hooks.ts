@@ -19,8 +19,8 @@ export const getAnalytics = async (): Promise<IAnalytics[]> => {
         },
         {
             name: "Total Views per Story/Message",
-            used: 94,
-            assigned: +18,
+            used: 18,
+            assigned: 94,
         },
         {
             name: "Average Views per Story",

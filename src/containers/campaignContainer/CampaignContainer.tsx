@@ -63,7 +63,7 @@ const CampaignLoading = () => {
             <div className="w-full flex flex-col gap-2">
                 <div className="flex justify-between items-center">
                     <div className="bg-[#E5E5E5] h-5 w-10 rounded-xl" />
-                    <div className="bg-[#E5E5E5] rounded h-5 w-10" />
+                    <div className="bg-[#E5E5E5] rounded h-5 w-16" />
                 </div>
                 <div className="h-2 w-full bg-[#E5E5E5]" />
                 <div className="h-2 w-1/2 bg-[#E5E5E5]" />
