@@ -11,7 +11,7 @@ const CampaignsContainer: React.FC = () => {
     }
 
     return (
-        <div className="pb-14">
+        <div className="pb-16">
             <SectionHeader title="Campaigns" />
             <CampaignsListGrid campaigns={campaigns!} />
         </div>

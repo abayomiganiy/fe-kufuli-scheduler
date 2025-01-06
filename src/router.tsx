@@ -2,6 +2,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import AuthLayout from "./layouts/authLayout";
 import DashboardLayout from "./layouts/dashboardLayout";
 import DashboardLayoutPlain from "./layouts/dashboardLayoutPlain";
+import Campaign from "./pages/campaign";
 import Campaigns from "./pages/campaigns";
 import ConnectAccount from "./pages/connectAccount";
 import ForgotPassword from "./pages/forgotPassword";
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
             { index: true, element: <Navigate to="/dashboard" /> },
             { path: "/dashboard", element: <Home /> },
             { path: "/campaigns", element: <Campaigns /> },
+            { path: "/campaigns/:id", element: <Campaign /> },
             { path: "/influencers", element: <Influencers /> },
             { path: "/pricing", element: <Pricing /> },
         ],

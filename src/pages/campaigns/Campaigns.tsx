@@ -6,7 +6,11 @@ const Campaigns: React.FC = () => {
     return (
         <div className="relative">
             <CampaignsContainer />
-            <Button className="fixed bottom-0 left-4 right-4 laptop:hidden">Create campaign</Button>
+            <div className="flex justify-center items-center px-4 py-2 fixed bottom-0 left-0 right-0 laptop:hidden bg-white">
+                <Button className="w-full">
+                    Create campaign
+                </Button>
+            </div>
         </div>
     );
 };

@@ -7,6 +7,7 @@ import {
     ICampaign,
 } from "../../interfaces/campaign.interface";
 import getCampaignContent from "../../utils/getCampaignContent";
+import { Link } from "react-router-dom";
 
 const CampaignGrid: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
     const content = getCampaignContent(campaign);
@@ -235,10 +236,10 @@ const CampaignGrid: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
 
     return (
         <div className="flex flex-col items-center space-y-2">
-            <div className="relative laptop:h-56 h-56 w-full">
+            <Link to={campaign.id} state={campaign} className="relative laptop:h-56 h-56 w-full">
                 <div className="absolute bottom-3 right-3">{campaignIcon}</div>
                 {content}
-            </div>
+            </Link>
             <div className="w-full flex flex-col gap-2">
                 <div className="flex justify-between items-center">
                     <Toggle isOn={campaign.status === "active"} />
