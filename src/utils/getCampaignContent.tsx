@@ -19,10 +19,12 @@ export default function getCampaignContent(campaign: ICampaign) {
             content = (
                 <div className={`laptop:h-56 h-56 w-full`}>
                     <div
-                        className={`flex justify-center items-center p-4 laptop:p-5 object-cover rounded-2xl w-full h-full bg-[${
-                            (campaign.content[0] as CreateTextStoryData)
-                                .backgroundColor ?? "#000000"
-                        }]`}
+                        style={{
+                            backgroundColor:
+                                (campaign.content[0] as CreateTextStoryData)
+                                    .backgroundColor ?? "#000000",
+                        }}
+                        className={`flex justify-center items-center p-4 laptop:p-5 object-cover rounded-2xl w-full h-full`}
                     >
                         {campaign.content[0].text}
                     </div>

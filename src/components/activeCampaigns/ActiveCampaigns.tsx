@@ -59,6 +59,7 @@ const ActiveCampaigns: React.FC = () => {
 
 const ActiveCampaign: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
     let content;
+
     switch (campaign.content[0].mimetype) {
         case "image":
             content = (
@@ -72,10 +73,12 @@ const ActiveCampaign: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
         case "text":
             content = (
                 <div
-                    className={`flex items-center justify-center p-4 laptop:p-5 w-full h-full absolute top-0 left-0 object-cover rounded-2xl bg-[${
-                        (campaign.content[0] as CreateTextStoryData)
-                            .backgroundColor ?? "#000000"
-                    }]`}
+                    style={{
+                        backgroundColor:
+                            (campaign.content[0] as CreateTextStoryData)
+                                .backgroundColor ?? "#000000",
+                    }}
+                    className={`flex items-center justify-center p-4 laptop:p-5 w-full h-full absolute top-0 left-0 object-cover rounded-2xl`}
                 >
                     {campaign.content[0].text}
                 </div>
@@ -123,7 +126,9 @@ const ActiveCampaign: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
     return (
         <div className="relative laptop:w-40 w-32 laptop:h-64 h-48 flex cursor-pointer items-end justify-between p-4 rounded-2xl text-white">
             {content}
-            {campaign.content[0].mimetype !== "text" && <div className="absolute top-0 left-0 w-full h-full rounded-2xl bg-gradient-to-t from-0 from-black to-50% to-transparent opacity-80" />}
+            {campaign.content[0].mimetype !== "text" && (
+                <div className="absolute top-0 left-0 w-full h-full rounded-2xl bg-gradient-to-t from-0 from-black to-50% to-transparent opacity-80" />
+            )}
             <div className="z-40">
                 <h3 className="text-sm font-medium line-clamp-1">
                     {(campaign.content[0] as CreateImageMessage).caption}
