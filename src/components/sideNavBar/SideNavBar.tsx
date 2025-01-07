@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useLogout } from "../../hooks/auth.hook";
 import Button from "../button";
 import Logo from "../logo";
@@ -20,6 +20,7 @@ const SideNavBar: React.FC<SideNavBarProps> = ({
     showSideNavBar,
     onCloseSideNavBar,
 }) => {
+    const navigate = useNavigate();
     const { mutate: logout } = useLogout();
     const navLinks: INavLink[] = [
         {
@@ -146,7 +147,15 @@ const SideNavBar: React.FC<SideNavBarProps> = ({
             >
                 <Logo onCloseSideNavBar={onCloseSideNavBar} />
                 <div className="flex flex-col gap-5">
-                    <Button variant="primary" type="button" className="w-full">
+                    <Button
+                        variant="primary"
+                        type="button"
+                        className="w-full"
+                        onClick={() => {
+                            onCloseSideNavBar();
+                            navigate("/create-campaign");
+                        }}
+                    >
                         <svg
                             width="25"
                             height="25"

@@ -12,6 +12,7 @@ import Login from "./pages/login";
 import Pricing from "./pages/pricing";
 import SignUp from "./pages/signUp";
 import VerifyAccount from "./pages/verifyAccount";
+import CreateCampaign from "./pages/createCampaign";
 
 export const router = createBrowserRouter([
     {
@@ -21,6 +22,7 @@ export const router = createBrowserRouter([
             { index: true, element: <Navigate to="/dashboard" /> },
             { path: "/dashboard", element: <Home /> },
             { path: "/campaigns", element: <Campaigns /> },
+            { path: "/create-campaign", element: <CreateCampaign /> },
             { path: "/campaigns/:id", element: <Campaign /> },
             { path: "/influencers", element: <Influencers /> },
             { path: "/pricing", element: <Pricing /> },
