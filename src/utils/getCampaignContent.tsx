@@ -23,6 +23,7 @@ export default function getCampaignContent(campaign: ICampaign) {
                             backgroundColor:
                                 (campaign.content[0] as CreateTextStoryData)
                                     .backgroundColor ?? "#000000",
+                            color: "#ffffff",
                         }}
                         className={`flex justify-center items-center p-4 laptop:p-5 object-cover rounded-2xl w-full h-full`}
                     >

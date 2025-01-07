@@ -77,6 +77,7 @@ const ActiveCampaign: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
                         backgroundColor:
                             (campaign.content[0] as CreateTextStoryData)
                                 .backgroundColor ?? "#000000",
+                        color: "#ffffff",
                     }}
                     className={`flex items-center justify-center p-4 laptop:p-5 w-full h-full absolute top-0 left-0 object-cover rounded-2xl`}
                 >
