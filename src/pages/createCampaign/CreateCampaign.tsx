@@ -8,6 +8,7 @@ import BackIcon from "../../components/icons/backIcon";
 
 const CreateCampaign: React.FC = () => {
     const [contents, setContents] = useState<CreateImageMessage[]>([]);
+    
     useEffect(() => {
         setContents([
             {
@@ -32,6 +33,7 @@ const CreateCampaign: React.FC = () => {
             } as CreateImageMessage,
         ]);
     }, []);
+
     return (
         <div>
             <div className="flex items-center gap-3">
@@ -51,7 +53,7 @@ const CreateCampaign: React.FC = () => {
                                 <textarea
                                     rows={3}
                                     defaultValue={content.caption}
-                                    className="p-2 rounded-lg border border-[#d9d9d9] outline-none"
+                                    className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
                                 />
                             </div>
                         ))}
