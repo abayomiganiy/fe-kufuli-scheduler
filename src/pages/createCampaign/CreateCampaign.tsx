@@ -1,38 +1,18 @@
-import React, { useEffect, useState } from "react";
-import campaign1 from "../../assets/test-campaign/Rectangle 110.png";
-import campaign2 from "../../assets/communication-social-media-icons-smartphone-device.png";
-import SectionHeader from "../../components/sectionHeader";
-import { CreateImageMessage } from "../../interfaces/campaign.interface";
+import React, { useState } from "react";
 import Button from "../../components/button";
 import BackIcon from "../../components/icons/backIcon";
+import SectionHeader from "../../components/sectionHeader";
+import campaign1 from "../../assets/test-campaign/Rectangle 110.png";
+import {
+    CreateImageMessage,
+    CreateTextMessage,
+    CreateTextStoryData,
+    ICreateCampaignContent,
+} from "../../interfaces/campaign.interface";
+import RadioGroup from "../../components/radioGroup/RadioGroup";
 
 const CreateCampaign: React.FC = () => {
-    const [contents, setContents] = useState<CreateImageMessage[]>([]);
-    
-    useEffect(() => {
-        setContents([
-            {
-                image: campaign2,
-                caption: "Campaign 2",
-                views: 23,
-                mimetype: "image",
-            } as CreateImageMessage,
-            {
-                caption:
-                    "campaign1 jkf eijneui jierbibiebfi neriuhienhui9nhie rebie8oenor jkd",
-                image: campaign1,
-                views: 23,
-                mimetype: "image",
-            } as CreateImageMessage,
-            {
-                caption:
-                    "campaign1 jkf eijneui jierbibiebfi neriuhienhui9nhie rebie8oenor jkd",
-                image: campaign1,
-                views: 23,
-                mimetype: "image",
-            } as CreateImageMessage,
-        ]);
-    }, []);
+    const [contents, setContents] = useState<ICreateCampaignContent[]>([]);
 
     return (
         <div>
@@ -46,13 +26,13 @@ const CreateCampaign: React.FC = () => {
                         {contents.map((content, index) => (
                             <div key={index} className="flex flex-col gap-3">
                                 <img
-                                    src={content.image}
-                                    alt={content.caption}
+                                    src={(content as CreateImageMessage).image}
+                                    alt={(content as CreateImageMessage).caption}
                                     className="w-52 h-72 object-cover rounded-lg"
                                 />
                                 <textarea
                                     rows={3}
-                                    defaultValue={content.caption}
+                                    defaultValue={(content as CreateImageMessage).caption}
                                     className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
                                 />
                             </div>
@@ -66,6 +46,17 @@ const CreateCampaign: React.FC = () => {
                         viewBox="0 0 65 65"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
+                        onClick={() =>
+                            setContents((prevState) => [
+                                {
+                                    text: "Join us on Open regist futsal championshup 2024",
+                                    views: 23,
+                                    mimetype: "text",
+                                    backgroundColor: "#ff00ff",
+                                } as CreateTextMessage | CreateTextStoryData,
+                                ...prevState,
+                            ])
+                        }
                     >
                         <rect
                             x="0.820255"
@@ -107,6 +98,18 @@ const CreateCampaign: React.FC = () => {
                         viewBox="0 0 65 65"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
+                        onClick={() =>
+                            setContents((prevState) => [
+                                {
+                                    caption:
+                                        "campaign1 jkf eijneui jierbibiebfi neriuhienhui9nhie rebie8oenor jkd",
+                                    image: campaign1,
+                                    views: 23,
+                                    mimetype: "image",
+                                } as CreateImageMessage,
+                                ...prevState,
+                            ])
+                        }
                     >
                         <rect
                             x="0.820255"
@@ -258,63 +261,36 @@ const CreateCampaign: React.FC = () => {
                     </svg>
                 </div>
                 <div>
-                    <h3>Is this rated 18+</h3>
-                    <div className="flex flex-col justify-center ">
-                        {["Yes", "No"].map((option, index) => (
-                            <div
-                                key={index}
-                                className="flex items-center gap-4 p-2"
-                            >
-                                <input
-                                    type="radio"
-                                    id={option}
-                                    name="is_eighteen_plus"
-                                    value={option}
-                                />
-                                <label htmlFor={option}>{option}</label>
-                            </div>
-                        ))}
-                    </div>
+                    <RadioGroup
+                        name="is_eighteen_plus"
+                        title="Is this rated 18+"
+                        options={[
+                            { label: "Yes", value: "yes" },
+                            { label: "No", value: "no" },
+                        ]}
+                    />
                 </div>
                 <div>
-                    <h3>Frequency</h3>
-                    <div className="flex flex-col justify-center ">
-                        {["Once", "Daily", "Weekly", "Custom"].map(
-                            (option, index) => (
-                                <div
-                                    key={index}
-                                    className="flex items-center gap-4 p-2"
-                                >
-                                    <input
-                                        type="radio"
-                                        id={option}
-                                        name="frequency"
-                                        value={option}
-                                    />
-                                    <label htmlFor={option}>{option}</label>
-                                </div>
-                            )
-                        )}
-                    </div>
+                    <RadioGroup
+                        name="frequency"
+                        title="Frequency"
+                        options={[
+                            { label: "Once", value: "once" },
+                            { label: "Daily", value: "daily" },
+                            { label: "Weekly", value: "weekly" },
+                            { label: "Custom", value: "custom" },
+                        ]}
+                    />
                 </div>
                 <div>
-                    <h3>Schedule</h3>
-                    <div className="flex flex-col justify-center ">
-                        {["Post now", "Select Date"].map((option, index) => (
-                            <div
-                                key={index}
-                                className="flex items-center gap-4 p-2"
-                            >
-                                <input
-                                    type="radio"
-                                    id={option}
-                                    name="schedule"
-                                    value={option}
-                                />
-                                <label htmlFor={option}>{option}</label>
-                            </div>
-                        ))}
-                    </div>
+                    <RadioGroup
+                        name="schedule"
+                        title="Schedule"
+                        options={[
+                            { label: "Post now", value: "post_now" },
+                            { label: "Select Date", value: "select_ate" },
+                        ]}
+                    />
                 </div>
                 <Button>Continue</Button>
             </div>
