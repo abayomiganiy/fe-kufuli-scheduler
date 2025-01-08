@@ -5,8 +5,10 @@ import {
     CreateTextStoryData,
     ICampaign,
 } from "../../interfaces/campaign.interface";
+import { useNavigate } from "react-router-dom";
 
 const ActiveCampaigns: React.FC = () => {
+    const navigate = useNavigate()
     const { data: activeCampaigns, isLoading: activeCampaignsIsLoading } =
         useGetCampaigns({ status: "active" });
 
@@ -25,7 +27,7 @@ const ActiveCampaigns: React.FC = () => {
     return (
         <div className="flex overflow-auto no-scrollbar">
             <div className="flex gap-4 flex-nowrap">
-                <div className="laptop:w-40 w-32 laptop:h-64 h-48 cursor-pointer flex flex-col items-center justify-between bg-[#E5E5E5] p-4 rounded-2xl border border-gray-200">
+                <button className="laptop:w-40 w-32 laptop:h-64 h-48 cursor-pointer flex flex-col items-center justify-between bg-[#E5E5E5] p-4 rounded-2xl border border-gray-200" onClick={() => navigate("/create-campaign")}>
                     <svg
                         width="72"
                         height="72"
@@ -48,7 +50,7 @@ const ActiveCampaigns: React.FC = () => {
                         />
                     </svg>
                     <div className="">New campaign</div>
-                </div>
+                </button>
                 {activeCampaigns?.map((campaign, index) => (
                     <ActiveCampaign key={index} campaign={campaign!} />
                 ))}

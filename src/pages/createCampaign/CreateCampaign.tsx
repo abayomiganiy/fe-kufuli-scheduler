@@ -41,7 +41,7 @@ const CreateCampaign: React.FC = () => {
                 <SectionHeader title="CreateCampaign" />
             </div>
             <div className="flex flex-col gap-5">
-                <div className="flex overflow-auto">
+                <div className="flex overflow-auto pb-5">
                     <div className="flex justify-center gap-4 flex-nowrap">
                         {contents.map((content, index) => (
                             <div key={index} className="flex flex-col gap-3">
