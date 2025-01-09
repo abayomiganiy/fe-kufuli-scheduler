@@ -5,7 +5,7 @@ export type CampaignContentType =
     | "image"
     | "video"
     | "audio"
-    | "document";
+    // | "document";
 
 export enum FontType {
     CALISTOGA_REGULAR = 8,
