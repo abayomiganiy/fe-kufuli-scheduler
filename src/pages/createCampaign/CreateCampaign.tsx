@@ -56,7 +56,7 @@ const CreateCampaign: React.FC = () => {
                 image: campaign1,
                 views: 23,
                 mimetype: "image",
-            } as CreateImageMessage,
+            } as CreateImageMessage | CreateImageStory,
         ]);
     }, []);
 
