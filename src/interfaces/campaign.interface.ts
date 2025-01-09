@@ -102,15 +102,17 @@ export interface ICreateCampaign {
 }
 
 export type ICreateCampaignContent =
-    | CreateTextMessage
-    | CreateImageMessage
-    | CreateVideoMessage
-    | CreateAudioMessage
-    | CreateDocumentMessage
-    | CreateTextStory
-    | CreateImageStory
-    | CreateVideoStory
-    | CreateAudioStory;
+    | { id: `${string}-${string}-${string}-${string}-${string}` } & (
+          | CreateTextMessage
+          | CreateImageMessage
+          | CreateVideoMessage
+          | CreateAudioMessage
+          | CreateDocumentMessage
+          | CreateTextStory
+          | CreateImageStory
+          | CreateVideoStory
+          | CreateAudioStory
+      );
 
 export interface ICampaign {
     id: string;

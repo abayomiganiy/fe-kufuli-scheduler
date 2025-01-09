@@ -1,81 +1,40 @@
-import React, { useEffect, useState } from "react";
-import campaign2 from "../../assets/communication-social-media-icons-smartphone-device.png";
-import campaign1 from "../../assets/test-campaign/Rectangle 110.png";
+import React from "react";
+import { v4 as uuidv4 } from "uuid";
 import Button from "../../components/button";
+import CampaignContentPreview from "../../components/campaignContentPreview";
 import ContentTypeIcon from "../../components/contentTypeIcon";
 import BackIcon from "../../components/icons/backIcon";
 import RadioGroup from "../../components/radioGroup/RadioGroup";
 import SectionHeader from "../../components/sectionHeader";
 import {
     CampaignContentType,
-    CreateImageMessage,
-    CreateImageStory,
-    CreateTextMessage,
-    CreateTextStory,
     ICreateCampaignContent,
 } from "../../interfaces/campaign.interface";
+import { useCreateCampaignContent } from "../../store/campaignStore";
 
 const CreateCampaign: React.FC = () => {
-    const [contents, setContents] = useState<ICreateCampaignContent[]>([]);
-    const handleAddContent = (type: CampaignContentType) => {
-        switch (type) {
-            case "text":
-                setContents((prev) => [
-                    {
-                        text: "campaign1 jkf eijneui jierbibiebfi neriuhienhui9nhie rebie8oenor jkd",
-                        views: 23,
-                        backgroundColor: "#ff00ff",
-                        mimetype: "text",
-                    } as CreateTextMessage | CreateTextStory,
-                    ...prev,
-                ]);
-                break;
-            case "image":
-                setContents((prev) => [
-                    {
-                        caption:
-                            "Something else here",
-                        image: campaign1,
-                        views: 23,
-                        mimetype: "image",
-                    } as CreateImageMessage | CreateImageStory,
-                    ...prev,
-                ]);
-                break;
-            case "video":
-                alert("Add campaign video content");
-                break;
-            case "audio":
-                alert("Add campaign audio content");
-                break;
-            default:
-                break;
-        }
+    const { contents, addContent } = useCreateCampaignContent((state) => state);
+    const contentTemplates: Record<
+        CampaignContentType,
+        Partial<ICreateCampaignContent>
+    > = {
+        text: { text: "Type a story", backgroundColor: "#ff00ff", mimetype: "text" },
+        image: { caption: "", image: "", mimetype: "image" },
+        video: { caption: "", video: "", mimetype: "video" },
+        audio: { audio: "", mimetype: "audio" },
     };
 
-    useEffect(() => {
-        setContents([
-            {
-                image: campaign2,
-                caption: "Campaign 2",
-                views: 23,
-                mimetype: "image",
-            } as CreateImageMessage | CreateImageStory,
-            {
-                text: "campaign1 jkf eijneui jierbibiebfi neriuhienhui9nhie rebie8oenor jkd",
-                views: 23,
-                backgroundColor: "#ff00ff",
-                mimetype: "text",
-            } as CreateTextMessage | CreateTextStory,
-            {
-                caption:
-                    "campaign1 jkf eijneui jierbibiebfi neriuhienhui9nhie rebie8oenor jkd",
-                image: campaign1,
-                views: 23,
-                mimetype: "image",
-            } as CreateImageMessage | CreateImageStory,
-        ]);
-    }, []);
+    const handleAddContent = (type: CampaignContentType) => {
+        const template = contentTemplates[type];
+        if (template) {
+            addContent({
+                id: uuidv4(),
+                ...template,
+            } as ICreateCampaignContent);
+        } else {
+            console.error(`Unsupported content type: ${type}`);
+        }
+    };
 
     return (
         <div>
@@ -86,8 +45,11 @@ const CreateCampaign: React.FC = () => {
             <div className="flex flex-col gap-5">
                 <div className="flex overflow-auto pb-5">
                     <div className="flex justify-center gap-4 flex-nowrap">
-                        {contents.map((content, index) => (
-                            <ContentPreview key={index} content={content} />
+                        {contents.map((content) => (
+                            <CampaignContentPreview
+                                content={content}
+                                key={content.id}
+                            />
                         ))}
                     </div>
                 </div>
@@ -142,42 +104,6 @@ const CreateCampaign: React.FC = () => {
                 <Button>Continue</Button>
             </div>
         </div>
-    );
-};
-
-const ContentPreview: React.FC<{ content: ICreateCampaignContent }> = ({
-    content,
-}) => {
-    return (
-        <>
-            {content.mimetype === "image" ? (
-                <div className="flex flex-col gap-3">
-                    <img
-                        src={(content as CreateImageMessage).image}
-                        alt={(content as CreateImageMessage).caption}
-                        className="w-52 h-72 object-cover rounded-lg"
-                    />
-                    <textarea
-                        rows={3}
-                        defaultValue={(content as CreateImageMessage).caption}
-                        className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
-                    />
-                </div>
-            ) : content.mimetype === "text" ? (
-                <div className="flex flex-col gap-3">
-                    <div
-                        className="w-52 h-72 rounded-lg flex items-center justify-center text-white p-4"
-                        style={{
-                            backgroundColor:
-                                (content as CreateTextStory).backgroundColor ??
-                                "black",
-                        }}
-                    >
-                        {content.text}
-                    </div>
-                </div>
-            ) : null}
-        </>
     );
 };
 
