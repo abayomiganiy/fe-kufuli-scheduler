@@ -12,6 +12,7 @@ import {
     CreateVideoStory,
     ICampaign,
 } from "../interfaces/campaign.interface";
+import { v4 as uuidv4 } from "uuid";
 
 export const getCampaigns = async (filter?: {
     status: CampaignStatus;
@@ -21,6 +22,7 @@ export const getCampaigns = async (filter?: {
             id: "10",
             content: [
                 {
+                    id: uuidv4(),
                     caption:
                         "campaign1 jkf eijneui jierbibiebfi neriuhienhui9nhie rebie8oenor jkd",
                     image: campaign1,
@@ -35,6 +37,7 @@ export const getCampaigns = async (filter?: {
             id: "20",
             content: [
                 {
+                    id: uuidv4(),
                     image: campaign2,
                     caption: "Campaign 2",
                     views: 23,
@@ -48,6 +51,7 @@ export const getCampaigns = async (filter?: {
             id: "30",
             content: [
                 {
+                    id: uuidv4(),
                     image: campaign3,
                     caption: "Campaign 3",
                     views: 23,
@@ -61,6 +65,7 @@ export const getCampaigns = async (filter?: {
             id: "40",
             content: [
                 {
+                    id: uuidv4(),
                     text: "Join us on Open regist futsal championshup 2024",
                     views: 23,
                     mimetype: "text",
@@ -74,6 +79,7 @@ export const getCampaigns = async (filter?: {
             id: "50",
             content: [
                 {
+                    id: uuidv4(),
                     caption: "Campaign 3",
                     video: "",
                     thumbnail: campaign1,
@@ -89,6 +95,7 @@ export const getCampaigns = async (filter?: {
             id: "60",
             content: [
                 {
+                    id: uuidv4(),
                     audio: "",
                     contactList: [],
                     views: 23,
