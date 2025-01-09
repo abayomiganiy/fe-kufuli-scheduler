@@ -18,7 +18,7 @@ const CreateCampaign: React.FC = () => {
         CampaignContentType,
         Partial<ICreateCampaignContent>
     > = {
-        text: { text: "Type a story", backgroundColor: "#ff00ff", mimetype: "text" },
+        text: { text: "Type a story", mimetype: "text" },
         image: { caption: "", image: "", mimetype: "image" },
         video: { caption: "", video: "", mimetype: "video" },
         audio: { audio: "", mimetype: "audio" },
