@@ -20,10 +20,27 @@ const CreateCampaign: React.FC = () => {
     const handleAddContent = (type: CampaignContentType) => {
         switch (type) {
             case "text":
-                alert("Add campaign text content");
+                setContents((prev) => [
+                    {
+                        text: "campaign1 jkf eijneui jierbibiebfi neriuhienhui9nhie rebie8oenor jkd",
+                        views: 23,
+                        backgroundColor: "#ff00ff",
+                        mimetype: "text",
+                    } as CreateTextMessage | CreateTextStory,
+                    ...prev,
+                ]);
                 break;
             case "image":
-                alert("Add campaign image content");
+                setContents((prev) => [
+                    {
+                        caption:
+                            "Something else here",
+                        image: campaign1,
+                        views: 23,
+                        mimetype: "image",
+                    } as CreateImageMessage | CreateImageStory,
+                    ...prev,
+                ]);
                 break;
             case "video":
                 alert("Add campaign video content");
