@@ -80,6 +80,7 @@ const ContentTypeIcon = ({
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             onClick={onClick}
+            className="cursor-pointer"
         >
             <rect
                 x="0.820255"

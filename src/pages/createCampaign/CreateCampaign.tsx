@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import campaign2 from "../../assets/communication-social-media-icons-smartphone-device.png";
+import campaign1 from "../../assets/test-campaign/Rectangle 110.png";
 import Button from "../../components/button";
 import ContentTypeIcon from "../../components/contentTypeIcon";
 import BackIcon from "../../components/icons/backIcon";
@@ -7,11 +9,49 @@ import SectionHeader from "../../components/sectionHeader";
 import {
     CampaignContentType,
     CreateImageMessage,
+    CreateTextMessage,
+    CreateTextStoryData,
     ICreateCampaignContent,
 } from "../../interfaces/campaign.interface";
 
+const ContentPreview: React.FC<{ content: ICreateCampaignContent }> = ({
+    content,
+}) => {
+    return (
+        <>
+            {content.mimetype === "image" ? (
+                <div className="flex flex-col gap-3">
+                    <img
+                        src={(content as CreateImageMessage).image}
+                        alt={(content as CreateImageMessage).caption}
+                        className="w-52 h-72 object-cover rounded-lg"
+                    />
+                    <textarea
+                        rows={3}
+                        defaultValue={(content as CreateImageMessage).caption}
+                        className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
+                    />
+                </div>
+            ) : content.mimetype === "text" ? (
+                <div className="flex flex-col gap-3">
+                    <div
+                        className="w-52 h-72 rounded-lg flex items-center justify-center text-white p-4"
+                        style={{
+                            backgroundColor:
+                                (content as CreateTextStoryData)
+                                    .backgroundColor ?? "black",
+                        }}
+                    >
+                        {content.text}
+                    </div>
+                </div>
+            ) : null}
+        </>
+    );
+};
+
 const CreateCampaign: React.FC = () => {
-    const [contents] = useState<ICreateCampaignContent[]>([]);
+    const [contents, setContents] = useState<ICreateCampaignContent[]>([]);
     const handleAddContent = (type: CampaignContentType) => {
         switch (type) {
             case "text":
@@ -31,6 +71,30 @@ const CreateCampaign: React.FC = () => {
         }
     };
 
+    useEffect(() => {
+        setContents([
+            {
+                image: campaign2,
+                caption: "Campaign 2",
+                views: 23,
+                mimetype: "image",
+            } as CreateImageMessage,
+            {
+                text: "campaign1 jkf eijneui jierbibiebfi neriuhienhui9nhie rebie8oenor jkd",
+                views: 23,
+                backgroundColor: "#ff00ff",
+                mimetype: "text",
+            } as CreateTextMessage | CreateTextStoryData,
+            {
+                caption:
+                    "campaign1 jkf eijneui jierbibiebfi neriuhienhui9nhie rebie8oenor jkd",
+                image: campaign1,
+                views: 23,
+                mimetype: "image",
+            } as CreateImageMessage,
+        ]);
+    }, []);
+
     return (
         <div>
             <div className="flex items-center gap-3">
@@ -41,22 +105,7 @@ const CreateCampaign: React.FC = () => {
                 <div className="flex overflow-auto pb-5">
                     <div className="flex justify-center gap-4 flex-nowrap">
                         {contents.map((content, index) => (
-                            <div key={index} className="flex flex-col gap-3">
-                                <img
-                                    src={(content as CreateImageMessage).image}
-                                    alt={
-                                        (content as CreateImageMessage).caption
-                                    }
-                                    className="w-52 h-72 object-cover rounded-lg"
-                                />
-                                <textarea
-                                    rows={3}
-                                    defaultValue={
-                                        (content as CreateImageMessage).caption
-                                    }
-                                    className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
-                                />
-                            </div>
+                            <ContentPreview key={index} content={content} />
                         ))}
                     </div>
                 </div>
