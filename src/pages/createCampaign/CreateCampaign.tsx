@@ -9,46 +9,11 @@ import SectionHeader from "../../components/sectionHeader";
 import {
     CampaignContentType,
     CreateImageMessage,
+    CreateImageStory,
     CreateTextMessage,
-    CreateTextStoryData,
+    CreateTextStory,
     ICreateCampaignContent,
 } from "../../interfaces/campaign.interface";
-
-const ContentPreview: React.FC<{ content: ICreateCampaignContent }> = ({
-    content,
-}) => {
-    return (
-        <>
-            {content.mimetype === "image" ? (
-                <div className="flex flex-col gap-3">
-                    <img
-                        src={(content as CreateImageMessage).image}
-                        alt={(content as CreateImageMessage).caption}
-                        className="w-52 h-72 object-cover rounded-lg"
-                    />
-                    <textarea
-                        rows={3}
-                        defaultValue={(content as CreateImageMessage).caption}
-                        className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
-                    />
-                </div>
-            ) : content.mimetype === "text" ? (
-                <div className="flex flex-col gap-3">
-                    <div
-                        className="w-52 h-72 rounded-lg flex items-center justify-center text-white p-4"
-                        style={{
-                            backgroundColor:
-                                (content as CreateTextStoryData)
-                                    .backgroundColor ?? "black",
-                        }}
-                    >
-                        {content.text}
-                    </div>
-                </div>
-            ) : null}
-        </>
-    );
-};
 
 const CreateCampaign: React.FC = () => {
     const [contents, setContents] = useState<ICreateCampaignContent[]>([]);
@@ -78,13 +43,13 @@ const CreateCampaign: React.FC = () => {
                 caption: "Campaign 2",
                 views: 23,
                 mimetype: "image",
-            } as CreateImageMessage,
+            } as CreateImageMessage | CreateImageStory,
             {
                 text: "campaign1 jkf eijneui jierbibiebfi neriuhienhui9nhie rebie8oenor jkd",
                 views: 23,
                 backgroundColor: "#ff00ff",
                 mimetype: "text",
-            } as CreateTextMessage | CreateTextStoryData,
+            } as CreateTextMessage | CreateTextStory,
             {
                 caption:
                     "campaign1 jkf eijneui jierbibiebfi neriuhienhui9nhie rebie8oenor jkd",
@@ -160,6 +125,42 @@ const CreateCampaign: React.FC = () => {
                 <Button>Continue</Button>
             </div>
         </div>
+    );
+};
+
+const ContentPreview: React.FC<{ content: ICreateCampaignContent }> = ({
+    content,
+}) => {
+    return (
+        <>
+            {content.mimetype === "image" ? (
+                <div className="flex flex-col gap-3">
+                    <img
+                        src={(content as CreateImageMessage).image}
+                        alt={(content as CreateImageMessage).caption}
+                        className="w-52 h-72 object-cover rounded-lg"
+                    />
+                    <textarea
+                        rows={3}
+                        defaultValue={(content as CreateImageMessage).caption}
+                        className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
+                    />
+                </div>
+            ) : content.mimetype === "text" ? (
+                <div className="flex flex-col gap-3">
+                    <div
+                        className="w-52 h-72 rounded-lg flex items-center justify-center text-white p-4"
+                        style={{
+                            backgroundColor:
+                                (content as CreateTextStory).backgroundColor ??
+                                "black",
+                        }}
+                    >
+                        {content.text}
+                    </div>
+                </div>
+            ) : null}
+        </>
     );
 };
 

@@ -4,12 +4,12 @@ import campaign3 from "../assets/test-campaign/top-performing.png";
 import {
     CampaignStatus,
     CreateAudioMessage,
-    CreateAudioStoryData,
+    CreateAudioStory,
     CreateImageMessage,
     CreateTextMessage,
-    CreateTextStoryData,
+    CreateTextStory,
     CreateVideoMessage,
-    CreateVideoStoryData,
+    CreateVideoStory,
     ICampaign,
 } from "../interfaces/campaign.interface";
 
@@ -21,7 +21,8 @@ export const getCampaigns = async (filter?: {
             id: "10",
             content: [
                 {
-                    caption: "campaign1 jkf eijneui jierbibiebfi neriuhienhui9nhie rebie8oenor jkd",
+                    caption:
+                        "campaign1 jkf eijneui jierbibiebfi neriuhienhui9nhie rebie8oenor jkd",
                     image: campaign1,
                     views: 23,
                     mimetype: "image",
@@ -64,7 +65,7 @@ export const getCampaigns = async (filter?: {
                     views: 23,
                     mimetype: "text",
                     backgroundColor: "#ff00ff",
-                } as CreateTextMessage | CreateTextStoryData,
+                } as CreateTextMessage | CreateTextStory,
             ],
             status: "active",
             date: new Date("2021-01-01"),
@@ -79,7 +80,7 @@ export const getCampaigns = async (filter?: {
                     contactList: [],
                     views: 23,
                     mimetype: "video",
-                } as CreateVideoMessage | CreateVideoStoryData,
+                } as CreateVideoMessage | CreateVideoStory,
             ],
             status: "inactive",
             date: new Date("2021-01-01"),
@@ -92,7 +93,7 @@ export const getCampaigns = async (filter?: {
                     contactList: [],
                     views: 23,
                     mimetype: "audio",
-                } as CreateAudioMessage | CreateAudioStoryData,
+                } as CreateAudioMessage | CreateAudioStory,
             ],
             status: "active",
             date: new Date("2021-01-01"),

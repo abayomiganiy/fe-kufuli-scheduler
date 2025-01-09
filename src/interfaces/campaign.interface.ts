@@ -1,11 +1,7 @@
 export type CampaignStatus = "active" | "pending" | "inactive";
 export type MessageType = "group" | "number";
-export type CampaignContentType =
-    | "text"
-    | "image"
-    | "video"
-    | "audio"
-    // | "document";
+export type CampaignContentType = "text" | "image" | "video" | "audio";
+// | "document";
 
 export enum FontType {
     CALISTOGA_REGULAR = 8,
@@ -64,7 +60,7 @@ export type CreateDocumentMessage = {
     document: string;
 };
 
-export type CreateTextStoryData = {
+export type CreateTextStory = {
     text: string;
     mimetype: "text";
     views: number;
@@ -73,7 +69,7 @@ export type CreateTextStoryData = {
     backgroundColor: string;
 };
 
-export type CreateImageStoryData = {
+export type CreateImageStory = {
     mimetype: "image";
     views: number;
     image: string;
@@ -81,7 +77,7 @@ export type CreateImageStoryData = {
     contactList: string[];
 };
 
-export type CreateVideoStoryData = {
+export type CreateVideoStory = {
     mimetype: "video";
     views: number;
     video: string;
@@ -90,7 +86,7 @@ export type CreateVideoStoryData = {
     contactList: string[];
 };
 
-export type CreateAudioStoryData = {
+export type CreateAudioStory = {
     mimetype: "audio";
     views: number;
     audio: string;
@@ -111,10 +107,10 @@ export type ICreateCampaignContent =
     | CreateVideoMessage
     | CreateAudioMessage
     | CreateDocumentMessage
-    | CreateTextStoryData
-    | CreateImageStoryData
-    | CreateVideoStoryData
-    | CreateAudioStoryData;
+    | CreateTextStory
+    | CreateImageStory
+    | CreateVideoStory
+    | CreateAudioStory;
 
 export interface ICampaign {
     id: string;

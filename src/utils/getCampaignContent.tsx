@@ -1,7 +1,4 @@
-import {
-    CreateTextStoryData,
-    ICampaign,
-} from "../interfaces/campaign.interface";
+import { CreateTextStory, ICampaign } from "../interfaces/campaign.interface";
 
 export default function getCampaignContent(campaign: ICampaign) {
     let content;
@@ -21,7 +18,7 @@ export default function getCampaignContent(campaign: ICampaign) {
                     <div
                         style={{
                             backgroundColor:
-                                (campaign.content[0] as CreateTextStoryData)
+                                (campaign.content[0] as CreateTextStory)
                                     .backgroundColor ?? "#000000",
                             color: "#ffffff",
                         }}

@@ -3,7 +3,7 @@ import Toggle from "../toggle";
 import {
     CreateImageMessage,
     CreateTextMessage,
-    CreateTextStoryData,
+    CreateTextStory,
     ICampaign,
 } from "../../interfaces/campaign.interface";
 import getCampaignContent from "../../utils/getCampaignContent";
@@ -236,21 +236,27 @@ const CampaignGrid: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
 
     return (
         <div className="flex flex-col items-center space-y-2">
-            <Link to={campaign.id} state={campaign} className="relative laptop:h-56 h-56 w-full">
+            <Link
+                to={campaign.id}
+                state={campaign}
+                className="relative laptop:h-56 h-56 w-full"
+            >
                 <div className="absolute bottom-3 right-3">{campaignIcon}</div>
                 {content}
             </Link>
             <div className="w-full flex flex-col gap-2">
                 <div className="flex justify-between items-center">
                     <Toggle isOn={campaign.status === "active"} />
-                    <div className="bg-[#F2F4FC] text-[#205CE2] font-bold text-xs rounded py-1 px-2">Upcoming</div>
+                    <div className="bg-[#F2F4FC] text-[#205CE2] font-bold text-xs rounded py-1 px-2">
+                        Upcoming
+                    </div>
                 </div>
                 <div className="font-medium text-xs laptop:text-sm line-clamp-2">
                     {(campaign.content[0] as CreateImageMessage).caption ??
                         (
                             campaign.content[0] as
                                 | CreateTextMessage
-                                | CreateTextStoryData
+                                | CreateTextStory
                         ).text}
                 </div>
                 <div className="flex items-center gap-2 mt-auto">
