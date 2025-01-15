@@ -14,6 +14,7 @@ const CampaignContentPreview: React.FC<{
 }> = ({ content }) => {
     const { removeContent } = useCreateCampaignContent((state) => state);
     const [contentBgColor, setcontentBgColor] = useState("#000");
+    const [textContentFont, setTextContentFont] = useState("");
     // function to generate hex color code
     const generateHexColor = () => {
         const letters = "0123456789ABCDEF";
@@ -127,7 +128,7 @@ const CampaignContentPreview: React.FC<{
                         <div
                             className=" cursor-pointer shadow-2xl bg-gray-600 text-white h-8 opacity-90 w-8 rounded-full flex justify-center items-center"
                             onClick={() => {
-                                setcontentBgColor(generateHexColor());
+                                setTextContentFont("");
                             }}
                         >
                             <svg
@@ -198,6 +199,7 @@ const CampaignContentPreview: React.FC<{
                             backgroundColor:
                                 (content as CreateTextStory).backgroundColor ??
                                 contentBgColor,
+                            font: textContentFont,
                         }}
                     >
                         {content.text}
