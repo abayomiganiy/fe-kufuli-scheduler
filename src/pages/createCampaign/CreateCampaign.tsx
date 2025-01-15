@@ -1,40 +1,15 @@
 import React from "react";
-import { v4 as uuidv4 } from "uuid";
 import Button from "../../components/button";
 import CampaignContentPreview from "../../components/campaignContentPreview";
 import ContentTypeIcon from "../../components/contentTypeIcon";
 import BackIcon from "../../components/icons/backIcon";
 import RadioGroup from "../../components/radioGroup/RadioGroup";
 import SectionHeader from "../../components/sectionHeader";
-import {
-    CampaignContentType,
-    ICreateCampaignContent,
-} from "../../interfaces/campaign.interface";
+import { CampaignContentType } from "../../interfaces/campaign.interface";
 import { useCreateCampaignContent } from "../../store/campaignStore";
 
 const CreateCampaign: React.FC = () => {
-    const { contents, addContent } = useCreateCampaignContent((state) => state);
-    const contentTemplates: Record<
-        CampaignContentType,
-        Partial<ICreateCampaignContent>
-    > = {
-        text: { text: "Type a story", mimetype: "text" },
-        image: { caption: "", image: "", mimetype: "image" },
-        video: { caption: "", video: "", mimetype: "video" },
-        audio: { audio: "", mimetype: "audio" },
-    };
-
-    const handleAddContent = (type: CampaignContentType) => {
-        const template = contentTemplates[type];
-        if (template) {
-            addContent({
-                id: uuidv4(),
-                ...template,
-            } as ICreateCampaignContent);
-        } else {
-            console.error(`Unsupported content type: ${type}`);
-        }
-    };
+    const { contents } = useCreateCampaignContent((state) => state);
 
     return (
         <div>
@@ -62,11 +37,7 @@ const CreateCampaign: React.FC = () => {
                             "audio",
                         ] as CampaignContentType[]
                     ).map((type, index) => (
-                        <ContentTypeIcon
-                            key={index}
-                            onClick={() => handleAddContent(type)}
-                            type={type}
-                        />
+                        <ContentTypeIcon key={index} type={type} />
                     ))}
                 </div>
                 <div>

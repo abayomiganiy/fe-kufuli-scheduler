@@ -1,12 +1,11 @@
-import { CampaignContentType } from "../../interfaces/campaign.interface";
+import {
+    CampaignContentType,
+    ICreateCampaignContent,
+} from "../../interfaces/campaign.interface";
+import { useCreateCampaignContent } from "../../store/campaignStore";
+import { v4 as uuidv4 } from "uuid";
 
-const ContentTypeIcon = ({
-    type,
-    onClick,
-}: {
-    type: CampaignContentType;
-    onClick: () => void;
-}) => {
+const ContentTypeIcon = ({ type }: { type: CampaignContentType }) => {
     const iconPath = {
         text: (
             <path
@@ -16,13 +15,6 @@ const ContentTypeIcon = ({
         ),
         image: (
             <>
-                <input
-                    type="file"
-                    accept="image/*"
-                    multiple={false}
-                    id="image-input"
-                    hidden
-                />
                 <path
                     d="M26.5938 28.4464C27.6811 28.4464 28.5625 27.5649 28.5625 26.4776C28.5625 25.3903 27.6811 24.5089 26.5938 24.5089C25.5064 24.5089 24.625 25.3903 24.625 26.4776C24.625 27.5649 25.5064 28.4464 26.5938 28.4464Z"
                     stroke="#141B34"
@@ -44,13 +36,6 @@ const ContentTypeIcon = ({
         ),
         video: (
             <>
-                <input
-                    type="file"
-                    accept="video/*"
-                    multiple={false}
-                    id="video-input"
-                    hidden
-                />
                 <path
                     d="M19.375 31.0714C19.375 26.7403 19.375 24.5748 20.7205 23.2293C22.066 21.8838 24.2315 21.8839 28.5625 21.8839H29.875C34.206 21.8839 36.3715 21.8838 37.7171 23.2293C39.0625 24.5748 39.0625 26.7403 39.0625 31.0714V33.6964C39.0625 38.0273 39.0625 40.1928 37.7171 41.5384C36.3715 42.8838 34.206 42.8839 29.875 42.8839H28.5625C24.2315 42.8839 22.066 42.8838 20.7205 41.5384C19.375 40.1928 19.375 38.0273 19.375 33.6964V31.0714Z"
                     stroke="#141B34"
@@ -71,13 +56,6 @@ const ContentTypeIcon = ({
         ),
         audio: (
             <>
-                <input
-                    type="file"
-                    accept="audio/*"
-                    multiple={false}
-                    id="audio-input"
-                    hidden
-                />
                 <path
                     d="M39.0625 25.8214V31.0714C39.0625 34.6957 36.1243 37.6339 32.5 37.6339C28.8756 37.6339 25.9375 34.6957 25.9375 31.0714V25.8214C25.9375 22.197 28.8756 19.2589 32.5 19.2589C36.1243 19.2589 39.0625 22.197 39.0625 25.8214Z"
                     stroke="#141B34"
@@ -93,48 +71,95 @@ const ContentTypeIcon = ({
         ),
     };
 
+    const { addContent } = useCreateCampaignContent((state) => state);
+
+    const handleAddContent = (type: CampaignContentType, file?: File) => {
+        console.log(file);
+        const contentTemplates: Record<
+            CampaignContentType,
+            Partial<ICreateCampaignContent>
+        > = {
+            text: { text: "Type a story", mimetype: "text" },
+            image: {
+                caption: "",
+                image: file && URL.createObjectURL(file),
+                mimetype: "image",
+            },
+            video: {
+                caption: "",
+                video: file && URL.createObjectURL(file),
+                mimetype: "video",
+            },
+            audio: { audio: "", mimetype: "audio" },
+        };
+        const template = contentTemplates[type];
+        if (template) {
+            addContent({
+                id: uuidv4(),
+                ...template,
+            } as ICreateCampaignContent);
+        } else {
+            console.error(`Unsupported content type: ${type}`);
+        }
+    };
+
     return (
         <div>
-            <svg
-                width="65"
-                height="65"
-                viewBox="0 0 65 65"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                onClick={onClick}
-                className="cursor-pointer"
-            >
-                <rect
-                    x="0.820255"
-                    y="0.704106"
-                    width="63.3595"
-                    height="63.3595"
-                    rx="11.6797"
-                    fill="#F2F2F2"
-                />
-                <rect
-                    x="0.820255"
-                    y="0.704106"
-                    width="63.3595"
-                    height="63.3595"
-                    rx="11.6797"
-                    stroke="#E0E0E0"
-                    stroke-width="0.640511"
-                />
-                {iconPath[type]}
-                <rect
-                    x="44"
-                    y="43.5"
-                    width="16"
-                    height="16"
-                    rx="8"
-                    fill="#FF3B30"
-                />
-                <path
-                    d="M52.2896 55.4864C51.7214 55.4864 51.2608 55.0258 51.2608 54.4576V48.5288C51.2608 47.9606 51.7214 47.5 52.2896 47.5C52.8578 47.5 53.3184 47.9606 53.3184 48.5288V54.4576C53.3184 55.0258 52.8578 55.4864 52.2896 55.4864ZM49.0201 52.5046C48.4567 52.5046 48 52.0479 48 51.4845C48 50.9211 48.4567 50.4644 49.0201 50.4644H55.5417C56.1051 50.4644 56.5618 50.9211 56.5618 51.4845C56.5618 52.0479 56.1051 52.5046 55.5417 52.5046H49.0201Z"
-                    fill="white"
-                />
-            </svg>
+            <input
+                type="file"
+                accept={`${type}/*`}
+                multiple={false}
+                id={`${type}-input`}
+                hidden
+                onChange={(e) => {
+                    const file = e.target.files![0];
+                    if (file) {
+                        handleAddContent(type, file);
+                    }
+                }}
+            />
+            <label htmlFor={type === "text" ? "" : `${type}-input`}>
+                <svg
+                    width="65"
+                    height="65"
+                    viewBox="0 0 65 65"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    onClick={() => type === "text" && handleAddContent(type)}
+                    className="cursor-pointer"
+                >
+                    <rect
+                        x="0.820255"
+                        y="0.704106"
+                        width="63.3595"
+                        height="63.3595"
+                        rx="11.6797"
+                        fill="#F2F2F2"
+                    />
+                    <rect
+                        x="0.820255"
+                        y="0.704106"
+                        width="63.3595"
+                        height="63.3595"
+                        rx="11.6797"
+                        stroke="#E0E0E0"
+                        stroke-width="0.640511"
+                    />
+                    {iconPath[type]}
+                    <rect
+                        x="44"
+                        y="43.5"
+                        width="16"
+                        height="16"
+                        rx="8"
+                        fill="#FF3B30"
+                    />
+                    <path
+                        d="M52.2896 55.4864C51.7214 55.4864 51.2608 55.0258 51.2608 54.4576V48.5288C51.2608 47.9606 51.7214 47.5 52.2896 47.5C52.8578 47.5 53.3184 47.9606 53.3184 48.5288V54.4576C53.3184 55.0258 52.8578 55.4864 52.2896 55.4864ZM49.0201 52.5046C48.4567 52.5046 48 52.0479 48 51.4845C48 50.9211 48.4567 50.4644 49.0201 50.4644H55.5417C56.1051 50.4644 56.5618 50.9211 56.5618 51.4845C56.5618 52.0479 56.1051 52.5046 55.5417 52.5046H49.0201Z"
+                        fill="white"
+                    />
+                </svg>
+            </label>
         </div>
     );
 };
