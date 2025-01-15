@@ -195,9 +195,8 @@ const CampaignContentPreview: React.FC<{
                 </div>
             ) : content.mimetype === "text" ? (
                 <div className="flex flex-col gap-3">
-                    <div
-                        contentEditable={true}
-                        autoFocus={true}
+                    <label
+                        htmlFor="text-input"
                         className="w-52 h-72 rounded-lg flex items-center justify-center text-white p-4 outline-none"
                         style={{
                             backgroundColor:
@@ -207,8 +206,9 @@ const CampaignContentPreview: React.FC<{
                         }}
                     >
                         {textContentCaption ?? "Type a message..."}
-                    </div>
+                    </label>
                     <textarea
+                        id="text-input"
                         rows={3}
                         defaultValue={(content as CreateTextStory).text}
                         className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
