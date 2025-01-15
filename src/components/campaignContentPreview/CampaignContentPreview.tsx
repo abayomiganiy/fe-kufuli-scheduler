@@ -9,21 +9,25 @@ import {
 } from "../../interfaces/campaign.interface";
 import { useCreateCampaignContent } from "../../store/campaignStore";
 
+// function to generate hex color code
+const generateHexColor = () => {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+};
+
 const CampaignContentPreview: React.FC<{
     content: ICreateCampaignContent;
 }> = ({ content }) => {
     const { removeContent } = useCreateCampaignContent((state) => state);
-    const [contentBgColor, setcontentBgColor] = useState("#000");
+    const [contentBgColor, setcontentBgColor] = useState(generateHexColor());
     const [textContentFont, setTextContentFont] = useState("");
-    // function to generate hex color code
-    const generateHexColor = () => {
-        const letters = "0123456789ABCDEF";
-        let color = "#";
-        for (let i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    };
+    const [textContentCaption, setTextContentCaption] = useState<
+        string | undefined
+    >();
 
     return (
         <div className="relative">
@@ -202,13 +206,14 @@ const CampaignContentPreview: React.FC<{
                             font: textContentFont,
                         }}
                     >
-                        {content.text}
+                        {textContentCaption ?? "Type a message..."}
                     </div>
                     <textarea
                         rows={3}
                         defaultValue={(content as CreateTextStory).text}
                         className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
-                        placeholder="Write caption"
+                        placeholder="Type a message..."
+                        onChange={(e) => setTextContentCaption(e.target.value)}
                     />
                 </div>
             ) : content.mimetype === "audio" ? (

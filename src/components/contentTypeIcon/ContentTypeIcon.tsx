@@ -79,7 +79,7 @@ const ContentTypeIcon = ({ type }: { type: CampaignContentType }) => {
             CampaignContentType,
             Partial<ICreateCampaignContent>
         > = {
-            text: { text: "Type a story", mimetype: "text" },
+            text: { text: "", mimetype: "text" },
             image: {
                 caption: "",
                 image: file && URL.createObjectURL(file),
