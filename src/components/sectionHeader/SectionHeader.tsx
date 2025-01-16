@@ -7,7 +7,7 @@ const SectionHeader: React.FC<{
     link?: string;
 }> = ({ title, icon, link }) => {
     return (
-        <div className="flex justify-between items-center h-14">
+        <div className="flex justify-between items-center h-14 select-none">
             <h1 className="flex items-center gap-2 font-semibold laptop:text-2xl text-xl">
                 {icon}
                 {title}

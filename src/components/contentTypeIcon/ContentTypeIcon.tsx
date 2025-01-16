@@ -90,7 +90,10 @@ const ContentTypeIcon = ({ type }: { type: CampaignContentType }) => {
                 video: file && URL.createObjectURL(file),
                 mimetype: "video",
             },
-            audio: { audio: "", mimetype: "audio" },
+            audio: {
+                audio: file && URL.createObjectURL(file),
+                mimetype: "audio",
+            },
         };
         const template = contentTemplates[type];
         if (template) {

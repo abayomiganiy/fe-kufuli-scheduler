@@ -162,77 +162,102 @@ const CampaignContentPreview: React.FC<{
                     )}
                 </div>
             </div>
-            {content.mimetype === "image" ? (
-                <div className="flex flex-col gap-3">
-                    <img
-                        src={(content as CreateImageMessage).image}
-                        alt={(content as CreateImageMessage).caption}
-                        className="w-52 h-72 object-cover rounded-lg"
-                    />
-                    <textarea
-                        rows={3}
-                        defaultValue={(content as CreateImageMessage).caption}
-                        className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
-                        placeholder="Write caption"
-                    />
-                </div>
-            ) : content.mimetype === "video" ? (
-                <div className="flex flex-col gap-3">
-                    <video
-                        controls
-                        controlsList="nofullscreen"
-                        playsInline
-                        className="w-52 h-72 object-cover rounded-lg text-black"
-                    >
-                        <source src={(content as CreateVideoMessage).video} />
-                    </video>
-                    <textarea
-                        rows={3}
-                        defaultValue={(content as CreateVideoMessage).caption}
-                        className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
-                        placeholder="Write caption"
-                    />
-                </div>
-            ) : content.mimetype === "text" ? (
-                <div className="flex flex-col gap-3">
-                    <label
-                        htmlFor="text-input"
-                        className="w-52 h-72 rounded-lg flex items-center justify-center text-white p-4 outline-none"
-                        style={{
-                            backgroundColor:
-                                (content as CreateTextStory).backgroundColor ??
-                                contentBgColor,
-                            font: textContentFont,
-                        }}
-                    >
-                        {textContentCaption ?? "Type a message..."}
-                    </label>
-                    <textarea
-                        id="text-input"
-                        rows={3}
-                        defaultValue={(content as CreateTextStory).text}
-                        className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
-                        placeholder="Type a message..."
-                        onChange={(e) => setTextContentCaption(e.target.value)}
-                    />
-                </div>
-            ) : content.mimetype === "audio" ? (
-                <div className="flex flex-col gap-3">
-                    <audio
-                        controls
-                        controlsList="nofullscreen"
-                        playsInline
-                        src={
-                            (content as CreateAudioMessage | CreateAudioStory)
-                                .audio
-                        }
-                        className="w-52 h-72 rounded-lg flex items-center justify-cente p-4 outline-none"
-                        style={{
-                            backgroundColor: contentBgColor,
-                        }}
-                    ></audio>
-                </div>
-            ) : null}
+            <div>
+                {content.mimetype === "text" ? (
+                    <div className="flex flex-col gap-3">
+                        <label
+                            htmlFor="text-input"
+                            className="w-52 h-72 rounded-lg flex items-center justify-center text-white p-4 outline-none select-none"
+                            style={{
+                                backgroundColor:
+                                    (content as CreateTextStory)
+                                        .backgroundColor ?? contentBgColor,
+                                font: textContentFont,
+                            }}
+                        >
+                            {textContentCaption?.length
+                                ? textContentCaption
+                                : "Type a message..."}
+                        </label>
+                        <textarea
+                            id="text-input"
+                            rows={3}
+                            defaultValue={(content as CreateTextStory).text}
+                            className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
+                            placeholder="Type a message..."
+                            onChange={(e) =>
+                                setTextContentCaption(e.target.value)
+                            }
+                        />
+                    </div>
+                ) : content.mimetype === "image" ? (
+                    <div className="flex flex-col gap-3">
+                        <img
+                            src={(content as CreateImageMessage).image}
+                            alt={(content as CreateImageMessage).caption}
+                            className="w-52 h-72 object-cover rounded-lg"
+                        />
+                        <textarea
+                            rows={3}
+                            defaultValue={
+                                (content as CreateImageMessage).caption
+                            }
+                            className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
+                            placeholder="Write caption"
+                        />
+                    </div>
+                ) : content.mimetype === "video" ? (
+                    <div className="flex flex-col gap-3">
+                        <video
+                            controls
+                            controlsList="nofullscreen"
+                            playsInline
+                            className="w-52 h-72 object-cover rounded-lg text-black"
+                        >
+                            <source
+                                src={(content as CreateVideoMessage).video}
+                            />
+                        </video>
+                        <textarea
+                            rows={3}
+                            defaultValue={
+                                (content as CreateVideoMessage).caption
+                            }
+                            className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
+                            placeholder="Write caption"
+                        />
+                    </div>
+                ) : content.mimetype === "audio" ? (
+                    <div className="flex flex-col gap-3">
+                        <div
+                            className="w-52 h-72 rounded-lg flex items-center justify-center text-white p-4 outline-none select-none"
+                            style={{
+                                backgroundColor:
+                                    (content as CreateAudioStory)
+                                        .backgroundColor ?? contentBgColor,
+                                font: textContentFont,
+                            }}
+                        >
+                            <audio
+                                controls
+                                controlsList="nofullscreen"
+                                playsInline
+                            >
+                                <source
+                                    src={
+                                        (
+                                            content as
+                                                | CreateAudioMessage
+                                                | CreateAudioStory
+                                        ).audio
+                                    }
+                                    type="audio/mpeg"
+                                />
+                            </audio>
+                        </div>
+                    </div>
+                ) : null}
+            </div>
         </div>
     );
 };
