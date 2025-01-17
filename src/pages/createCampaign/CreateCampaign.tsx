@@ -11,6 +11,8 @@ import { useCreateCampaignContent } from "../../store/campaignStore";
 const CreateCampaign: React.FC = () => {
     const { contents } = useCreateCampaignContent((state) => state);
 
+    console.log(contents)
+
     return (
         <div>
             <div className="flex items-center gap-3">

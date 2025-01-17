@@ -74,7 +74,6 @@ const ContentTypeIcon = ({ type }: { type: CampaignContentType }) => {
     const { addContent } = useCreateCampaignContent((state) => state);
 
     const handleAddContent = (type: CampaignContentType, file?: File) => {
-        console.log(file);
         const contentTemplates: Record<
             CampaignContentType,
             Partial<ICreateCampaignContent>

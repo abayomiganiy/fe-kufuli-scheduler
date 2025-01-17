@@ -208,16 +208,18 @@ const CampaignContentPreview: React.FC<{
                     </div>
                 ) : content.mimetype === "video" ? (
                     <div className="flex flex-col gap-3">
-                        <video
-                            controls
-                            controlsList="nofullscreen"
-                            playsInline
-                            className="w-52 h-72 object-cover rounded-lg text-black"
-                        >
-                            <source
-                                src={(content as CreateVideoMessage).video}
-                            />
-                        </video>
+                        <div className="w-52 h-72 rounded-lg bg-black flex items-center justify-center p-4 outline-none select-none">
+                            <video
+                                controls
+                                controlsList="nofullscreen"
+                                playsInline
+                                className="w-52 h-full"
+                            >
+                                <source
+                                    src={(content as CreateVideoMessage).video}
+                                />
+                            </video>
+                        </div>
                         <textarea
                             rows={3}
                             defaultValue={
