@@ -13,6 +13,9 @@ import generateHexColor from "../../utils/generateHexColor";
 const fontCodeToFont = (fontCode: number) => {
     let fontName;
     switch (fontCode) {
+        case 0:
+            fontName = "system-ui";
+            break;
         case 8:
             fontName = '"Calistoga", serif';
             break;
@@ -30,7 +33,7 @@ const fontCodeToFont = (fontCode: number) => {
         //     break;
 
         default:
-            fontName = "";
+            fontName = "system-ui";
             break;
     }
 
@@ -79,11 +82,13 @@ const CampaignContentPreview: React.FC<{
                     </div>
                 ) : content.mimetype === "image" ? (
                     <div className="flex flex-col gap-3">
-                        <img
-                            src={(content as CreateImageMessage).image}
-                            alt={(content as CreateImageMessage).caption}
-                            className="w-52 h-72 object-cover rounded-lg"
-                        />
+                        <div className="w-52 h-72">
+                            <img
+                                src={(content as CreateImageMessage).image}
+                                alt={(content as CreateImageMessage).caption}
+                                className="w-full h-full object-contain rounded-lg"
+                            />
+                        </div>
                         <textarea
                             rows={3}
                             defaultValue={
@@ -165,7 +170,7 @@ const CampaingActions: React.FC<{
     content: ICreateCampaignContent;
 }> = ({ content }) => {
     const [index, setIndex] = useState(0);
-    const fontOptions = [8, 9, 10];
+    const fontOptions = [0, 8, 9, 10];
     const { removeContent, updateContent } = useCreateCampaignContent(
         (state) => state
     );
@@ -272,7 +277,7 @@ const CampaingActions: React.FC<{
                 )}
                 {content.mimetype === "text" && (
                     <div
-                        className=" cursor-pointer shadow-2xl bg-gray-600 text-white h-8 opacity-90 w-8 rounded-full flex justify-center items-center"
+                        className=" cursor-pointer shadow-2xl bg-gray-600 text-white h-8 opacity-90 w-8 rounded-full flex justify-center items-center select-none"
                         onClick={() => {
                             const newIndex = (index + 1) % fontOptions.length;
                             setIndex(newIndex);
