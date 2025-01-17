@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
     CreateAudioMessage,
     CreateAudioStory,
@@ -8,26 +7,14 @@ import {
     ICreateCampaignContent,
 } from "../../interfaces/campaign.interface";
 import { useCreateCampaignContent } from "../../store/campaignStore";
-
-// function to generate hex color code
-const generateHexColor = () => {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-};
+import generateHexColor from "../../utils/generateHexColor";
 
 const CampaignContentPreview: React.FC<{
     content: ICreateCampaignContent;
 }> = ({ content }) => {
-    const { removeContent } = useCreateCampaignContent((state) => state);
-    const [contentBgColor, setcontentBgColor] = useState(generateHexColor());
-    const [textContentFont, setTextContentFont] = useState("");
-    const [textContentCaption, setTextContentCaption] = useState<
-        string | undefined
-    >();
+    const { removeContent, updateContent } = useCreateCampaignContent(
+        (state) => state
+    );
 
     return (
         <div className="relative">
@@ -67,7 +54,10 @@ const CampaignContentPreview: React.FC<{
                         <div
                             className=" cursor-pointer shadow-2xl bg-gray-600 text-white h-8 opacity-90 w-8 rounded-full flex justify-center items-center"
                             onClick={() => {
-                                setcontentBgColor(generateHexColor());
+                                updateContent({
+                                    ...content,
+                                    backgroundColor: generateHexColor(),
+                                });
                             }}
                         >
                             <svg
@@ -132,7 +122,7 @@ const CampaignContentPreview: React.FC<{
                         <div
                             className=" cursor-pointer shadow-2xl bg-gray-600 text-white h-8 opacity-90 w-8 rounded-full flex justify-center items-center"
                             onClick={() => {
-                                setTextContentFont("");
+                                // setTextContentFont("");
                             }}
                         >
                             <svg
@@ -169,14 +159,13 @@ const CampaignContentPreview: React.FC<{
                             htmlFor="text-input"
                             className="w-52 h-72 rounded-lg flex items-center justify-center text-white p-4 outline-none select-none"
                             style={{
-                                backgroundColor:
-                                    (content as CreateTextStory)
-                                        .backgroundColor ?? contentBgColor,
-                                font: textContentFont,
+                                backgroundColor: (content as CreateTextStory)
+                                    .backgroundColor,
+                                // font: (content as CreateTextStory)?.font,
                             }}
                         >
-                            {textContentCaption?.length
-                                ? textContentCaption
+                            {content.text?.length
+                                ? content.text
                                 : "Type a message..."}
                         </label>
                         <textarea
@@ -185,9 +174,12 @@ const CampaignContentPreview: React.FC<{
                             defaultValue={(content as CreateTextStory).text}
                             className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
                             placeholder="Type a message..."
-                            onChange={(e) =>
-                                setTextContentCaption(e.target.value)
-                            }
+                            onChange={(e) => {
+                                updateContent({
+                                    ...content,
+                                    text: e.target.value,
+                                });
+                            }}
                         />
                     </div>
                 ) : content.mimetype === "image" ? (
@@ -234,10 +226,8 @@ const CampaignContentPreview: React.FC<{
                         <div
                             className="w-52 h-72 rounded-lg flex items-center justify-center text-white p-4 outline-none select-none"
                             style={{
-                                backgroundColor:
-                                    (content as CreateAudioStory)
-                                        .backgroundColor ?? contentBgColor,
-                                font: textContentFont,
+                                backgroundColor: (content as CreateAudioStory)
+                                    .backgroundColor,
                             }}
                         >
                             <audio

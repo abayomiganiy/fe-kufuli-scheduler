@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "../../components/button";
 import CampaignContentPreview from "../../components/campaignContentPreview";
 import ContentTypeIcon from "../../components/contentTypeIcon";
@@ -11,7 +11,9 @@ import { useCreateCampaignContent } from "../../store/campaignStore";
 const CreateCampaign: React.FC = () => {
     const { contents } = useCreateCampaignContent((state) => state);
 
-    console.log(contents)
+    useEffect(() => {
+        console.log(contents);
+    }, [contents]);
 
     return (
         <div>

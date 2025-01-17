@@ -4,6 +4,7 @@ import {
 } from "../../interfaces/campaign.interface";
 import { useCreateCampaignContent } from "../../store/campaignStore";
 import { v4 as uuidv4 } from "uuid";
+import generateHexColor from "../../utils/generateHexColor";
 
 const ContentTypeIcon = ({ type }: { type: CampaignContentType }) => {
     const iconPath = {
@@ -78,7 +79,12 @@ const ContentTypeIcon = ({ type }: { type: CampaignContentType }) => {
             CampaignContentType,
             Partial<ICreateCampaignContent>
         > = {
-            text: { text: "", mimetype: "text" },
+            text: {
+                text: "",
+                mimetype: "text",
+                backgroundColor: generateHexColor(),
+                font: 0
+            },
             image: {
                 caption: "",
                 image: file && URL.createObjectURL(file),
@@ -92,6 +98,7 @@ const ContentTypeIcon = ({ type }: { type: CampaignContentType }) => {
             audio: {
                 audio: file && URL.createObjectURL(file),
                 mimetype: "audio",
+                backgroundColor: generateHexColor(),
             },
         };
         const template = contentTemplates[type];
