@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
     CreateAudioMessage,
     CreateAudioStory,
@@ -8,6 +9,33 @@ import {
 } from "../../interfaces/campaign.interface";
 import { useCreateCampaignContent } from "../../store/campaignStore";
 import generateHexColor from "../../utils/generateHexColor";
+
+const fontCodeToFont = (fontCode: number) => {
+    let fontName;
+    switch (fontCode) {
+        case 8:
+            fontName = '"Calistoga", serif';
+            break;
+        case 9:
+            fontName = '"Exo 2", serif';
+            break;
+        case 10:
+            fontName = '"Courier Prime", serif';
+            break;
+        // case 2:
+        //     fontName = 'FB_SCRIPT';
+        //     break;
+        // case 7:
+        //     fontName = 'MORNINGBREEZE_REGULAR';
+        //     break;
+
+        default:
+            fontName = "";
+            break;
+    }
+
+    return fontName;
+};
 
 const CampaignContentPreview: React.FC<{
     content: ICreateCampaignContent;
@@ -26,7 +54,9 @@ const CampaignContentPreview: React.FC<{
                             style={{
                                 backgroundColor: (content as CreateTextStory)
                                     .backgroundColor,
-                                // font: (content as CreateTextStory)?.font,
+                                fontFamily: fontCodeToFont(
+                                    (content as CreateTextStory).font
+                                ),
                             }}
                         >
                             {content.text?.length
@@ -134,6 +164,8 @@ const CampaignContentPreview: React.FC<{
 const CampaingActions: React.FC<{
     content: ICreateCampaignContent;
 }> = ({ content }) => {
+    const [index, setIndex] = useState(0);
+    const fontOptions = [8, 9, 10];
     const { removeContent, updateContent } = useCreateCampaignContent(
         (state) => state
     );
@@ -242,7 +274,12 @@ const CampaingActions: React.FC<{
                     <div
                         className=" cursor-pointer shadow-2xl bg-gray-600 text-white h-8 opacity-90 w-8 rounded-full flex justify-center items-center"
                         onClick={() => {
-                            // setTextContentFont("");
+                            const newIndex = (index + 1) % fontOptions.length;
+                            setIndex(newIndex);
+                            updateContent({
+                                ...content,
+                                font: fontOptions[newIndex],
+                            });
                         }}
                     >
                         <svg
