@@ -281,30 +281,13 @@ const CampaingActions: React.FC<{
                                 font: fontOptions[newIndex],
                             });
                         }}
+                        style={{
+                            fontFamily: fontCodeToFont(
+                                (content as CreateTextStory).font
+                            ),
+                        }}
                     >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            id="Layer_1"
-                            data-name="Layer 1"
-                            viewBox="0 0 24 24"
-                            width="14"
-                            height="14"
-                        >
-                            <g
-                                width="100%"
-                                height="100%"
-                                transform="matrix(1,0,0,1,0,0)"
-                            >
-                                <path
-                                    d="M21,0H3c-.553,0-1,.447-1,1s.447,1,1,1H11V23c0,.553,.447,1,1,1s1-.447,1-1V2h8c.553,0,1-.447,1-1s-.447-1-1-1Z"
-                                    fill="#ffffff"
-                                    fill-opacity="1"
-                                    data-original-color="#000000ff"
-                                    stroke="none"
-                                    stroke-opacity="1"
-                                />
-                            </g>
-                        </svg>
+                        T
                     </div>
                 )}
             </div>
