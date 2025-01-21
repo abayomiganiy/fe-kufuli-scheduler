@@ -15,7 +15,7 @@ const CreateCampaign: React.FC = () => {
         <div>
             <div className="flex items-center gap-3">
                 <BackIcon />
-                <SectionHeader title="CreateCampaign" />
+                <SectionHeader title="Create Campaign" />
             </div>
             <div className="flex flex-col gap-5">
                 <div className="flex overflow-auto pb-5">
