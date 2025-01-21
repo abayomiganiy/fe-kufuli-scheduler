@@ -82,11 +82,11 @@ const CampaignContentPreview: React.FC<{
                     </div>
                 ) : content.mimetype === "image" ? (
                     <div className="flex flex-col gap-3">
-                        <div className="w-52 h-72">
+                        <div className="w-52 h-72 bg-gray-800 rounded-lg">
                             <img
                                 src={(content as CreateImageMessage).image}
                                 alt={(content as CreateImageMessage).caption}
-                                className="w-full h-full object-contain rounded-lg"
+                                className="w-full h-full object-contain"
                             />
                         </div>
                         <textarea
@@ -206,6 +206,26 @@ const CampaingActions: React.FC<{
                 </svg>
             </div>
             <div className="flex gap-2">
+                {content.mimetype === "text" && (
+                    <div
+                        className=" cursor-pointer shadow-2xl bg-gray-600 text-white h-8 opacity-90 w-8 rounded-full flex justify-center items-center select-none"
+                        onClick={() => {
+                            const newIndex = (index + 1) % fontOptions.length;
+                            setIndex(newIndex);
+                            updateContent({
+                                ...content,
+                                font: fontOptions[newIndex],
+                            });
+                        }}
+                        style={{
+                            fontFamily: fontCodeToFont(
+                                (content as CreateTextStory).font
+                            ),
+                        }}
+                    >
+                        T
+                    </div>
+                )}
                 {(content.mimetype === "text" ||
                     content.mimetype === "audio") && (
                     <div
@@ -273,26 +293,6 @@ const CampaingActions: React.FC<{
                                 />
                             </g>
                         </svg>
-                    </div>
-                )}
-                {content.mimetype === "text" && (
-                    <div
-                        className=" cursor-pointer shadow-2xl bg-gray-600 text-white h-8 opacity-90 w-8 rounded-full flex justify-center items-center select-none"
-                        onClick={() => {
-                            const newIndex = (index + 1) % fontOptions.length;
-                            setIndex(newIndex);
-                            updateContent({
-                                ...content,
-                                font: fontOptions[newIndex],
-                            });
-                        }}
-                        style={{
-                            fontFamily: fontCodeToFont(
-                                (content as CreateTextStory).font
-                            ),
-                        }}
-                    >
-                        T
                     </div>
                 )}
             </div>
