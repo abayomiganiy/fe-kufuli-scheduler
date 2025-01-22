@@ -58,9 +58,9 @@ const ConnectedAccount: React.FC<{
                         <path
                             d="M14 2L8 8M8 8L2 14M8 8L14 14M8 8L2 2"
                             stroke="#ffffff"
-                            stroke-width="3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeWidth="3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                         />
                     </svg>
                 )}

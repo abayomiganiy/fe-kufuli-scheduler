@@ -19,6 +19,7 @@ const ConnectedSocialAccounts = () => {
                 <button
                     className="flex justify-between items-center gap-2"
                     onClick={() => setCurrentSocialAccount(account)}
+                    key={account.id}
                 >
                     <div className="flex justify-between items-center gap-2">
                         <div className="relative h-8 w-8">
@@ -47,9 +48,9 @@ const ConnectedSocialAccounts = () => {
                                 <path
                                     d="M1.5 6.65625L4.78125 9.9375L12 2.0625"
                                     stroke="#fff"
-                                    stroke-width="2.625"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
+                                    strokeWidth="2.625"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
                                 />
                             </svg>
                         </div>

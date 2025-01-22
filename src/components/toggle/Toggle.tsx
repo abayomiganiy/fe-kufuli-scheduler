@@ -14,7 +14,7 @@ const Toggle: React.FC<ToggleProps> = ({ isOn }) => {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
             >
-                <g clip-path="url(#clip0_24_582)">
+                <g clipPath="url(#clip0_24_582)">
                     <rect
                         width="40"
                         height="20"
@@ -40,12 +40,9 @@ const Toggle: React.FC<ToggleProps> = ({ isOn }) => {
                         width="40"
                         height="20"
                         filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB"
+                        colorInterpolationFilters="sRGB"
                     >
-                        <feFlood
-                            flood-opacity="0"
-                            result="BackgroundImageFix"
-                        />
+                        <feFlood floodOpacity="0" result="BackgroundImageFix" />
                         <feColorMatrix
                             in="SourceAlpha"
                             type="matrix"

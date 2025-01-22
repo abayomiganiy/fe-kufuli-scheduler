@@ -23,7 +23,10 @@ const Modal: React.FC<ModalProps> = ({
             <div
                 className={`${className} flex justify-center items-center overflow-y-auto py-16 relative laptop:min-w-[1000px] laptop:max-w-[1000px] min-h-96 bg-white rounded-3xl`}
             >
-                <button className="absolute right-5 laptop:top-5 top-16" onClick={onClose}>
+                <button
+                    className="absolute right-5 laptop:top-5 top-16"
+                    onClick={onClose}
+                >
                     <svg
                         width="48"
                         height="48"
@@ -34,23 +37,23 @@ const Modal: React.FC<ModalProps> = ({
                         <path
                             d="M30 18L24 24M24 24L18 30M24 24L30 30M24 24L18 18"
                             stroke="#202020"
-                            stroke-width="3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeWidth="3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                         />
                         <path
                             d="M4 24C4 35.0456 12.9543 44 24 44C35.0456 44 44 35.0456 44 24C44 12.9543 35.0456 3.99994 24 3.99994"
                             stroke="#202020"
-                            stroke-width="3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeWidth="3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                         />
                         <path
                             d="M5 16.9999C5.72478 15.3411 6.6378 13.7833 7.71202 12.3535M12.3536 7.71192C13.7834 6.6377 15.3412 5.72472 17 4.99994"
                             stroke="#202020"
-                            stroke-width="3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeWidth="3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                         />
                     </svg>
                 </button>

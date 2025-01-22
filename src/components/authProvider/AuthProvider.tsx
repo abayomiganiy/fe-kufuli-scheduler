@@ -19,7 +19,7 @@ const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
                 });
                 if (response.ok && response.accessToken) {
                     const accessToken: string = response.accessToken;
-                    console.log(`response from server fetchMe: ${accessToken}`);
+                    // console.log(`response from server fetchMe: ${accessToken}`);
                     login(accessToken);
                 } else {
                     logout();

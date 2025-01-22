@@ -15,7 +15,7 @@ export enum FontType {
 }
 
 export type CreateTextMessage = {
-    id: `${string}-${string}-${string}-${string}-${string}`
+    id: `${string}-${string}-${string}-${string}-${string}`;
     contactList: string[];
     type: MessageType;
     mimetype: "text";
@@ -24,7 +24,7 @@ export type CreateTextMessage = {
 };
 
 export type CreateImageMessage = {
-    id: `${string}-${string}-${string}-${string}-${string}`
+    id: `${string}-${string}-${string}-${string}-${string}`;
     contactList: string[];
     type: MessageType;
     mimetype: "image";
@@ -34,7 +34,7 @@ export type CreateImageMessage = {
 };
 
 export type CreateVideoMessage = {
-    id: `${string}-${string}-${string}-${string}-${string}`
+    id: `${string}-${string}-${string}-${string}-${string}`;
     contactList: string[];
     type: MessageType;
     mimetype: "video";
@@ -47,7 +47,7 @@ export type CreateVideoMessage = {
 };
 
 export type CreateAudioMessage = {
-    id: `${string}-${string}-${string}-${string}-${string}`
+    id: `${string}-${string}-${string}-${string}-${string}`;
     contactList: string[];
     type: MessageType;
     mimetype: "audio";
@@ -57,7 +57,7 @@ export type CreateAudioMessage = {
 };
 
 export type CreateDocumentMessage = {
-    id: `${string}-${string}-${string}-${string}-${string}`
+    id: `${string}-${string}-${string}-${string}-${string}`;
     contactList: string[];
     type: MessageType;
     mimetype: "document";
@@ -66,7 +66,7 @@ export type CreateDocumentMessage = {
 };
 
 export type CreateTextStory = {
-    id: `${string}-${string}-${string}-${string}-${string}`
+    id: `${string}-${string}-${string}-${string}-${string}`;
     text: string;
     mimetype: "text";
     views: number;
@@ -76,7 +76,7 @@ export type CreateTextStory = {
 };
 
 export type CreateImageStory = {
-    id: `${string}-${string}-${string}-${string}-${string}`
+    id: `${string}-${string}-${string}-${string}-${string}`;
     mimetype: "image";
     views: number;
     image: string;
@@ -85,7 +85,7 @@ export type CreateImageStory = {
 };
 
 export type CreateVideoStory = {
-    id: `${string}-${string}-${string}-${string}-${string}`
+    id: `${string}-${string}-${string}-${string}-${string}`;
     mimetype: "video";
     views: number;
     video: string;
@@ -95,21 +95,13 @@ export type CreateVideoStory = {
 };
 
 export type CreateAudioStory = {
-    id: `${string}-${string}-${string}-${string}-${string}`
+    id: `${string}-${string}-${string}-${string}-${string}`;
     mimetype: "audio";
     views: number;
     audio: string;
     contactList: string[];
     backgroundColor?: string;
 };
-
-export interface ICreateCampaign {
-    id: `${string}-${string}-${string}-${string}-${string}`
-    content: ICreateCampaignContent[];
-    status: CampaignStatus;
-    date: Date;
-    clicks: string;
-}
 
 export type ICreateCampaignContent =
     | CreateTextMessage
@@ -121,6 +113,14 @@ export type ICreateCampaignContent =
     | CreateImageStory
     | CreateVideoStory
     | CreateAudioStory;
+
+export interface ICreateCampaign {
+    id: `${string}-${string}-${string}-${string}-${string}`;
+    content: ICreateCampaignContent[];
+    status: CampaignStatus;
+    date: Date;
+    clicks: string;
+}
 
 export interface ICampaign {
     id: string;

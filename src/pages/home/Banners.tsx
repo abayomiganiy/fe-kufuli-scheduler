@@ -1979,7 +1979,7 @@ const Banners: React.FC = () => {
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
                             >
-                                <g clip-path="url(#clip0_133_4359)">
+                                <g clipPath="url(#clip0_133_4359)">
                                     <g
                                         style={{ mixBlendMode: "multiply" }}
                                         opacity="0.4"
@@ -2328,51 +2328,51 @@ const Banners: React.FC = () => {
                                     <path
                                         d="M26.8789 41.9198C27.0598 42.233 27.5215 42.2762 27.8428 42.1088C28.1641 41.9414 28.3774 41.6255 28.5745 41.3231C28.9471 41.8253 29.6977 41.9981 30.2566 41.7146C30.5941 41.5418 30.8776 41.2232 31.2556 41.1989C31.5256 41.1827 31.7767 41.3258 32.0386 41.3852C32.4733 41.4824 32.9539 41.3312 33.2563 41.0045C33.3562 40.8938 33.4561 40.7561 33.6046 40.7426C33.7666 40.7264 33.8962 40.8614 34.0231 40.9613C34.4389 41.2826 35.0923 41.2448 35.4676 40.8749C35.5837 40.7588 35.6917 40.6103 35.8537 40.5887C36.0832 40.559 36.2587 40.8047 36.4855 40.8506C37.0336 40.9613 37.39 39.9164 37.9003 40.1459C38.1055 40.2377 38.1892 40.5104 38.4025 40.586C38.7643 40.7129 39.0019 40.1999 39.3421 40.019C39.901 39.722 40.7785 40.3511 41.1484 39.8354C41.2375 40.0838 41.5831 40.1945 41.8018 40.0487C41.9098 39.9758 41.98 39.8597 42.088 39.7895C42.3661 39.6086 42.7198 39.8003 43.0384 39.8975C43.357 39.9947 43.8376 39.8435 43.762 39.5195"
                                         stroke="#414042"
-                                        stroke-width="0.27"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.27"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M22.7373 74.9813L40.5735 72.2057"
                                         stroke="#414042"
-                                        stroke-width="0.27"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.27"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M22.8555 75.7481L37.8945 73.4099"
                                         stroke="#414042"
-                                        stroke-width="0.27"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.27"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M22.9639 76.4474L48.2872 72.5081"
                                         stroke="#414042"
-                                        stroke-width="0.27"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.27"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M23.1504 77.638L31.3341 76.3636"
                                         stroke="#414042"
-                                        stroke-width="0.27"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.27"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M23.2588 78.3374L25.7077 77.9567"
                                         stroke="#414042"
-                                        stroke-width="0.27"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.27"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M23.3984 79.2446L36.1262 77.2655"
                                         stroke="#414042"
-                                        stroke-width="0.27"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.27"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <g style={{ mixBlendMode: "multiply" }}>
                                         <path
@@ -2825,51 +2825,51 @@ const Banners: React.FC = () => {
                                     <path
                                         d="M92.3428 23.8567C92.4292 24.2482 92.9017 24.4507 93.2959 24.3832C93.6901 24.3157 94.0222 24.0538 94.3327 23.8027C94.5568 24.4561 95.2885 24.8962 95.9716 24.7828C96.3847 24.7153 96.7924 24.4723 97.1974 24.5776C97.4863 24.6532 97.7023 24.8881 97.9615 25.0393C98.3854 25.2877 98.9443 25.2931 99.3736 25.0474C99.5167 24.9664 99.6679 24.853 99.8299 24.8881C100.005 24.9259 100.097 25.1122 100.197 25.2607C100.526 25.7413 101.228 25.9195 101.75 25.6549C101.912 25.5739 102.074 25.4497 102.252 25.4821C102.503 25.528 102.605 25.8466 102.83 25.9708C103.372 26.2732 104.099 25.2904 104.558 25.7062C104.741 25.8736 104.738 26.1895 104.938 26.338C105.276 26.5945 105.7 26.1328 106.118 26.0572C106.809 25.933 107.522 26.8942 108.084 26.473C108.095 26.7646 108.421 26.9995 108.702 26.9185C108.84 26.878 108.953 26.7781 109.094 26.743C109.447 26.6458 109.758 26.9671 110.057 27.1777C110.357 27.3883 110.916 27.3883 110.948 27.0238"
                                         stroke="#414042"
-                                        stroke-width="0.27"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.27"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M76.8154 57.3152L96.5578 60.4094"
                                         stroke="#414042"
-                                        stroke-width="0.27"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.27"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M76.6826 58.1656L93.3281 60.7765"
                                         stroke="#414042"
-                                        stroke-width="0.27"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.27"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M76.5615 58.9406L104.59 63.3335"
                                         stroke="#414042"
-                                        stroke-width="0.27"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.27"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M76.3535 60.2555L85.4147 61.6757"
                                         stroke="#414042"
-                                        stroke-width="0.27"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.27"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M76.2314 61.0304L78.9422 61.4543"
                                         stroke="#414042"
-                                        stroke-width="0.27"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.27"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M76.0752 62.0375L90.1638 64.2461"
                                         stroke="#414042"
-                                        stroke-width="0.27"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.27"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M95.2559 64.832C95.2559 64.832 99.368 64.5917 100.491 68.1746L98.9225 67.9289L95.2559 67.3538V64.832Z"
@@ -2932,37 +2932,37 @@ const Banners: React.FC = () => {
                                     <path
                                         d="M34.2705 26.9889H69.7728"
                                         stroke="#414042"
-                                        stroke-width="0.27"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.27"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M34.2705 28.2201H47.541"
                                         stroke="#414042"
-                                        stroke-width="0.27"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.27"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M34.2705 29.5863H58.2114"
                                         stroke="#414042"
-                                        stroke-width="0.27"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.27"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M34.2705 30.6825H54.9309"
                                         stroke="#414042"
-                                        stroke-width="0.27"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.27"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M34.2705 31.9137H50.1438"
                                         stroke="#414042"
-                                        stroke-width="0.27"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.27"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <g style={{ mixBlendMode: "multiply" }}>
                                         <path
@@ -3017,37 +3017,37 @@ const Banners: React.FC = () => {
                                     <path
                                         d="M84.4961 98.0932C84.4961 98.0932 92.2262 97.9636 96.7082 98.8843C101.19 99.805 103.399 105.208 103.399 105.208"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M95.0176 98.6035C95.0176 98.6035 98.8543 97.672 102.124 101.646"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M86.6104 87.8386C86.6104 87.8386 86.7022 94.837 89.3266 98.0878"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M97.9316 100.334C97.9316 100.334 101.841 103.68 100.804 108.909"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M85.8516 90.3118C85.8516 90.3118 86.5536 92.6473 87.6255 94.5832"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M43.8557 84.0829C43.8557 84.0829 25.3796 101.063 29.705 111.469C29.705 111.469 33.2879 118.551 38.6879 117.876C44.0879 117.201 48.902 111.469 48.902 111.469L52.8764 110.694C52.8764 110.694 51.6506 87.2662 43.8557 84.0829Z"
@@ -3074,142 +3074,142 @@ const Banners: React.FC = () => {
                                     <path
                                         d="M50.0218 98.0932C50.0218 98.0932 42.2917 97.9636 37.8097 98.8843C33.3277 99.805 31.1191 105.208 31.1191 105.208"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M39.497 98.6035C39.497 98.6035 35.6603 97.672 32.3906 101.646"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M47.9076 87.8386C47.9076 87.8386 47.8158 94.837 45.1914 98.0878"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M36.5868 100.334C36.5868 100.334 32.6772 103.68 33.714 108.909"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M48.6665 90.3119C48.6665 90.3119 47.9645 92.6474 46.8926 94.5833"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M54.749 133.217C54.749 133.217 57.0197 114.582 56.9225 105.54"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M53.5156 133.107C53.5156 133.107 56.113 111.69 55.6891 105.54"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M52.0899 132.945C52.1601 132.956 52.2573 112.787 51.0801 105.21"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M50.9231 132.597C50.9231 132.597 50.6612 111.939 49.1357 105.208"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M57.7505 87.8386C57.7505 87.8386 56.2979 94.4374 57.2483 102.006C58.1987 109.574 60.4127 114.658 60.5261 119.248C60.6395 123.838 60.6935 135.942 60.6935 135.942"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M59.9873 126.308C59.9873 126.308 61.5695 126.157 62.3228 126.308"
                                         stroke="#A97C50"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M59.9873 134.916C59.9873 134.916 61.5695 134.765 62.3228 134.916"
                                         stroke="#A97C50"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M59.1689 119.226C59.1689 119.226 60.7295 118.918 61.4936 118.994"
                                         stroke="#A97C50"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M57.749 110.818C57.749 110.818 59.3096 110.51 60.0737 110.586"
                                         stroke="#A97C50"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M46.5527 81.6232C46.5527 81.6232 50.7863 87.1798 48.3509 96.5002"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M49.1367 92.9659C49.1367 92.9659 54.5799 93.8164 57.0693 92.9659"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M48.8291 94.2457C48.8291 94.2457 53.8214 94.8937 56.9264 94.2457"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M46.8926 82.1389C46.8926 82.1389 50.8103 80.0815 55.6892 79.3822"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M47.2871 81.1453C47.2871 81.1453 52.6169 88.9348 48.8261 96.9322"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M63.1764 133.191C63.1764 133.191 55.2681 134.146 46.0908 131.808"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <g
                                         style={{ mixBlendMode: "multiply" }}
@@ -3223,79 +3223,79 @@ const Banners: React.FC = () => {
                                     <path
                                         d="M76.909 86.3428C76.909 86.3428 78.3184 94.8316 76.9549 102.608C75.5914 110.384 74.1469 119.534 74.4682 122.504C74.7895 125.474 75.6319 135.585 75.6319 135.585"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M79.7438 132.991C79.7438 132.991 77.4758 114.355 77.5703 105.313"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M80.9781 132.88C80.9781 132.88 78.3807 111.464 78.8046 105.313"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M82.4036 132.718C82.3334 132.729 82.2362 112.56 83.4134 104.984"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M83.5723 132.597C83.5723 132.597 83.8342 111.712 85.3597 104.981"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M87.9412 81.3964C87.9412 81.3964 84.5527 88.7674 86.9881 98.0878"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M86.6104 92.507C86.6104 92.507 79.9171 93.5897 77.4277 92.7392"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M87.2076 93.8704C87.2076 93.8704 80.6736 94.6669 77.5713 94.0189"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M87.6013 81.9094C87.6013 81.9094 83.6836 79.852 78.8047 79.1527"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M87.2073 80.9185C87.2073 80.9185 81.9666 90.1471 85.7574 98.1445"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M73.6689 133.107C73.6689 133.107 78.4587 134.146 87.636 131.808"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M57.2993 75.7427C57.2993 75.7427 54.1403 76.3583 53.6327 78.1943C53.1251 80.0303 52.5041 82.8491 51.3944 84.029C50.2847 85.2089 52.334 85.2089 54.2321 85.2089C56.1302 85.2089 56.7971 85.46 56.9645 86.9612C57.1319 88.4651 58.9301 90.3092 58.9301 90.3092L75.8969 89.7989C75.8969 89.7989 78.2972 86.9153 78.7778 85.6841C79.2584 84.4529 77.9624 82.8761 79.6958 83.5808C81.4292 84.2855 82.5173 84.9929 82.3472 83.138C82.1798 81.2804 82.3526 76.4609 75.6269 75.74C68.9012 75.0191 64.2248 74.1227 57.2939 75.74L57.2993 75.7427Z"
@@ -3304,16 +3304,16 @@ const Banners: React.FC = () => {
                                     <path
                                         d="M79.3955 77.368C79.3955 77.368 81.6824 79.9411 81.2909 84.2287"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M82.3664 83.5026C82.3664 83.5026 77.7899 81.456 78.1652 84.2073C78.1652 84.2073 77.6522 87.7929 75.6299 89.0376"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <g style={{ mixBlendMode: "multiply" }}>
                                         <path
@@ -3324,16 +3324,16 @@ const Banners: React.FC = () => {
                                     <path
                                         d="M56.1951 76.5419C56.1951 76.5419 54.54 76.8011 54.2322 78.6047C53.9244 80.411 52.5177 84.1613 51.8535 85.0982"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M51.3945 84.0289C51.3945 84.0289 52.9659 83.9857 54.4104 84.2071C55.8549 84.4285 57.3696 84.2071 57.7071 86.305C58.0446 88.4029 58.7493 88.6567 58.7493 88.6567"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <g style={{ mixBlendMode: "multiply" }}>
                                         <path
@@ -3380,30 +3380,30 @@ const Banners: React.FC = () => {
                                     <path
                                         d="M80.7314 75.0676C80.7314 75.0676 80.8097 71.7061 83.0615 70.3291"
                                         stroke="#663022"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M82.3492 70.8907C82.3492 70.8907 82.3465 73.6123 80.9209 73.7176"
                                         stroke="#663022"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M54.4199 75.0676C54.4199 75.0676 54.3416 71.7061 52.0898 70.3291"
                                         stroke="#663022"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M52.7998 70.8907C52.7998 70.8907 52.8025 73.6123 54.2281 73.7176"
                                         stroke="#663022"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M79.3657 74.309C79.3711 74.5277 79.39 74.7626 79.5331 74.9273C79.7734 75.2027 80.254 75.119 80.5024 74.8544C80.7508 74.5871 80.8291 74.2064 80.8885 73.8446C80.9371 73.5503 80.9776 73.256 81.0127 72.9617C81.0478 72.662 81.0802 72.3623 81.0748 72.0599C81.0667 71.4902 80.9479 70.8827 81.2152 70.3805C81.2449 70.3265 81.2773 70.2725 81.2881 70.2104C81.3178 70.0052 81.0748 69.8783 80.8777 69.8189C80.6158 69.7379 80.3485 69.6596 80.0731 69.6434C79.7437 69.6245 79.3792 69.7109 79.1659 69.9782C78.958 70.2374 79.0255 70.3967 79.147 70.664C79.4548 71.3282 79.3927 72.2111 79.3819 72.9239C79.3738 73.3856 79.3576 73.8473 79.3684 74.309H79.3657Z"
@@ -3424,23 +3424,23 @@ const Banners: React.FC = () => {
                                     <path
                                         d="M65.3335 77.6921C65.3335 77.6921 64.2454 79.9573 67.4314 80.0491C70.6201 80.1409 70.9171 78.5803 70.0909 77.5948"
                                         stroke="#663022"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M68.9512 79.9384C68.9512 79.9384 69.2104 79.0609 70.4065 78.9718"
                                         stroke="#663022"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M66.4914 79.9384C66.4914 79.9384 65.8731 79.2067 65.1846 78.826"
                                         stroke="#663022"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M67.5071 46.5314C66.6458 46.6907 65.9141 47.4089 65.7359 48.2675C64.8098 47.8814 63.6191 48.3458 63.1979 49.2584C62.4716 48.9668 61.7075 48.6698 60.9299 48.7643C60.1523 48.8561 59.3801 49.4879 59.4179 50.2682C58.4594 49.9172 57.266 50.4761 56.9258 51.44C56.0888 51.5237 55.1897 51.6992 54.6308 52.3256C54.0719 52.952 54.1448 54.1616 54.9386 54.4343C54.3284 54.5342 53.6696 54.6584 53.2457 55.1093C52.8218 55.5602 52.8299 56.4485 53.405 56.6753C52.2359 57.2126 51.2666 58.1711 50.7185 59.3321C50.5619 59.6642 50.435 60.0368 50.5133 60.3959C50.5916 60.755 50.9426 61.0763 51.3017 60.998C50.9237 61.4057 50.5619 61.8755 50.5052 62.429C50.4485 62.9825 50.8157 63.6089 51.3719 63.6413C51.2396 64.3352 50.651 64.8455 50.3621 65.4881C50.0732 66.1334 50.3675 67.1594 51.0695 67.0811C50.8697 67.5644 50.6672 68.072 50.7239 68.5904C50.7806 69.1088 51.1883 69.6299 51.7121 69.6164C51.6743 70.3454 52.0793 71.0798 52.7138 71.4362C53.351 71.7926 54.188 71.7548 54.7901 71.3444C55.0871 72.1058 55.7891 72.6944 56.591 72.851C57.3929 73.0076 58.265 72.7322 58.8293 72.1382C60.2414 72.9887 62.2907 72.5027 63.1709 71.1095C64.1294 71.7143 65.5226 71.4902 66.2408 70.6127C66.4001 70.9475 66.8348 71.0744 67.1993 70.9961C67.5611 70.9205 67.8689 70.6883 68.1659 70.4642C68.6951 71.1716 69.9938 71.015 70.3421 70.2023C70.5176 70.7882 71.0792 71.2391 71.6921 71.2796C72.0026 71.3012 72.332 71.2283 72.6182 71.3498C72.8612 71.4524 73.0259 71.6765 73.2419 71.8277C73.8278 72.2327 74.7674 71.9195 74.9915 71.2418C75.3911 71.5118 75.8069 71.7899 76.2848 71.8628C76.7627 71.9357 77.3162 71.7386 77.4971 71.2904C77.759 71.9384 78.461 72.3785 79.1576 72.3353C79.8542 72.2921 80.4941 71.7656 80.6723 71.0906C81.6956 71.5793 83.0456 71.528 83.8394 70.718C84.6332 69.9053 84.509 68.3015 83.4722 67.8371C83.9312 67.3754 84.4118 66.8786 84.5603 66.2441C84.7088 65.6096 84.3632 64.8131 83.7179 64.7267C84.0176 63.9599 84.32 63.1634 84.2876 62.3426C84.2552 61.5191 83.7989 60.6551 83.0132 60.4067C83.1698 59.6399 83.3237 58.8326 83.0807 58.0901C82.8377 57.3476 82.0439 56.7212 81.296 56.9534C81.4769 56.5079 81.6119 56.003 81.4364 55.5548C81.2609 55.1066 80.6561 54.815 80.2781 55.112C80.3753 53.4596 78.5474 52.0043 76.9571 52.4687C76.6223 51.2132 74.9753 50.5166 73.8413 51.1511C73.8332 50.3033 72.8963 49.5986 72.0782 49.8254C72.2861 49.7687 71.6138 48.5753 71.5328 48.4727C71.1602 48.0191 70.6985 47.849 70.2017 47.5817C69.3107 47.1011 68.6195 46.3262 67.5071 46.5341V46.5314Z"
@@ -3481,16 +3481,16 @@ const Banners: React.FC = () => {
                                     <path
                                         d="M44.6387 109.077C44.6387 109.077 45.6728 112.968 47.2874 112.217C48.902 111.469 49.1855 110.524 51.602 110.395"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M42.6192 116.931C42.6192 116.931 38.5449 107.37 39.5007 103.05"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M84.0991 98.5091C84.0991 98.5091 82.2739 96.7919 84.8443 96.1871C87.4147 95.5823 91.5403 96.6785 93.028 97.3481C94.5157 98.0177 95.4634 98.1338 96.0034 102.608C96.5434 107.082 92.7553 116.483 91.6753 117.296C90.5926 118.108 87.8197 118.108 85.1818 116.078C82.5439 114.048 80.4568 114.158 81.094 108.861C81.7312 103.563 84.5554 99.1112 84.0991 98.5091Z"
@@ -3503,16 +3503,16 @@ const Banners: React.FC = () => {
                                     <path
                                         d="M89.9721 109.077C89.9721 109.077 88.938 112.968 87.3234 112.217C85.7088 111.469 85.4253 110.524 83.0088 110.395"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M91.9912 116.931C91.9912 116.931 96.0655 107.37 95.1097 103.05"
                                         stroke="#4C7493"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M79.3969 96.6757H79.3942C79.3753 95.8738 78.7273 95.1637 77.8471 95.1637H56.833C55.969 95.1637 55.321 95.8549 55.2859 96.646H55.2832V98.0149L55.5802 97.753L58.183 104.371H76.1839L78.9946 97.9555L79.3996 98.023V96.673L79.3969 96.6757Z"
@@ -3537,16 +3537,16 @@ const Banners: React.FC = () => {
                                     <path
                                         d="M65.154 103.933C65.154 103.933 58.2474 104.635 55.8984 102.608"
                                         stroke="#663022"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M66.1048 105.208C66.1048 105.208 62.6515 107.873 55.2832 106.636"
                                         stroke="#663022"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M88.7249 100.712C88.571 100.348 88.3361 100.021 87.9959 99.8186C87.2723 99.3893 86.5271 98.9978 85.7576 98.6549C84.872 98.2607 83.9432 97.9151 83.1953 97.3022C81.7616 96.1277 80.9948 94.235 79.472 93.155C77.9168 92.0507 76.0808 92.5286 74.5067 93.3359C73.829 93.6815 73.1513 94.0271 72.5114 94.4348C72.2063 94.6292 71.8931 94.8641 71.7149 95.1665H77.7197C77.7197 95.1665 79.2371 94.9721 79.3991 96.8108V98.0285C79.3991 98.0285 79.31 98.7872 78.9779 99.3326L78.6782 100.013C78.4271 100.599 77.7629 101.069 77.1716 101.344C76.3724 101.717 75.4679 101.784 74.5877 101.846C71.7635 102.046 68.942 102.246 66.1178 102.446C65.5832 102.484 64.9028 102.656 64.8515 103.188C64.8245 103.461 64.9946 103.709 65.1539 103.933C66.0341 105.151 66.9359 106.388 68.1401 107.287C70.238 108.847 72.9704 109.188 75.5705 109.477C77.393 109.679 79.2911 109.876 81.0974 109.452C82.9793 109.012 83.7191 107.47 85.4471 106.75C86.4299 106.339 87.9095 106.261 88.4765 105.221C88.5953 105.003 88.6493 104.757 88.7006 104.511C88.7735 104.149 88.8356 103.785 88.8896 103.42C88.976 102.813 89.0381 102.195 88.9571 101.587C88.9193 101.298 88.8464 100.993 88.7276 100.712H88.7249Z"
@@ -3559,23 +3559,23 @@ const Banners: React.FC = () => {
                                     <path
                                         d="M65.3672 104.228C65.3672 104.228 69.2849 104.703 72.7733 104.781C76.259 104.86 77.5307 104.482 78.4271 103.917"
                                         stroke="#663022"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M66.7715 106.01C66.7715 106.01 73.7159 107.543 76.4483 106.836C79.1807 106.128 78.7568 105.707 78.7568 105.707"
                                         stroke="#663022"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M71.126 108.71C71.126 108.71 77.8139 109.428 79.6985 107.732"
                                         stroke="#663022"
-                                        stroke-width="0.2295"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="0.2295"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M46.0507 85.1603H53.9941C54.9877 85.1603 55.8004 85.973 55.8004 86.9666V88.8593C55.8004 89.8529 54.9877 90.6656 53.9941 90.6656C53.7484 90.6656 53.5648 90.887 53.6107 91.13L53.8402 92.345L51.9043 90.7547C51.8341 90.698 51.7477 90.6656 51.6559 90.6656H46.0534C45.0598 90.6656 44.2471 89.8529 44.2471 88.8593V86.9666C44.2471 85.973 45.0598 85.1603 46.0534 85.1603H46.0507Z"
@@ -3602,10 +3602,10 @@ const Banners: React.FC = () => {
                                         width="9.23414"
                                         height="4.14723"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -3639,10 +3639,10 @@ const Banners: React.FC = () => {
                                         width="3.84449"
                                         height="3.45057"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -3676,10 +3676,10 @@ const Banners: React.FC = () => {
                                         width="3.84449"
                                         height="3.3318"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -3713,10 +3713,10 @@ const Banners: React.FC = () => {
                                         width="3.76148"
                                         height="3.31556"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -3750,10 +3750,10 @@ const Banners: React.FC = () => {
                                         width="4.10914"
                                         height="3.38575"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -3787,10 +3787,10 @@ const Banners: React.FC = () => {
                                         width="3.71266"
                                         height="3.31825"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -3824,10 +3824,10 @@ const Banners: React.FC = () => {
                                         width="18.7869"
                                         height="10.0089"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -3861,10 +3861,10 @@ const Banners: React.FC = () => {
                                         width="44.1746"
                                         height="21.2301"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -3898,10 +3898,10 @@ const Banners: React.FC = () => {
                                         width="3.9773"
                                         height="3.35877"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -3935,10 +3935,10 @@ const Banners: React.FC = () => {
                                         width="5.1648"
                                         height="3.54237"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -3972,10 +3972,10 @@ const Banners: React.FC = () => {
                                         width="4.70875"
                                         height="3.45875"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4009,10 +4009,10 @@ const Banners: React.FC = () => {
                                         width="3.46656"
                                         height="3.27516"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4046,10 +4046,10 @@ const Banners: React.FC = () => {
                                         width="5.24098"
                                         height="3.51539"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4083,10 +4083,10 @@ const Banners: React.FC = () => {
                                         width="4.09547"
                                         height="3.37232"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4120,10 +4120,10 @@ const Banners: React.FC = () => {
                                         width="3.81813"
                                         height="3.32105"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4157,10 +4157,10 @@ const Banners: React.FC = () => {
                                         width="3.94703"
                                         height="3.34266"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4194,10 +4194,10 @@ const Banners: React.FC = () => {
                                         width="3.76148"
                                         height="3.32643"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4231,10 +4231,10 @@ const Banners: React.FC = () => {
                                         width="4.55445"
                                         height="3.45875"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4268,10 +4268,10 @@ const Banners: React.FC = () => {
                                         width="4.68727"
                                         height="3.46949"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4305,10 +4305,10 @@ const Banners: React.FC = () => {
                                         width="3.5691"
                                         height="3.29127"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4342,10 +4342,10 @@ const Banners: React.FC = () => {
                                         width="47.7195"
                                         height="12.9703"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4379,10 +4379,10 @@ const Banners: React.FC = () => {
                                         width="3.68238"
                                         height="3.3075"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4416,10 +4416,10 @@ const Banners: React.FC = () => {
                                         width="32.3894"
                                         height="13.454"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4453,10 +4453,10 @@ const Banners: React.FC = () => {
                                         width="10.6218"
                                         height="7.65992"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4490,10 +4490,10 @@ const Banners: React.FC = () => {
                                         width="19.5535"
                                         height="10.8945"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4527,10 +4527,10 @@ const Banners: React.FC = () => {
                                         width="8.0193"
                                         height="4.02564"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4564,10 +4564,10 @@ const Banners: React.FC = () => {
                                         width="3.32594"
                                         height="3.25355"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4601,10 +4601,10 @@ const Banners: React.FC = () => {
                                         width="3.80738"
                                         height="3.32105"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4638,10 +4638,10 @@ const Banners: React.FC = () => {
                                         width="20.5447"
                                         height="21.6648"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4675,10 +4675,10 @@ const Banners: React.FC = () => {
                                         width="3.55055"
                                         height="3.28053"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4712,10 +4712,10 @@ const Banners: React.FC = () => {
                                         width="3.61012"
                                         height="3.29396"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4749,10 +4749,10 @@ const Banners: React.FC = () => {
                                         width="5.51051"
                                         height="3.58558"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4786,10 +4786,10 @@ const Banners: React.FC = () => {
                                         width="3.26148"
                                         height="3.24269"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4823,10 +4823,10 @@ const Banners: React.FC = () => {
                                         width="5.4568"
                                         height="3.56666"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4860,10 +4860,10 @@ const Banners: React.FC = () => {
                                         width="5.66969"
                                         height="3.62074"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4897,10 +4897,10 @@ const Banners: React.FC = () => {
                                         width="3.25855"
                                         height="3.24269"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4934,10 +4934,10 @@ const Banners: React.FC = () => {
                                         width="5.00855"
                                         height="3.48841"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -4971,10 +4971,10 @@ const Banners: React.FC = () => {
                                         width="6.79078"
                                         height="3.71522"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5008,10 +5008,10 @@ const Banners: React.FC = () => {
                                         width="5.8025"
                                         height="3.6504"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5045,10 +5045,10 @@ const Banners: React.FC = () => {
                                         width="50.4978"
                                         height="16.1676"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5082,10 +5082,10 @@ const Banners: React.FC = () => {
                                         width="3.79859"
                                         height="3.31825"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5119,10 +5119,10 @@ const Banners: React.FC = () => {
                                         width="3.26441"
                                         height="3.24269"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5156,10 +5156,10 @@ const Banners: React.FC = () => {
                                         width="5.27809"
                                         height="3.58021"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5193,10 +5193,10 @@ const Banners: React.FC = () => {
                                         width="3.615"
                                         height="3.30213"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5230,10 +5230,10 @@ const Banners: React.FC = () => {
                                         width="4.33863"
                                         height="3.40199"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5267,10 +5267,10 @@ const Banners: React.FC = () => {
                                         width="4.08473"
                                         height="3.36695"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5304,10 +5304,10 @@ const Banners: React.FC = () => {
                                         width="3.64234"
                                         height="3.29664"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5341,10 +5341,10 @@ const Banners: React.FC = () => {
                                         width="4.74391"
                                         height="3.48573"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5378,10 +5378,10 @@ const Banners: React.FC = () => {
                                         width="3.40992"
                                         height="3.26698"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5415,10 +5415,10 @@ const Banners: React.FC = () => {
                                         width="3.47535"
                                         height="3.27784"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5452,10 +5452,10 @@ const Banners: React.FC = () => {
                                         width="5.17555"
                                         height="3.56666"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5489,10 +5489,10 @@ const Banners: React.FC = () => {
                                         width="4.18531"
                                         height="3.3993"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5526,10 +5526,10 @@ const Banners: React.FC = () => {
                                         width="3.75563"
                                         height="3.32643"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5563,10 +5563,10 @@ const Banners: React.FC = () => {
                                         width="8.14332"
                                         height="4.06886"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5600,10 +5600,10 @@ const Banners: React.FC = () => {
                                         width="8.0193"
                                         height="4.02564"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5637,10 +5637,10 @@ const Banners: React.FC = () => {
                                         width="3.36402"
                                         height="3.25892"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5674,10 +5674,10 @@ const Banners: React.FC = () => {
                                         width="13.8914"
                                         height="8.42945"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5711,10 +5711,10 @@ const Banners: React.FC = () => {
                                         width="23.5857"
                                         height="16.3862"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5748,10 +5748,10 @@ const Banners: React.FC = () => {
                                         width="4.90602"
                                         height="5.52687"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5785,10 +5785,10 @@ const Banners: React.FC = () => {
                                         width="4.17457"
                                         height="3.79078"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5822,10 +5822,10 @@ const Banners: React.FC = () => {
                                         width="15.4382"
                                         height="6.25318"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5859,10 +5859,10 @@ const Banners: React.FC = () => {
                                         width="28.9343"
                                         height="17.2431"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5896,10 +5896,10 @@ const Banners: React.FC = () => {
                                         width="4.50367"
                                         height="3.64503"
                                         filterUnits="userSpaceOnUse"
-                                        color-interpolation-filters="sRGB"
+                                        colorInterpolationFilters="sRGB"
                                     >
                                         <feFlood
-                                            flood-opacity="0"
+                                            floodOpacity="0"
                                             result="BackgroundImageFix"
                                         />
                                         <feColorMatrix
@@ -5934,8 +5934,8 @@ const Banners: React.FC = () => {
                                         y2="47.6974"
                                         gradientUnits="userSpaceOnUse"
                                     >
-                                        <stop stop-color="#B3D4C9" />
-                                        <stop offset="1" stop-color="#D9DCCC" />
+                                        <stop stopColor="#B3D4C9" />
+                                        <stop offset="1" stopColor="#D9DCCC" />
                                     </linearGradient>
                                     <clipPath id="clip0_133_4359">
                                         <rect

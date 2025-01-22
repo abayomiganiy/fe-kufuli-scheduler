@@ -79,16 +79,16 @@ const Connections: React.FC = () => {
                                 <path
                                     d="M6.75012 2.5V10.5"
                                     stroke="white"
-                                    stroke-width="2.25"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
+                                    strokeWidth="2.25"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
                                 />
                                 <path
                                     d="M2.75 6.5H10.75"
                                     stroke="white"
-                                    stroke-width="2.25"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
+                                    strokeWidth="2.25"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
                                 />
                             </svg>
                         </div>
