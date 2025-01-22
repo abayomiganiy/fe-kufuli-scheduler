@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { UseControllerProps } from "react-hook-form";
 import {
     CreateAudioMessage,
     CreateAudioStory,
@@ -9,186 +8,136 @@ import {
     ICreateCampaignContent,
 } from "../../interfaces/campaign.interface";
 import { useCreateCampaignContent } from "../../store/campaignStore";
+import FontCodeToFont from "../../utils/fontCodeToFont";
 import generateHexColor from "../../utils/generateHexColor";
 
-const fontCodeToFont = (fontCode: number) => {
-    let fontName;
-    switch (fontCode) {
-        case 0:
-            fontName = "system-ui";
-            break;
-        case 8:
-            fontName = '"Calistoga", serif';
-            break;
-        case 9:
-            fontName = '"Exo 2", serif';
-            break;
-        case 10:
-            fontName = '"Courier Prime", serif';
-            break;
-        // case 2:
-        //     fontName = 'FB_SCRIPT';
-        //     break;
-        // case 7:
-        //     fontName = 'MORNINGBREEZE_REGULAR';
-        //     break;
-
-        default:
-            fontName = "system-ui";
-            break;
-    }
-
-    return fontName;
-};
-
-type FormValues = {
-    [key: string]: unknown;
-};
-
-interface CampaignContentPreviewProps extends UseControllerProps<FormValues> {
+interface CampaignContentPreviewProps {
     content: ICreateCampaignContent;
-    name: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    field: any;
 }
 
 const CampaignContentPreview = ({
     content,
-    name,
+    field,
 }: CampaignContentPreviewProps) => {
     const { updateContent } = useCreateCampaignContent((state) => state);
 
     return (
-        <div className="relative">
-            <CampaingActions content={content} />
-            <div>
-                {content.mimetype === "text" ? (
-                    <div className="flex flex-col gap-3">
-                        <label
-                            htmlFor={`text-input-${content.id}`}
-                            className="w-52 h-72 rounded-lg flex items-center justify-center text-white p-4 outline-none select-none"
-                            style={{
-                                backgroundColor: (content as CreateTextStory)
-                                    .backgroundColor,
-                                fontFamily: fontCodeToFont(
-                                    (content as CreateTextStory).font
-                                ),
-                            }}
-                        >
-                            {content.text?.length
-                                ? content.text
-                                : "Type a message..."}
-                        </label>
-                        <textarea
-                            // {...field}
-                            // value={field.value as string}
-                            id={`text-input-${content.id}`}
-                            rows={3}
-                            name={name}
-                            // defaultValue={(content as CreateTextStory).text}
-                            className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
-                            placeholder="Type a message..."
-                            required
-                            // onChange={(e) => {
-                            //     updateContent({
-                            //         ...content,
-                            //         text: e.target.value,
-                            //     });
-                            // }}
+        <div>
+            {content.mimetype === "text" ? (
+                <div className="flex flex-col gap-3">
+                    <label
+                        htmlFor={`text-input-${content.id}`}
+                        className="w-52 h-72 rounded-lg flex items-center justify-center text-white p-4 outline-none select-none"
+                        style={{
+                            backgroundColor: (content as CreateTextStory)
+                                .backgroundColor,
+                            fontFamily: FontCodeToFont(
+                                (content as CreateTextStory).font
+                            ),
+                        }}
+                    >
+                        {(content as CreateTextStory).text?.length
+                            ? (content as CreateTextStory).text
+                            : "Type a message..."}
+                    </label>
+                    <textarea
+                        {...field}
+                        onChange={(e) => {
+                            updateContent({
+                                ...content,
+                                text: e.target.value,
+                            } as CreateTextStory);
+                            field.onChange(e.target.value);
+                        }}
+                        id={`text-input-${content.id}`}
+                        className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
+                        placeholder="Type a message..."
+                    />
+                </div>
+            ) : content.mimetype === "image" ? (
+                <div className="flex flex-col gap-3">
+                    <div className="w-52 h-72 bg-gray-800 rounded-lg">
+                        <img
+                            src={(content as CreateImageMessage).image}
+                            alt={(content as CreateImageMessage).caption}
+                            className="w-full h-full object-contain"
                         />
-                        {/* {fieldState.error && (
-                            <p className="text-xs text-red-500">
-                                {fieldState.error.message}
-                            </p>
-                        )} */}
                     </div>
-                ) : content.mimetype === "image" ? (
-                    <div className="flex flex-col gap-3">
-                        <div className="w-52 h-72 bg-gray-800 rounded-lg">
-                            <img
-                                src={(content as CreateImageMessage).image}
-                                alt={(content as CreateImageMessage).caption}
-                                className="w-full h-full object-contain"
+                    <textarea
+                        rows={3}
+                        defaultValue={(content as CreateImageMessage).caption}
+                        className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
+                        placeholder="Write caption"
+                        onChange={(e) => {
+                            updateContent({
+                                ...content,
+                                caption: e.target.value,
+                            });
+                        }}
+                    />
+                </div>
+            ) : content.mimetype === "video" ? (
+                <div className="flex flex-col gap-3">
+                    <div className="w-52 h-72 rounded-lg bg-black flex items-center justify-center p-4 outline-none select-none">
+                        <video
+                            controls
+                            controlsList="nofullscreen"
+                            playsInline
+                            className="w-52 h-full"
+                        >
+                            <source
+                                src={(content as CreateVideoMessage).video}
                             />
-                        </div>
-                        <textarea
-                            rows={3}
-                            defaultValue={
-                                (content as CreateImageMessage).caption
-                            }
-                            className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
-                            placeholder="Write caption"
-                            onChange={(e) => {
-                                updateContent({
-                                    ...content,
-                                    caption: e.target.value,
-                                });
-                            }}
-                        />
+                        </video>
                     </div>
-                ) : content.mimetype === "video" ? (
-                    <div className="flex flex-col gap-3">
-                        <div className="w-52 h-72 rounded-lg bg-black flex items-center justify-center p-4 outline-none select-none">
-                            <video
-                                controls
-                                controlsList="nofullscreen"
-                                playsInline
-                                className="w-52 h-full"
-                            >
-                                <source
-                                    src={(content as CreateVideoMessage).video}
-                                />
-                            </video>
-                        </div>
-                        <textarea
-                            rows={3}
-                            defaultValue={
-                                (content as CreateVideoMessage).caption
-                            }
-                            className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
-                            placeholder="Write caption"
-                            onChange={(e) => {
-                                updateContent({
-                                    ...content,
-                                    caption: e.target.value,
-                                });
-                            }}
-                        />
+                    <textarea
+                        rows={3}
+                        defaultValue={(content as CreateVideoMessage).caption}
+                        className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
+                        placeholder="Write caption"
+                        onChange={(e) => {
+                            updateContent({
+                                ...content,
+                                caption: e.target.value,
+                            });
+                        }}
+                    />
+                </div>
+            ) : content.mimetype === "audio" ? (
+                <div className="flex flex-col gap-3">
+                    <div
+                        className="w-52 h-72 rounded-lg flex items-center justify-center text-white p-4 outline-none select-none"
+                        style={{
+                            backgroundColor: (content as CreateAudioStory)
+                                .backgroundColor,
+                        }}
+                    >
+                        <audio controls controlsList="nofullscreen" playsInline>
+                            <source
+                                src={
+                                    (
+                                        content as
+                                            | CreateAudioMessage
+                                            | CreateAudioStory
+                                    ).audio
+                                }
+                                type="audio/mpeg"
+                            />
+                        </audio>
                     </div>
-                ) : content.mimetype === "audio" ? (
-                    <div className="flex flex-col gap-3">
-                        <div
-                            className="w-52 h-72 rounded-lg flex items-center justify-center text-white p-4 outline-none select-none"
-                            style={{
-                                backgroundColor: (content as CreateAudioStory)
-                                    .backgroundColor,
-                            }}
-                        >
-                            <audio
-                                controls
-                                controlsList="nofullscreen"
-                                playsInline
-                            >
-                                <source
-                                    src={
-                                        (
-                                            content as
-                                                | CreateAudioMessage
-                                                | CreateAudioStory
-                                        ).audio
-                                    }
-                                    type="audio/mpeg"
-                                />
-                            </audio>
-                        </div>
-                    </div>
-                ) : null}
-            </div>
+                </div>
+            ) : null}
         </div>
     );
 };
 
-const CampaingActions: React.FC<{
+export const CampaingActions: React.FC<{
     content: ICreateCampaignContent;
-}> = ({ content }) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    field: any;
+}> = ({ content, field }) => {
     const [index, setIndex] = useState(0);
     const fontOptions = [0, 8, 9, 10];
     const { removeContent, updateContent } = useCreateCampaignContent(
@@ -238,7 +187,7 @@ const CampaingActions: React.FC<{
                             });
                         }}
                         style={{
-                            fontFamily: fontCodeToFont(
+                            fontFamily: FontCodeToFont(
                                 (content as CreateTextStory).font
                             ),
                         }}
@@ -251,10 +200,12 @@ const CampaingActions: React.FC<{
                     <div
                         className=" cursor-pointer shadow-2xl bg-gray-600 text-white h-8 opacity-90 w-8 rounded-full flex justify-center items-center"
                         onClick={() => {
+                            const color = generateHexColor();
                             updateContent({
                                 ...content,
-                                backgroundColor: generateHexColor(),
+                                backgroundColor: color,
                             });
+                            field.onChange(color);
                         }}
                     >
                         <svg

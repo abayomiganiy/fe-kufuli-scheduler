@@ -1,33 +1,50 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
+import * as z from "zod";
 import Button from "../../components/button";
 import CampaignContentPreview from "../../components/campaignContentPreview";
 import ContentTypeIcon from "../../components/contentTypeIcon";
 import BackIcon from "../../components/icons/backIcon";
 import RadioGroup from "../../components/radioGroup/RadioGroup";
 import SectionHeader from "../../components/sectionHeader";
-import { CampaignContentType } from "../../interfaces/campaign.interface";
+import {
+    CampaignContentType,
+    ICreateCampaignContent,
+} from "../../interfaces/campaign.interface";
 import { useCreateCampaignContent } from "../../store/campaignStore";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { CampaingActions } from "../../components/campaignContentPreview/CampaignContentPreview";
 
 interface IFormInput {
     is_eighteen_plus: string;
     frequency: string;
     schedule: string;
-    contents: CampaignContentType[];
+    contents: ICreateCampaignContent[];
 }
 
 const createCampaignSchema = z
     .object({
-        contents: z
-            .object({
-                text: z.string(),
+        contents: z.array(
+            z.object({
+                text: z.string().min(1, "Content cannot be empty."),
+                backgroundColor: z.string(),
             })
-            .array(),
-        is_eighteen_plus: z.string(),
-        frequency: z.string(),
-        schedule: z.string(),
+        ),
+        is_eighteen_plus: z
+            .enum(["yes", "no"])
+            .refine((val) => val !== undefined, {
+                message: "Please select an option.",
+            }),
+        frequency: z
+            .enum(["once", "daily", "weekly", "custom"])
+            .refine((val) => val !== undefined, {
+                message: "Please select a frequency.",
+            }),
+        schedule: z
+            .enum(["post_now", "select_date"])
+            .refine((val) => val !== undefined, {
+                message: "Please select a schedule.",
+            }),
     })
     .required();
 
@@ -46,7 +63,7 @@ const CreateCampaign: React.FC = () => {
         console.log(data);
     };
 
-    console.log(errors);
+    console.log(`errors: ${JSON.stringify(errors)}`);
 
     return (
         <div>
@@ -61,22 +78,33 @@ const CreateCampaign: React.FC = () => {
                 >
                     <div className="flex overflow-auto pb-5">
                         <div className="flex justify-center gap-4 flex-nowrap">
-                            {contents.map((content) => (
-                                <Controller
-                                    name="contents"
-                                    control={control}
-                                    key={content.id}
-                                    render={({ field }) => (
-                                        <CampaignContentPreview
-                                            {...field}
-                                            content={content}
-                                        />
-                                    )}
-                                />
+                            {contents.map((content, index) => (
+                                <div className="relative" key={content.id}>
+                                    <Controller
+                                        
+                                        name={`contents.${index}.backgroundColor`}
+                                        control={control}
+                                        render={({ field }) => (
+                                            <CampaingActions
+                                                content={content}
+                                                field={field}
+                                            />
+                                        )}
+                                    />
+                                    <Controller
+                                        name={`contents.${index}.text`}
+                                        control={control}
+                                        render={({ field }) => (
+                                            <CampaignContentPreview
+                                                field={field}
+                                                content={content}
+                                            />
+                                        )}
+                                    />
+                                </div>
                             ))}
                         </div>
                     </div>
-
                     <div className="flex justify-center gap-5">
                         {(
                             [
