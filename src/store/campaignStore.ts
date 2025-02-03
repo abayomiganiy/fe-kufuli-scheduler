@@ -12,7 +12,7 @@ export const useCreateCampaignContent = create<CreateCampaignContent>()(
     (set) => ({
         contents: [],
         addContent: (newContent: ICreateCampaignContent) => {
-            set((state) => ({ contents: [newContent, ...state.contents] }));
+            set((state) => ({ contents: [...state.contents, newContent] }));
         },
         updateContent: (content: ICreateCampaignContent) => {
             set(({ contents }) => {

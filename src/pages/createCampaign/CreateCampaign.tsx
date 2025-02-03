@@ -10,12 +10,13 @@ import RadioGroup from "../../components/radioGroup/RadioGroup";
 import SectionHeader from "../../components/sectionHeader";
 import {
     CampaignContentType,
+    CreateTextStory,
     ICreateCampaignContent,
 } from "../../interfaces/campaign.interface";
 import { useCreateCampaignContent } from "../../store/campaignStore";
-import { CampaingActions } from "../../components/campaignContentPreview/CampaignContentPreview";
+import CampaignPreviewActions from "../../components/campaignPreviewActions";
 
-interface IFormInput {
+export interface IFormInput {
     is_eighteen_plus: string;
     frequency: string;
     schedule: string;
@@ -49,12 +50,17 @@ const createCampaignSchema = z
     .required();
 
 const CreateCampaign: React.FC = () => {
-    const { contents } = useCreateCampaignContent((state) => state);
+    const { contents, updateContent } = useCreateCampaignContent(
+        (state) => state
+    );
 
     const {
         handleSubmit,
         control,
         formState: { errors },
+        register,
+        setValue,
+        getValues,
     } = useForm<IFormInput>({
         resolver: zodResolver(createCampaignSchema),
     });
@@ -62,7 +68,6 @@ const CreateCampaign: React.FC = () => {
     const onSubmit = (data: IFormInput) => {
         console.log(data);
     };
-
     console.log(`errors: ${JSON.stringify(errors)}`);
 
     return (
@@ -79,28 +84,47 @@ const CreateCampaign: React.FC = () => {
                     <div className="flex overflow-auto pb-5">
                         <div className="flex justify-center gap-4 flex-nowrap">
                             {contents.map((content, index) => (
-                                <div className="relative" key={content.id}>
-                                    <Controller
-                                        
-                                        name={`contents.${index}.backgroundColor`}
-                                        control={control}
-                                        render={({ field }) => (
-                                            <CampaingActions
-                                                content={content}
-                                                field={field}
-                                            />
-                                        )}
+                                <div className="flex flex-col gap-3 relative">
+                                    <CampaignPreviewActions
+                                        content={content}
+                                        setValue={setValue}
+                                        index={index}
                                     />
-                                    <Controller
-                                        name={`contents.${index}.text`}
-                                        control={control}
-                                        render={({ field }) => (
-                                            <CampaignContentPreview
-                                                field={field}
-                                                content={content}
-                                            />
-                                        )}
+                                    <CampaignContentPreview
+                                        key={index}
+                                        content={content}
+                                        getValues={getValues}
                                     />
+                                    <div key={content.id}>
+                                        <input
+                                            {...register(
+                                                `contents.${index}.backgroundColor`
+                                            )}
+                                            defaultValue={
+                                                (content as CreateTextStory)
+                                                    .backgroundColor
+                                            }
+                                            type="color"
+                                            placeholder="background"
+                                            hidden
+                                        />
+                                        <textarea
+                                            {...register(
+                                                `contents.${index}.text`
+                                            )}
+                                            onChange={(e) => {
+                                                updateContent({
+                                                    ...(content as CreateTextStory),
+                                                    id: content.id,
+                                                    text: e.target.value,
+                                                });
+                                            }}
+                                            id={`text-input-${content.id}`}
+                                            className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none w-full"
+                                            placeholder="Type a message..."
+                                            rows={3}
+                                        />
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -176,7 +200,7 @@ const CreateCampaign: React.FC = () => {
                                         },
                                         {
                                             label: "Select Date",
-                                            value: "select_ate",
+                                            value: "select_date",
                                         },
                                     ]}
                                 />
