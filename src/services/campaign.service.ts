@@ -13,6 +13,7 @@ import {
     ICampaign,
 } from "../interfaces/campaign.interface";
 import { v4 as uuidv4 } from "uuid";
+import { request } from "../utils/axios-utils";
 
 export const getCampaigns = async (filter?: {
     status: CampaignStatus;
@@ -117,5 +118,19 @@ export const getCampaigns = async (filter?: {
                     : activeCampaigns
             );
         }, 3000);
+    });
+};
+
+export const createCampaign = async () => {
+    return request({
+        method: "POST",
+        url: "/campaigns",
+        data: {
+            name: "My Business Campaign",
+            socialAccountId: "0bXdhx",
+            recipients: ["2349012702790", "2349012702791", "2349012702792"],
+            repeatInterval: "DAILY",
+            scheduledTime: "2025-02-06 07:58:29.041Z",
+        },
     });
 };
