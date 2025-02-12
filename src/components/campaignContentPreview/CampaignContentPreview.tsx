@@ -7,13 +7,13 @@ import {
     CreateVideoMessage,
     ICreateCampaignContent,
 } from "../../interfaces/campaign.interface";
-import { IFormInput } from "../../pages/createCampaign/CreateCampaign";
+import { ICampaignFormInput } from "../../pages/createCampaign/CreateCampaign";
 import { useCreateCampaignContent } from "../../store/campaignStore";
 import FontCodeToFont from "../../utils/fontCodeToFont";
 
 interface CampaignContentPreviewProps {
     content: ICreateCampaignContent;
-    getValues: UseFormGetValues<IFormInput>;
+    getValues: UseFormGetValues<ICampaignFormInput>;
 }
 
 const CampaignContentPreview = ({

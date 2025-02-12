@@ -15,8 +15,9 @@ import {
 } from "../../interfaces/campaign.interface";
 import { useCreateCampaignContent } from "../../store/campaignStore";
 import CampaignPreviewActions from "../../components/campaignPreviewActions";
+import { useCreateCampaign } from "../../hooks/campaign.hook";
 
-export interface IFormInput {
+export interface ICampaignFormInput {
     is_eighteen_plus: string;
     frequency: string;
     schedule: string;
@@ -53,6 +54,7 @@ const CreateCampaign: React.FC = () => {
     const { contents, updateContent } = useCreateCampaignContent(
         (state) => state
     );
+    const { mutate: createCampaign } = useCreateCampaign();
 
     const {
         handleSubmit,
@@ -61,12 +63,13 @@ const CreateCampaign: React.FC = () => {
         register,
         setValue,
         getValues,
-    } = useForm<IFormInput>({
+    } = useForm<ICampaignFormInput>({
         resolver: zodResolver(createCampaignSchema),
     });
 
-    const onSubmit = (data: IFormInput) => {
+    const onSubmit = (data: ICampaignFormInput) => {
         console.log(data);
+        createCampaign(data);
     };
     console.log(`errors: ${JSON.stringify(errors)}`);
 

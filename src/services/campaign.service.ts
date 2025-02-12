@@ -14,6 +14,7 @@ import {
 } from "../interfaces/campaign.interface";
 import { v4 as uuidv4 } from "uuid";
 import { request } from "../utils/axios-utils";
+import { ICampaignFormInput } from "../pages/createCampaign/CreateCampaign";
 
 export const getCampaigns = async (filter?: {
     status: CampaignStatus;
@@ -121,16 +122,17 @@ export const getCampaigns = async (filter?: {
     });
 };
 
-export const createCampaign = async () => {
+export const createCampaign = async (data: ICampaignFormInput) => {
+    console.log(data);
     return request({
         method: "POST",
         url: "/campaigns",
         data: {
             name: "My Business Campaign",
-            socialAccountId: "0bXdhx",
+            socialAccountId: "cm71kg7a5000313vp600fl9dg",
             recipients: ["2349012702790", "2349012702791", "2349012702792"],
             repeatInterval: "DAILY",
-            scheduledTime: "2025-02-06 07:58:29.041Z",
+            scheduledTime: "2025-12-06 07:58:29.041Z",
         },
     });
 };

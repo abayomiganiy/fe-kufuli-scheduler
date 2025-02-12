@@ -4,14 +4,14 @@ import {
     CreateTextStory,
     ICreateCampaignContent,
 } from "../../interfaces/campaign.interface";
-import { IFormInput } from "../../pages/createCampaign/CreateCampaign";
+import { ICampaignFormInput } from "../../pages/createCampaign/CreateCampaign";
 import { useCreateCampaignContent } from "../../store/campaignStore";
 import FontCodeToFont from "../../utils/fontCodeToFont";
 import generateHexColor from "../../utils/generateHexColor";
 
 const CampaingPreviewActions: React.FC<{
     content: ICreateCampaignContent;
-    setValue: UseFormSetValue<IFormInput>;
+    setValue: UseFormSetValue<ICampaignFormInput>;
     index: number;
 }> = ({ content, setValue, index }) => {
     const [bgIndex, setBgIndex] = useState(0);
