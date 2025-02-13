@@ -55,7 +55,6 @@ const CreateCampaign: React.FC = () => {
         (state) => state
     );
     const { mutate: createCampaign } = useCreateCampaign();
-
     const {
         handleSubmit,
         control,
@@ -71,7 +70,6 @@ const CreateCampaign: React.FC = () => {
         console.log(data);
         createCampaign(data);
     };
-    console.log(`errors: ${JSON.stringify(errors)}`);
 
     return (
         <div>

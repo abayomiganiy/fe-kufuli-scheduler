@@ -18,13 +18,13 @@ interface CampaignContentPreviewProps {
 
 const CampaignContentPreview = ({
     content,
-    getValues,
+    // getValues,
 }: CampaignContentPreviewProps) => {
     const { updateContent } = useCreateCampaignContent((state) => state);
 
-    const values = getValues();
+    // const values = getValues();
 
-    console.log(values);
+    // console.log(values);
 
     return (
         <div>
