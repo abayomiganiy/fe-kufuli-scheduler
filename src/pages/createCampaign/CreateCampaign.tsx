@@ -18,40 +18,42 @@ import CampaignPreviewActions from "../../components/campaignPreviewActions";
 import { useCreateCampaign } from "../../hooks/campaign.hook";
 
 export interface ICampaignFormInput {
-    is_eighteen_plus: string;
+    name: string;
+    isEighteenPlus: boolean;
     frequency: string;
-    schedule: string;
-    contents: ICreateCampaignContent[];
+    scheduledTime: string;
+    messages: ICreateCampaignContent[];
+    recipients: string[];
 }
 
 const createCampaignSchema = z
     .object({
-        contents: z.array(
+        // name: z.string().min(5, ""),
+        messages: z.array(
             z.object({
                 text: z.string().min(1, "Content cannot be empty."),
                 backgroundColor: z.string(),
             })
         ),
-        is_eighteen_plus: z
-            .enum(["yes", "no"])
-            .refine((val) => val !== undefined, {
-                message: "Please select an option.",
-            }),
+        isEighteenPlus: z.boolean().refine((val) => val !== undefined, {
+            message: "Please select an option.",
+        }),
         frequency: z
-            .enum(["once", "daily", "weekly", "custom"])
+            .enum(["ONCE", "DAILY", "WEEKLY", "MONTHLY", "YEARLY", "CUSTOM"])
             .refine((val) => val !== undefined, {
                 message: "Please select a frequency.",
             }),
-        schedule: z
+        scheduledTime: z
             .enum(["post_now", "select_date"])
             .refine((val) => val !== undefined, {
                 message: "Please select a schedule.",
             }),
+        // recipients: z.array(z.string()),
     })
     .required();
 
 const CreateCampaign: React.FC = () => {
-    const { contents, updateContent } = useCreateCampaignContent(
+    const { messages, updateContent } = useCreateCampaignContent(
         (state) => state
     );
     const { mutate: createCampaign } = useCreateCampaign();
@@ -67,8 +69,19 @@ const CreateCampaign: React.FC = () => {
     });
 
     const onSubmit = (data: ICampaignFormInput) => {
-        console.log(data);
-        createCampaign(data);
+        const hardCodedData = {
+            name: "My Business Campaign",
+            recipients: ["2349012702790", "2349012702791", "2349012702792"],
+            scheduledTime: "2025-12-06 07:58:29.041Z",
+        };
+        console.log({
+            ...data,
+            ...hardCodedData,
+        });
+        createCampaign({
+            ...data,
+            ...hardCodedData,
+        });
     };
 
     return (
@@ -84,7 +97,7 @@ const CreateCampaign: React.FC = () => {
                 >
                     <div className="flex overflow-auto pb-5">
                         <div className="flex justify-center gap-4 flex-nowrap">
-                            {contents.map((content, index) => (
+                            {messages.map((content, index) => (
                                 <div className="flex flex-col gap-3 relative">
                                     <CampaignPreviewActions
                                         content={content}
@@ -99,7 +112,7 @@ const CreateCampaign: React.FC = () => {
                                     <div key={content.id}>
                                         <input
                                             {...register(
-                                                `contents.${index}.backgroundColor`
+                                                `messages.${index}.backgroundColor`
                                             )}
                                             defaultValue={
                                                 (content as CreateTextStory)
@@ -111,7 +124,7 @@ const CreateCampaign: React.FC = () => {
                                         />
                                         <textarea
                                             {...register(
-                                                `contents.${index}.text`
+                                                `messages.${index}.text`
                                             )}
                                             onChange={(e) => {
                                                 updateContent({
@@ -128,6 +141,7 @@ const CreateCampaign: React.FC = () => {
                                     </div>
                                 </div>
                             ))}
+                            {`${JSON.stringify(errors)}`}
                         </div>
                     </div>
                     <div className="flex justify-center gap-5">
@@ -143,25 +157,26 @@ const CreateCampaign: React.FC = () => {
                         ))}
                     </div>
                     <div>
-                        <Controller
-                            name="is_eighteen_plus"
-                            control={control}
-                            render={({ field }) => (
-                                <RadioGroup
-                                    {...field}
-                                    title="Is this rated 18+"
-                                    options={[
-                                        { label: "Yes", value: "yes" },
-                                        { label: "No", value: "no" },
-                                    ]}
-                                />
+                        <div className="flex items-center gap-4 p-2">
+                            <input
+                                type="checkbox"
+                                {...register("isEighteenPlus")}
+                                className="ml-2"
+                                id="isEighteenPlus"
+                            />
+                            <label
+                                htmlFor={`isEighteenPlus`}
+                                className="cursor-pointer"
+                            >
+                                {"Is this rated 18+"}
+                            </label>
+
+                            {errors.isEighteenPlus && (
+                                <p className="text-xs text-red-500">
+                                    {errors.isEighteenPlus.message}
+                                </p>
                             )}
-                        />
-                        {errors.is_eighteen_plus && (
-                            <p className="text-xs text-red-500">
-                                {errors.is_eighteen_plus.message}
-                            </p>
-                        )}
+                        </div>
                     </div>
                     <div>
                         <Controller
@@ -172,9 +187,11 @@ const CreateCampaign: React.FC = () => {
                                     {...field}
                                     title="Frequency"
                                     options={[
-                                        { label: "Once", value: "once" },
-                                        { label: "Daily", value: "daily" },
-                                        { label: "Weekly", value: "weekly" },
+                                        { label: "Once", value: "ONCE" },
+                                        { label: "Daily", value: "DAILY" },
+                                        { label: "Weekly", value: "WEEKLY" },
+                                        { label: "Monthly", value: "MONTHLY" },
+                                        { label: "Yearly", value: "YEARLY" },
                                         { label: "Custom", value: "custom" },
                                     ]}
                                 />
@@ -188,7 +205,7 @@ const CreateCampaign: React.FC = () => {
                     </div>
                     <div>
                         <Controller
-                            name="schedule"
+                            name="scheduledTime"
                             control={control}
                             render={({ field }) => (
                                 <RadioGroup
@@ -207,9 +224,9 @@ const CreateCampaign: React.FC = () => {
                                 />
                             )}
                         />
-                        {errors.schedule && (
+                        {errors.scheduledTime && (
                             <p className="text-xs text-red-500">
-                                {errors.schedule.message}
+                                {errors.scheduledTime.message}
                             </p>
                         )}
                     </div>

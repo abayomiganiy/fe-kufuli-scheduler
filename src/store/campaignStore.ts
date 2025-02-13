@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { ICreateCampaignContent } from "../interfaces/campaign.interface";
 
 interface CreateCampaignContent {
-    contents: ICreateCampaignContent[];
+    messages: ICreateCampaignContent[];
     addContent: (newContent: ICreateCampaignContent) => void;
     updateContent: (content: ICreateCampaignContent) => void;
     removeContent: (id: string) => void;
@@ -10,21 +10,21 @@ interface CreateCampaignContent {
 
 export const useCreateCampaignContent = create<CreateCampaignContent>()(
     (set) => ({
-        contents: [],
+        messages: [],
         addContent: (newContent: ICreateCampaignContent) => {
-            set((state) => ({ contents: [...state.contents, newContent] }));
+            set((state) => ({ messages: [...state.messages, newContent] }));
         },
         updateContent: (content: ICreateCampaignContent) => {
-            set(({ contents }) => {
-                const updatedContents = contents.map((c) =>
+            set(({ messages }) => {
+                const updatedMessmessages = messages.map((c) =>
                     c.id === content.id ? { ...c, ...content } : c
                 );
-                return { contents: updatedContents };
+                return { messages: updatedMessmessages };
             });
         },
         removeContent: (id: string) => {
-            set(({ contents }) => ({
-                contents: contents.filter((c) => c.id !== id),
+            set(({ messages }) => ({
+                messages: messages.filter((c) => c.id !== id),
             }));
         },
     })

@@ -127,12 +127,6 @@ export const createCampaign = async (data: ICampaignFormInput) => {
     return request({
         method: "POST",
         url: "/campaigns",
-        data: {
-            name: "My Business Campaign",
-            socialAccountId: "cm71kg7a5000313vp600fl9dg",
-            recipients: ["2349012702790", "2349012702791", "2349012702792"],
-            repeatInterval: "DAILY",
-            scheduledTime: "2025-12-06 07:58:29.041Z",
-        },
+        data,
     });
 };
