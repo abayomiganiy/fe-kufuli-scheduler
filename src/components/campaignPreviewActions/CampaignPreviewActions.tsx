@@ -79,7 +79,7 @@ const CampaingPreviewActions: React.FC<{
                         onClick={() => {
                             const backgroundColor = generateHexColor();
                             setValue(
-                                `contents.${index}.backgroundColor`,
+                                `messages.${index}.backgroundColor`,
                                 backgroundColor
                             );
                             updateContent({
