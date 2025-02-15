@@ -16,6 +16,7 @@ import {
 import { useCreateCampaignContent } from "../../store/campaignStore";
 import CampaignPreviewActions from "../../components/campaignPreviewActions";
 import { useCreateCampaign } from "../../hooks/campaign.hook";
+import { useCurrentSocialAccount } from "../../store/currentSocialAccountStore";
 
 export interface ICampaignFormInput {
     name: string;
@@ -56,6 +57,7 @@ const CreateCampaign: React.FC = () => {
     const { messages, updateContent } = useCreateCampaignContent(
         (state) => state
     );
+    const { currentAccount } = useCurrentSocialAccount();
     const { mutate: createCampaign } = useCreateCampaign();
     const {
         handleSubmit,
@@ -73,6 +75,7 @@ const CreateCampaign: React.FC = () => {
             name: "My Business Campaign",
             recipients: ["2349012702790", "2349012702791", "2349012702792"],
             scheduledTime: "2025-12-06 07:58:29.041Z",
+            socialAccountId: currentAccount?.id,
         };
         console.log({
             ...data,
