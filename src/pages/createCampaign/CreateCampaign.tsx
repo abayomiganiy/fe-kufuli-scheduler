@@ -11,7 +11,7 @@ import SectionHeader from "../../components/sectionHeader";
 import {
     CampaignContentType,
     CreateTextStory,
-    ICreateCampaignContent,
+    // ICreateCampaignContent,
 } from "../../interfaces/campaign.interface";
 import { useCreateCampaignContent } from "../../store/campaignStore";
 import CampaignPreviewActions from "../../components/campaignPreviewActions";
@@ -23,8 +23,14 @@ export interface ICampaignFormInput {
     isEighteenPlus: boolean;
     frequency: string;
     scheduledTime: Date;
-    messages: ICreateCampaignContent[];
-    recipients: string[];
+    messages: {
+        message: { text: string };
+        options: {
+            font: number;
+            backgroundColor: string;
+        };
+    }[];
+    // recipients: string[];
 }
 
 const createCampaignSchema = z
@@ -32,8 +38,13 @@ const createCampaignSchema = z
         // name: z.string().min(5, ""),
         messages: z.array(
             z.object({
-                text: z.string().min(1, "Content cannot be empty."),
-                backgroundColor: z.string(),
+                message: z.object({
+                    text: z.string().min(1, "Content cannot be empty."),
+                }),
+                options: z.object({
+                    font: z.number(),
+                    backgroundColor: z.string(),
+                }),
             })
         ),
         isEighteenPlus: z.boolean().refine((val) => val !== undefined, {
@@ -44,7 +55,7 @@ const createCampaignSchema = z
             .refine((val) => val !== undefined, {
                 message: "Please select a frequency.",
             }),
-        scheduledTime: z.string().pipe(z.coerce.date())
+        scheduledTime: z.string().pipe(z.coerce.date()),
         // recipients: z.array(z.string()),
     })
     .required();
@@ -66,10 +77,15 @@ const CreateCampaign: React.FC = () => {
         resolver: zodResolver(createCampaignSchema),
     });
 
+    console.log(`errors: ${JSON.stringify(errors)}`);
+    
     const onSubmit = (data: ICampaignFormInput) => {
         const hardCodedData = {
             name: `My Business Campaign ${Date.now()}`,
-            recipients: ["2348148723402", "2349012702791"],
+            recipients: [
+                "2348148723402@s.whatsapp.net",
+                "2349012702791@s.whatsapp.net",
+            ],
             socialAccountId: currentAccount!.id,
         };
 
@@ -107,7 +123,7 @@ const CreateCampaign: React.FC = () => {
                                     <div key={content.id}>
                                         <input
                                             {...register(
-                                                `messages.${index}.backgroundColor`
+                                                `messages.${index}.options.backgroundColor`
                                             )}
                                             defaultValue={
                                                 (content as CreateTextStory)
@@ -119,7 +135,7 @@ const CreateCampaign: React.FC = () => {
                                         />
                                         <textarea
                                             {...register(
-                                                `messages.${index}.text`
+                                                `messages.${index}.message.text`
                                             )}
                                             onChange={(e) => {
                                                 updateContent({

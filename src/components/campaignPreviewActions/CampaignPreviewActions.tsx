@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { UseFormSetValue } from "react-hook-form";
 import {
     CreateTextStory,
@@ -19,6 +19,10 @@ const CampaingPreviewActions: React.FC<{
     const { removeContent, updateContent } = useCreateCampaignContent(
         (state) => state
     );
+
+    useEffect(() => {
+        setValue(`messages.${index}.options.font`, fontOptions[0]);
+    }, [fontOptions, index, setValue]);
 
     return (
         <div className="absolute px-2 top-2 w-full flex justify-between gap-2">
@@ -62,6 +66,10 @@ const CampaingPreviewActions: React.FC<{
                                 ...content,
                                 font: fontOptions[newIndex],
                             });
+                            setValue(
+                                `messages.${index}.options.font`,
+                                fontOptions[newIndex]
+                            );
                         }}
                         style={{
                             fontFamily: FontCodeToFont(
@@ -79,7 +87,7 @@ const CampaingPreviewActions: React.FC<{
                         onClick={() => {
                             const backgroundColor = generateHexColor();
                             setValue(
-                                `messages.${index}.backgroundColor`,
+                                `messages.${index}.options.backgroundColor`,
                                 backgroundColor
                             );
                             updateContent({
