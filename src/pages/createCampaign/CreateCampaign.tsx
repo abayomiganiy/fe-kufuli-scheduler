@@ -22,7 +22,7 @@ export interface ICampaignFormInput {
     name: string;
     isEighteenPlus: boolean;
     frequency: string;
-    scheduledTime: string;
+    scheduledTime: Date;
     messages: ICreateCampaignContent[];
     recipients: string[];
 }
@@ -44,11 +44,7 @@ const createCampaignSchema = z
             .refine((val) => val !== undefined, {
                 message: "Please select a frequency.",
             }),
-        scheduledTime: z
-            .enum(["post_now", "select_date"])
-            .refine((val) => val !== undefined, {
-                message: "Please select a schedule.",
-            }),
+        scheduledTime: z.string().pipe(z.coerce.date())
         // recipients: z.array(z.string()),
     })
     .required();
@@ -72,15 +68,11 @@ const CreateCampaign: React.FC = () => {
 
     const onSubmit = (data: ICampaignFormInput) => {
         const hardCodedData = {
-            name: "My Business Campaign",
-            recipients: ["2349012702790", "2349012702791", "2349012702792"],
-            scheduledTime: "2025-12-06 07:58:29.041Z",
-            socialAccountId: currentAccount?.id,
+            name: `My Business Campaign ${Date.now()}`,
+            recipients: ["2348148723402", "2349012702791"],
+            socialAccountId: currentAccount!.id,
         };
-        console.log({
-            ...data,
-            ...hardCodedData,
-        });
+
         createCampaign({
             ...data,
             ...hardCodedData,
@@ -144,7 +136,6 @@ const CreateCampaign: React.FC = () => {
                                     </div>
                                 </div>
                             ))}
-                            {`${JSON.stringify(errors)}`}
                         </div>
                     </div>
                     <div className="flex justify-center gap-5">
@@ -207,31 +198,25 @@ const CreateCampaign: React.FC = () => {
                         )}
                     </div>
                     <div>
-                        <Controller
-                            name="scheduledTime"
-                            control={control}
-                            render={({ field }) => (
-                                <RadioGroup
-                                    {...field}
-                                    title="Schedule"
-                                    options={[
-                                        {
-                                            label: "Post now",
-                                            value: "post_now",
-                                        },
-                                        {
-                                            label: "Select Date",
-                                            value: "select_date",
-                                        },
-                                    ]}
-                                />
+                        <div className="flex flex-col gap-4 p-2">
+                            <label
+                                htmlFor={`scheduledTime`}
+                                className="cursor-pointer"
+                            >
+                                {"Schedule"}
+                            </label>
+                            <input
+                                type="datetime-local"
+                                {...register("scheduledTime")}
+                                className="ml-2"
+                                id="scheduledTime"
+                            />
+                            {errors.scheduledTime && (
+                                <p className="text-xs text-red-500">
+                                    {errors.scheduledTime.message}
+                                </p>
                             )}
-                        />
-                        {errors.scheduledTime && (
-                            <p className="text-xs text-red-500">
-                                {errors.scheduledTime.message}
-                            </p>
-                        )}
+                        </div>
                     </div>
                     <Button type="submit">Continue</Button>
                 </form>
