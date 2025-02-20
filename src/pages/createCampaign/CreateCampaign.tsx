@@ -84,8 +84,7 @@ const CreateCampaign: React.FC = () => {
     });
 
     // console.log(`errors: ${JSON.stringify(errors)}`);
-    console.log(getValues(
-    ))
+    console.log(getValues());
 
     const onSubmit = (data: ICampaignFormInput) => {
         const hardCodedData = {
@@ -182,7 +181,7 @@ const CreateCampaign: React.FC = () => {
                                 htmlFor={`isEighteenPlus`}
                                 className="cursor-pointer"
                             >
-                                {"Is this rated 18+"}
+                                Is this rated 18+
                             </label>
 
                             {errors.isEighteenPlus && (
@@ -223,7 +222,7 @@ const CreateCampaign: React.FC = () => {
                                 htmlFor={`scheduledTime`}
                                 className="cursor-pointer"
                             >
-                                {"Schedule"}
+                                Schedule
                             </label>
                             <input
                                 type="datetime-local"
@@ -240,18 +239,20 @@ const CreateCampaign: React.FC = () => {
                     </div>
                     <div>
                         <div className="flex flex-col gap-4 p-2">
-                            <label className="cursor-pointer">
-                                {"Recipients"}
-                            </label>
+                            <label className="cursor-pointer">Recipients</label>
                             <div className="flex flex-col gap-2 ml-2">
                                 {contacts?.map((recipient) => (
-                                    <label key={recipient} className="flex items-center gap-2">
+                                    <label
+                                        key={recipient}
+                                        className="flex items-center gap-2 cursor-pointer"
+                                    >
                                         <input
                                             type="checkbox"
                                             value={recipient}
                                             {...register("recipients")}
+                                            className="cursor-pointer h-5 w-5 rounded-full"
                                         />
-                                        {recipient}
+                                        +{recipient.split("@")[0]}
                                     </label>
                                 ))}
                             </div>
