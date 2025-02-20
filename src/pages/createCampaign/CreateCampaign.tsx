@@ -17,6 +17,7 @@ import { useCreateCampaignContent } from "../../store/campaignStore";
 import CampaignPreviewActions from "../../components/campaignPreviewActions";
 import { useCreateCampaign } from "../../hooks/campaign.hook";
 import { useCurrentSocialAccount } from "../../store/currentSocialAccountStore";
+import { useGetContacts } from "../../hooks/contact.hook";
 
 export interface ICampaignFormInput {
     name: string;
@@ -24,13 +25,17 @@ export interface ICampaignFormInput {
     frequency: string;
     scheduledTime: Date;
     messages: {
-        message: { text: string };
+        message:
+            | { text: string }
+            | { image: { url: string; caption: string } }
+            | { video: { url: string; caption: string } }
+            | { audio: { url: string; caption: string } };
         options: {
             font: number;
             backgroundColor: string;
         };
     }[];
-    // recipients: string[];
+    recipients: string[];
 }
 
 const createCampaignSchema = z
@@ -56,7 +61,7 @@ const createCampaignSchema = z
                 message: "Please select a frequency.",
             }),
         scheduledTime: z.string().pipe(z.coerce.date()),
-        // recipients: z.array(z.string()),
+        recipients: z.array(z.string()),
     })
     .required();
 
@@ -66,6 +71,7 @@ const CreateCampaign: React.FC = () => {
     );
     const { currentAccount } = useCurrentSocialAccount();
     const { mutate: createCampaign } = useCreateCampaign();
+    const { data: contacts } = useGetContacts();
     const {
         handleSubmit,
         control,
@@ -77,15 +83,13 @@ const CreateCampaign: React.FC = () => {
         resolver: zodResolver(createCampaignSchema),
     });
 
-    console.log(`errors: ${JSON.stringify(errors)}`);
-    
+    // console.log(`errors: ${JSON.stringify(errors)}`);
+    console.log(getValues(
+    ))
+
     const onSubmit = (data: ICampaignFormInput) => {
         const hardCodedData = {
             name: `My Business Campaign ${Date.now()}`,
-            recipients: [
-                "2348148723402@s.whatsapp.net",
-                "2349012702791@s.whatsapp.net",
-            ],
             socialAccountId: currentAccount!.id,
         };
 
@@ -230,6 +234,30 @@ const CreateCampaign: React.FC = () => {
                             {errors.scheduledTime && (
                                 <p className="text-xs text-red-500">
                                     {errors.scheduledTime.message}
+                                </p>
+                            )}
+                        </div>
+                    </div>
+                    <div>
+                        <div className="flex flex-col gap-4 p-2">
+                            <label className="cursor-pointer">
+                                {"Recipients"}
+                            </label>
+                            <div className="flex flex-col gap-2 ml-2">
+                                {contacts?.map((recipient) => (
+                                    <label key={recipient} className="flex items-center gap-2">
+                                        <input
+                                            type="checkbox"
+                                            value={recipient}
+                                            {...register("recipients")}
+                                        />
+                                        {recipient}
+                                    </label>
+                                ))}
+                            </div>
+                            {errors.recipients && (
+                                <p className="text-xs text-red-500">
+                                    {errors.recipients.message}
                                 </p>
                             )}
                         </div>

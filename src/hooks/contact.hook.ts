@@ -8,6 +8,6 @@ export const useGetContacts = () => {
     );
     return useQuery({
         queryKey: ["contacts"],
-        queryFn: () => getContacts(currentSocialAccount),
+        queryFn: () => getContacts(currentSocialAccount!),
     });
 };
