@@ -1,11 +1,6 @@
 import React from "react";
 import Toggle from "../toggle";
-import {
-    CreateImageMessage,
-    CreateTextMessage,
-    CreateTextStory,
-    ICampaign,
-} from "../../interfaces/campaign.interface";
+import { ICampaign } from "../../interfaces/campaign.interface";
 import getCampaignContent from "../../utils/getCampaignContent";
 import { Link } from "react-router-dom";
 
@@ -13,8 +8,8 @@ const CampaignGrid: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
     const content = getCampaignContent(campaign);
 
     let campaignIcon;
-    switch (campaign.content[0].mimetype) {
-        case "text":
+    switch (true) {
+        case "text" in campaign.content[0].message:
             campaignIcon = (
                 <svg
                     width="32"
@@ -60,7 +55,7 @@ const CampaignGrid: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
                 </svg>
             );
             break;
-        case "image":
+        case "image" in campaign.content[0].message:
             campaignIcon = (
                 <svg
                     width="32"
@@ -119,7 +114,7 @@ const CampaignGrid: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
                 </svg>
             );
             break;
-        case "video":
+        case "video" in campaign.content[0].message:
             campaignIcon = (
                 <svg
                     width="32"
@@ -177,7 +172,7 @@ const CampaignGrid: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
                 </svg>
             );
             break;
-        case "audio":
+        case "audio" in campaign.content[0].message:
             campaignIcon = (
                 <svg
                     width="32"
@@ -251,18 +246,18 @@ const CampaignGrid: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
                         Upcoming
                     </div>
                 </div>
-                <div className="font-medium text-xs laptop:text-sm line-clamp-2">
+                {/* <div className="font-medium text-xs laptop:text-sm line-clamp-2">
                     {(campaign.content[0] as CreateImageMessage).caption ??
                         (
                             campaign.content[0] as
                                 | CreateTextMessage
                                 | CreateTextStory
                         ).text}
-                </div>
+                </div> */}
                 <div className="flex items-center gap-2 mt-auto">
                     <div className="flex justify-center items-center gap-1">
                         <h3 className="font-semibold text-xs laptop:text-sm">
-                            {campaign.content[0].views}
+                            {/* {campaign.content[0].views} */}
                         </h3>
                         <span className="font-light text-xs laptop:text-sm">
                             views

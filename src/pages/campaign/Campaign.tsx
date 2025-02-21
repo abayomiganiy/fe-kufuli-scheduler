@@ -2,7 +2,6 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import SectionHeader from "../../components/sectionHeader";
 import {
-    CreateImageMessage,
     ICampaign,
 } from "../../interfaces/campaign.interface";
 import Toggle from "../../components/toggle";
@@ -22,7 +21,7 @@ const Campaign: React.FC = () => {
                 </div>
                 <div className="flex flex-col laptop:flex-row justify-center laptop:justify-start gap-6">
                     <img
-                        src={(state.content[0] as CreateImageMessage).image}
+                        // src={state.content[0].message.image.url}
                         alt={state.id}
                         className="h-96 w-64 object-cover rounded-2xl mx-auto laptop:mx-0"
                     />
@@ -31,10 +30,7 @@ const Campaign: React.FC = () => {
                             <div>
                                 <div>Caption</div>
                                 <div>
-                                    {
-                                        (state.content[0] as CreateImageMessage)
-                                            .caption
-                                    }
+                                    {/* {state.content[0].message.image.caption} */}
                                 </div>
                             </div>
                             <div className="flex items-center gap-2 mt-auto">
@@ -58,7 +54,7 @@ const Campaign: React.FC = () => {
                                                 strokeWidth="1.40625"
                                             />
                                         </svg>
-                                        {state.content[0].views}
+                                        {/* {state.content[0].views} */}
                                     </h3>
                                     <span className="font-light text-xs laptop:text-sm">
                                         views
