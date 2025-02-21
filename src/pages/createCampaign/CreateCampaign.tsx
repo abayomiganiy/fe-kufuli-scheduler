@@ -84,7 +84,7 @@ const CreateCampaign: React.FC = () => {
         control,
     });
 
-    console.log(`errors: ${JSON.stringify(errors)}`);
+    // console.log(`errors: ${JSON.stringify(errors)}`);
     // console.log(getValues());
     // console.log(`messages: ${JSON.stringify(messages)}`);
 
