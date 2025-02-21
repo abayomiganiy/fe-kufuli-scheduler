@@ -4,20 +4,18 @@ import { Controller, useFieldArray, useForm } from "react-hook-form";
 import * as z from "zod";
 import Button from "../../components/button";
 import CampaignContentPreview from "../../components/campaignContentPreview";
+import CampaignPreviewActions from "../../components/campaignPreviewActions";
 import ContentTypeIcon from "../../components/contentTypeIcon";
 import BackIcon from "../../components/icons/backIcon";
 import RadioGroup from "../../components/radioGroup/RadioGroup";
 import SectionHeader from "../../components/sectionHeader";
+import { useCreateCampaign } from "../../hooks/campaign.hook";
+import { useGetContacts } from "../../hooks/contact.hook";
 import {
     CampaignContentType,
     MessageTypes,
 } from "../../interfaces/campaign.interface";
-// import { useCreateCampaignContent } from "../../store/campaignStore";
-// import CampaignPreviewActions from "../../components/campaignPreviewActions";
-import { useCreateCampaign } from "../../hooks/campaign.hook";
-import { useGetContacts } from "../../hooks/contact.hook";
 import { useCurrentSocialAccount } from "../../store/currentSocialAccountStore";
-import CampaignPreviewActions from "../../components/campaignPreviewActions";
 
 export interface ICampaignFormInput {
     name: string;
@@ -28,25 +26,87 @@ export interface ICampaignFormInput {
     recipients: string[];
 }
 
+const textMessageSchema = z.object({
+    type: z.literal("text"),
+    message: z.object({
+        text: z.string().min(1, "Text cannot be empty"),
+    }),
+    options: z.object({
+        font: z.number().optional(),
+        backgroundColor: z.string().optional(),
+    }),
+});
+
+const imageMessageSchema = z.object({
+    type: z.literal("image"),
+    message: z.object({
+        image: z.object({
+            url: z.string(),
+            caption: z.string().optional(),
+        }),
+    }),
+});
+
+const videoMessageSchema = z.object({
+    type: z.literal("video"),
+    message: z.object({
+        video: z.object({
+            url: z.string(),
+            caption: z.string().optional(),
+        }),
+    }),
+});
+
+const audeoMessageSchema = z.object({
+    type: z.literal("audio"),
+    message: z.object({
+        audio: z.object({
+            url: z.string(),
+        }),
+    }),
+    options: z.object({
+        backgroundColor: z.string().optional(),
+    }),
+});
+
+const messagesSchema = z.array(
+    z.discriminatedUnion("type", [
+        textMessageSchema,
+        imageMessageSchema,
+        videoMessageSchema,
+        audeoMessageSchema,
+    ])
+);
+
 const createCampaignSchema = z
     .object({
         // name: z.string().min(5, ""),
-        messages: z.array(
-            z.object({
-                message: z.object({
-                    text: z.string().optional(),
-                    caption: z.string().optional(),
-                    url: z.string().optional()
-                    // .min(1, "Content cannot be empty."),
-                }),
-                options: z
-                    .object({
-                        font: z.number().optional(),
-                        backgroundColor: z.string().optional(),
-                    })
-                    .optional(),
-            })
-        ),
+        messages: messagesSchema,
+        // z.array(
+        //     z.object({
+        //         message: z.object({
+        //             text: z.string().optional(),
+        //             image: z
+        //                 .object({
+        //                     url: z.string().optional(),
+        //                     caption: z.string().optional(),
+        //                 })
+        //                 .optional(),
+        //             video: z
+        //                 .object({
+        //                     url: z.string().optional(),
+        //                     caption: z.string().optional(),
+        //                 })
+        //                 .optional(),
+        //         }).required(),
+        //         options: z
+        //             .object({
+        //                 font: z.number().optional(),
+        //                 backgroundColor: z.string().optional(),
+        //             })
+        //             .optional(),
+        //     }).required()
+        // ),
         isEighteenPlus: z.boolean().refine((val) => val !== undefined, {
             message: "Please select an option.",
         }),
@@ -84,8 +144,8 @@ const CreateCampaign: React.FC = () => {
         control,
     });
 
-    // console.log(`errors: ${JSON.stringify(errors)}`);
-    // console.log(getValues());
+    console.log(errors);
+    console.log(`getValues: ${JSON.stringify(getValues())}`);
     // console.log(`messages: ${JSON.stringify(messages)}`);
 
     const onSubmit = (data: ICampaignFormInput) => {
@@ -94,6 +154,8 @@ const CreateCampaign: React.FC = () => {
             name: `My Business Campaign ${Date.now()}`,
             socialAccountId: currentAccount!.id,
         };
+
+        console.log(`hardCodedData: ${JSON.stringify(data)}`);
 
         createCampaign(hardCodedData);
     };
@@ -117,17 +179,6 @@ const CreateCampaign: React.FC = () => {
                                         className="flex flex-col gap-3 relative"
                                         key={message.id}
                                     >
-                                        <input
-                                            {...register(
-                                                `messages.${index}.options.backgroundColor`
-                                            )}
-                                            defaultValue={
-                                                message.options?.backgroundColor
-                                            }
-                                            type="color"
-                                            placeholder="background"
-                                            hidden
-                                        />
                                         <CampaignPreviewActions
                                             content={message}
                                             setValue={setValue}
@@ -139,6 +190,7 @@ const CreateCampaign: React.FC = () => {
                                             getValues={getValues}
                                             register={register}
                                             index={index}
+                                            errors={errors}
                                         />
                                     </div>
                                 );

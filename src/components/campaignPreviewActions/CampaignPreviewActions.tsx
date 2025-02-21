@@ -1,9 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { UseFieldArrayRemove, UseFormSetValue } from "react-hook-form";
-import {
-    CreateTextStory,
-    MessageTypes,
-} from "../../interfaces/campaign.interface";
+import { MessageTypes } from "../../interfaces/campaign.interface";
 import { ICampaignFormInput } from "../../pages/createCampaign/CreateCampaign";
 import FontCodeToFont from "../../utils/fontCodeToFont";
 import generateHexColor from "../../utils/generateHexColor";
@@ -61,9 +58,7 @@ const CampaingPreviewActions: React.FC<{
                             );
                         }}
                         style={{
-                            fontFamily: FontCodeToFont(
-                                (content as unknown as CreateTextStory).font
-                            ),
+                            fontFamily: FontCodeToFont(content.options!.font!),
                         }}
                     >
                         T

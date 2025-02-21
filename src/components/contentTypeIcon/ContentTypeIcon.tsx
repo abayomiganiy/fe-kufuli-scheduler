@@ -83,6 +83,7 @@ const ContentTypeIcon = ({
     const handleAddContent = (type: CampaignContentType, file?: File) => {
         const contentTemplates: Record<CampaignContentType, MessageTypes> = {
             text: {
+                type: type,
                 message: { text: "" },
                 options: {
                     backgroundColor: generateHexColor(),
@@ -90,6 +91,7 @@ const ContentTypeIcon = ({
                 },
             },
             image: {
+                type: type,
                 message: {
                     image: {
                         url: file ? URL.createObjectURL(file) : "",
@@ -99,6 +101,7 @@ const ContentTypeIcon = ({
                 options: {},
             },
             video: {
+                type: type,
                 message: {
                     video: {
                         url: file ? URL.createObjectURL(file) : "",
@@ -108,6 +111,7 @@ const ContentTypeIcon = ({
                 options: {},
             },
             audio: {
+                type: type,
                 message: {
                     audio: {
                         url: file ? URL.createObjectURL(file) : "",

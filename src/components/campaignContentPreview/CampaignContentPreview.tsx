@@ -1,4 +1,8 @@
-import { UseFormGetValues, UseFormRegister } from "react-hook-form";
+import {
+    FieldErrors,
+    UseFormGetValues,
+    UseFormRegister,
+} from "react-hook-form";
 import { ICampaignFormInput } from "../../pages/createCampaign/CreateCampaign";
 // import { useCreateCampaignContent } from "../../store/campaignStore";
 import { FC } from "react";
@@ -10,20 +14,37 @@ interface CampaignContentPreviewProps {
     getValues: UseFormGetValues<ICampaignFormInput>;
     // setValue: UseFormSetValue<ICampaignFormInput>;
     register: UseFormRegister<ICampaignFormInput>;
+    errors: FieldErrors<ICampaignFormInput>;
     index: number;
 }
 
 const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
     content,
-    // getValues,
+    getValues,
     register,
     index,
+    errors,
 }) => {
     return (
         <div className="flex flex-col gap-3">
             {"text" in content.message ? (
                 <div className="flex flex-col gap-3">
                     <div className="">
+                        <input
+                            {...register(`messages.${index}.type`)}
+                            defaultValue={"text"}
+                            type="text"
+                            hidden
+                        />
+                        <input
+                            {...register(
+                                `messages.${index}.options.backgroundColor`
+                            )}
+                            defaultValue={content.options?.backgroundColor}
+                            type="color"
+                            placeholder="background"
+                            hidden
+                        />
                         <label
                             htmlFor={`text-input-${content.id}`}
                             className="text-white w-52 h-72 rounded-lg flex items-center justify-center p-4 outline-none select-none"
@@ -35,7 +56,11 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                                 ),
                             }}
                         >
-                            {content.message.text?.length
+                            {(
+                                getValues().messages[index].message as {
+                                    text: string;
+                                }
+                            ).text?.length
                                 ? content.message.text
                                 : "Type a message..."}
                         </label>
@@ -47,33 +72,66 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         placeholder="Type a message..."
                         rows={3}
                     />
+                    <p className="text-xs text-red-500">
+                        {typeof errors.messages?.[index]?.message ===
+                            "object" && "text" in errors.messages[index].message
+                            ? (
+                                  errors.messages[index].message.text as {
+                                      message: string;
+                                  }
+                              )?.message
+                            : null}
+                    </p>
                 </div>
             ) : "image" in content.message ? (
                 <div className="flex flex-col gap-3">
-                    <div className="w-52 h-72 rounded-lg bg-black flex items-center justify-center p-4 outline-none select-none">
+                    <input
+                        {...register(`messages.${index}.type`)}
+                        defaultValue={"image"}
+                        type="image"
+                        hidden
+                    />
+                    <label
+                        htmlFor={`image-input-${content.id}`}
+                        className="w-52 h-72 rounded-lg bg-black flex items-center justify-center p-4 outline-none select-none"
+                    >
                         <img
                             src={content.message.image.url}
-                            alt={content.message.image.caption}
+                            alt={content.id}
                             className="w-full h-full object-contain"
                         />
-                    </div>
+                    </label>
                     <textarea
-                        rows={3}
-                        defaultValue={content.message.image.caption}
+                        {...register(`messages.${index}.message.image.caption`)}
+                        id={`image-input-${content.id}`}
                         className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
                         placeholder="Write caption"
-                        {...register(`messages.${index}.message.image.caption`)}
-                        // onChange={(e) => {
-                        //     updateContent({
-                        //         ...content,
-                        //         caption: e.target.value,
-                        //     });
-                        // }}
+                        rows={3}
                     />
+                    <p className="text-xs text-red-500">
+                        {typeof errors.messages?.[index]?.message ===
+                            "object" &&
+                        "image" in errors.messages[index].message
+                            ? (
+                                  errors.messages[index].message.image as {
+                                      message: string;
+                                  }
+                              )?.message
+                            : null}
+                    </p>
                 </div>
             ) : "video" in content.message ? (
                 <div className="flex flex-col gap-3">
-                    <div className="w-52 h-72 rounded-lg bg-black flex items-center justify-center p-4 outline-none select-none">
+                    <input
+                        {...register(`messages.${index}.type`)}
+                        defaultValue={"video"}
+                        type="video"
+                        hidden
+                    />
+                    <label
+                        htmlFor={`video-input-${content.id}`}
+                        className="w-52 h-72 rounded-lg bg-black flex items-center justify-center p-4 outline-none select-none"
+                    >
                         <video
                             controls
                             controlsList="nofullscreen"
@@ -82,30 +140,47 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         >
                             <source src={content.message.video.url} />
                         </video>
-                    </div>
+                    </label>
                     <textarea
-                        rows={3}
-                        defaultValue={content.message.video.caption}
+                        {...register(`messages.${index}.message.video.caption`)}
+                        id={`video-input-${content.id}`}
                         className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
                         placeholder="Write caption"
-                        {...register(`messages.${index}.message.video.caption`)}
+                        rows={3}
                     />
+                    <p className="text-xs text-red-500">
+                        {typeof errors.messages?.[index]?.message ===
+                            "object" &&
+                        "video" in errors.messages[index].message
+                            ? (
+                                  errors.messages[index].message.video as {
+                                      message: string;
+                                  }
+                              )?.message
+                            : null}
+                    </p>
                 </div>
             ) : "audio" in content.message ? (
                 <div className="flex flex-col gap-3">
-                    <div
+                    <label
                         className="w-52 h-72 rounded-lg flex items-center justify-center text-white p-4 outline-none select-none"
                         style={{
                             backgroundColor: content.options?.backgroundColor,
                         }}
                     >
+                        <input
+                            {...register(`messages.${index}.type`)}
+                            defaultValue={"audio"}
+                            type="audio"
+                            hidden
+                        />
                         <audio controls controlsList="nofullscreen" playsInline>
                             <source
                                 src={content.message.audio.url}
                                 type="audio/mpeg"
                             />
                         </audio>
-                    </div>
+                    </label>
                 </div>
             ) : null}
         </div>

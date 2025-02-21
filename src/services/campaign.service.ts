@@ -123,7 +123,7 @@ export const getCampaigns = async (filter?: {
 };
 
 export const createCampaign = async (data: ICampaignFormInput) => {
-    console.log(data);
+    // console.log(data);
     return request({
         method: "POST",
         url: "/campaigns",
