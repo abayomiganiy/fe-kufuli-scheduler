@@ -130,3 +130,16 @@ export interface ICampaign {
     createdAt?: Date;
     updatedAt?: Date;
 }
+
+export interface MessageTypes {
+    id?: string;
+    message:
+        | { text: string }
+        | { image: { url: string; caption: string } }
+        | { video: { url: string; caption: string } }
+        | { audio: { url: string } };
+    options?: {
+        font?: number;
+        backgroundColor?: string;
+    };
+}

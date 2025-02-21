@@ -1,35 +1,28 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { UseFormSetValue } from "react-hook-form";
+import React, { useMemo, useState } from "react";
+import { UseFieldArrayRemove, UseFormSetValue } from "react-hook-form";
 import {
     CreateTextStory,
-    ICreateCampaignContent,
+    MessageTypes,
 } from "../../interfaces/campaign.interface";
 import { ICampaignFormInput } from "../../pages/createCampaign/CreateCampaign";
-import { useCreateCampaignContent } from "../../store/campaignStore";
 import FontCodeToFont from "../../utils/fontCodeToFont";
 import generateHexColor from "../../utils/generateHexColor";
 
 const CampaingPreviewActions: React.FC<{
-    content: ICreateCampaignContent;
+    content: MessageTypes;
     setValue: UseFormSetValue<ICampaignFormInput>;
     index: number;
-}> = ({ content, setValue, index }) => {
+    removeMessage: UseFieldArrayRemove;
+}> = ({ content, setValue, index, removeMessage }) => {
     const [bgIndex, setBgIndex] = useState(0);
     const fontOptions = useMemo(() => [0, 8, 9, 10], []);
-    const { removeContent, updateContent } = useCreateCampaignContent(
-        (state) => state
-    );
-
-    useEffect(() => {
-        setValue(`messages.${index}.options.font`, fontOptions[0]);
-    }, [fontOptions, index, setValue]);
 
     return (
         <div className="absolute px-2 top-2 w-full flex justify-between gap-2">
             <div
                 className=" cursor-pointer shadow-2xl bg-gray-600 text-white h-8 opacity-90 w-8 rounded-full flex justify-center items-center"
                 onClick={() => {
-                    removeContent(content.id);
+                    removeMessage(index);
                 }}
             >
                 <svg
@@ -56,16 +49,12 @@ const CampaingPreviewActions: React.FC<{
                 </svg>
             </div>
             <div className="flex gap-2">
-                {content.mimetype === "text" && (
+                {"text" in content.message && (
                     <div
                         className=" cursor-pointer shadow-2xl bg-gray-600 text-white h-8 opacity-90 w-8 rounded-full flex justify-center items-center select-none"
                         onClick={() => {
                             const newIndex = (bgIndex + 1) % fontOptions.length;
                             setBgIndex(newIndex);
-                            updateContent({
-                                ...content,
-                                font: fontOptions[newIndex],
-                            });
                             setValue(
                                 `messages.${index}.options.font`,
                                 fontOptions[newIndex]
@@ -80,8 +69,7 @@ const CampaingPreviewActions: React.FC<{
                         T
                     </div>
                 )}
-                {(content.mimetype === "text" ||
-                    content.mimetype === "audio") && (
+                {("text" in content.message || "audio" in content.message) && (
                     <div
                         className=" cursor-pointer shadow-2xl bg-gray-600 text-white h-8 opacity-90 w-8 rounded-full flex justify-center items-center"
                         onClick={() => {
@@ -90,10 +78,6 @@ const CampaingPreviewActions: React.FC<{
                                 `messages.${index}.options.backgroundColor`,
                                 backgroundColor
                             );
-                            updateContent({
-                                ...content,
-                                backgroundColor,
-                            });
                         }}
                     >
                         <svg

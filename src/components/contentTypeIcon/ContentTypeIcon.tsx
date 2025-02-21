@@ -1,12 +1,20 @@
+import { UseFieldArrayAppend } from "react-hook-form";
 import {
     CampaignContentType,
-    ICreateCampaignContent,
+    MessageTypes,
 } from "../../interfaces/campaign.interface";
-import { useCreateCampaignContent } from "../../store/campaignStore";
-import { v4 as uuidv4 } from "uuid";
+// import { useCreateCampaignContent } from "../../store/campaignStore";
+// import { v4 as uuidv4 } from "uuid";
+import { ICampaignFormInput } from "../../pages/createCampaign/CreateCampaign";
 import generateHexColor from "../../utils/generateHexColor";
 
-const ContentTypeIcon = ({ type }: { type: CampaignContentType }) => {
+const ContentTypeIcon = ({
+    type,
+    appendMessage,
+}: {
+    type: CampaignContentType;
+    appendMessage: UseFieldArrayAppend<ICampaignFormInput, "messages">;
+}) => {
     const iconPath = {
         text: (
             <path
@@ -72,42 +80,50 @@ const ContentTypeIcon = ({ type }: { type: CampaignContentType }) => {
         ),
     };
 
-    const { addContent } = useCreateCampaignContent((state) => state);
-
     const handleAddContent = (type: CampaignContentType, file?: File) => {
-        const contentTemplates: Record<
-            CampaignContentType,
-            Partial<ICreateCampaignContent>
-        > = {
+        const contentTemplates: Record<CampaignContentType, MessageTypes> = {
             text: {
-                text: "",
-                mimetype: "text",
-                backgroundColor: generateHexColor(),
-                font: 0,
+                message: { text: "" },
+                options: {
+                    backgroundColor: generateHexColor(),
+                    font: 0,
+                },
             },
             image: {
-                caption: "",
-                image: file && URL.createObjectURL(file),
-                mimetype: "image",
+                message: {
+                    image: {
+                        url: file ? URL.createObjectURL(file) : "",
+                        caption: "",
+                    },
+                },
+                options: {},
             },
             video: {
-                caption: "",
-                video: file && URL.createObjectURL(file),
-                mimetype: "video",
+                message: {
+                    video: {
+                        url: file ? URL.createObjectURL(file) : "",
+                        caption: "",
+                    },
+                },
+                options: {},
             },
             audio: {
-                audio: file && URL.createObjectURL(file),
-                mimetype: "audio",
-                backgroundColor: generateHexColor(),
+                message: {
+                    audio: {
+                        url: file ? URL.createObjectURL(file) : "",
+                    },
+                },
+                options: {
+                    backgroundColor: generateHexColor(),
+                },
             },
         };
 
         const template = contentTemplates[type];
         if (template) {
-            addContent({
-                id: uuidv4(),
+            appendMessage({
                 ...template,
-            } as ICreateCampaignContent);
+            });
         } else {
             console.error(`Unsupported content type: ${type}`);
         }

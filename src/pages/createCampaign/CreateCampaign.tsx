@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 import * as z from "zod";
 import Button from "../../components/button";
 import CampaignContentPreview from "../../components/campaignContentPreview";
@@ -10,31 +10,21 @@ import RadioGroup from "../../components/radioGroup/RadioGroup";
 import SectionHeader from "../../components/sectionHeader";
 import {
     CampaignContentType,
-    CreateTextStory,
-    // ICreateCampaignContent,
+    MessageTypes,
 } from "../../interfaces/campaign.interface";
-import { useCreateCampaignContent } from "../../store/campaignStore";
-import CampaignPreviewActions from "../../components/campaignPreviewActions";
+// import { useCreateCampaignContent } from "../../store/campaignStore";
+// import CampaignPreviewActions from "../../components/campaignPreviewActions";
 import { useCreateCampaign } from "../../hooks/campaign.hook";
-import { useCurrentSocialAccount } from "../../store/currentSocialAccountStore";
 import { useGetContacts } from "../../hooks/contact.hook";
+import { useCurrentSocialAccount } from "../../store/currentSocialAccountStore";
+import CampaignPreviewActions from "../../components/campaignPreviewActions";
 
 export interface ICampaignFormInput {
     name: string;
     isEighteenPlus: boolean;
     frequency: string;
     scheduledTime: Date;
-    messages: {
-        message:
-            | { text: string }
-            | { image: { url: string; caption: string } }
-            | { video: { url: string; caption: string } }
-            | { audio: { url: string; caption: string } };
-        options: {
-            font: number;
-            backgroundColor: string;
-        };
-    }[];
+    messages: MessageTypes[];
     recipients: string[];
 }
 
@@ -44,12 +34,17 @@ const createCampaignSchema = z
         messages: z.array(
             z.object({
                 message: z.object({
-                    text: z.string().min(1, "Content cannot be empty."),
+                    text: z.string().optional(),
+                    caption: z.string().optional(),
+                    url: z.string().optional()
+                    // .min(1, "Content cannot be empty."),
                 }),
-                options: z.object({
-                    font: z.number(),
-                    backgroundColor: z.string(),
-                }),
+                options: z
+                    .object({
+                        font: z.number().optional(),
+                        backgroundColor: z.string().optional(),
+                    })
+                    .optional(),
             })
         ),
         isEighteenPlus: z.boolean().refine((val) => val !== undefined, {
@@ -66,9 +61,6 @@ const createCampaignSchema = z
     .required();
 
 const CreateCampaign: React.FC = () => {
-    const { messages, updateContent } = useCreateCampaignContent(
-        (state) => state
-    );
     const { currentAccount } = useCurrentSocialAccount();
     const { mutate: createCampaign } = useCreateCampaign();
     const { data: contacts } = useGetContacts();
@@ -83,19 +75,27 @@ const CreateCampaign: React.FC = () => {
         resolver: zodResolver(createCampaignSchema),
     });
 
-    // console.log(`errors: ${JSON.stringify(errors)}`);
-    console.log(getValues());
+    const {
+        fields: messages,
+        append: appendMessage,
+        remove: removeMessage,
+    } = useFieldArray({
+        name: "messages",
+        control,
+    });
+
+    console.log(`errors: ${JSON.stringify(errors)}`);
+    // console.log(getValues());
+    // console.log(`messages: ${JSON.stringify(messages)}`);
 
     const onSubmit = (data: ICampaignFormInput) => {
         const hardCodedData = {
+            ...data,
             name: `My Business Campaign ${Date.now()}`,
             socialAccountId: currentAccount!.id,
         };
 
-        createCampaign({
-            ...data,
-            ...hardCodedData,
-        });
+        createCampaign(hardCodedData);
     };
 
     return (
@@ -109,52 +109,40 @@ const CreateCampaign: React.FC = () => {
                     onSubmit={handleSubmit(onSubmit)}
                     className="flex flex-col gap-5 pb-5"
                 >
-                    <div className="flex overflow-auto pb-5">
+                    <div className="flex overflow-x-auto pb-5">
                         <div className="flex justify-center gap-4 flex-nowrap">
-                            {messages.map((content, index) => (
-                                <div className="flex flex-col gap-3 relative">
-                                    <CampaignPreviewActions
-                                        content={content}
-                                        setValue={setValue}
-                                        index={index}
-                                    />
-                                    <CampaignContentPreview
-                                        key={index}
-                                        content={content}
-                                        getValues={getValues}
-                                    />
-                                    <div key={content.id}>
+                            {messages.map((message, index) => {
+                                return (
+                                    <div
+                                        className="flex flex-col gap-3 relative"
+                                        key={message.id}
+                                    >
                                         <input
                                             {...register(
                                                 `messages.${index}.options.backgroundColor`
                                             )}
                                             defaultValue={
-                                                (content as CreateTextStory)
-                                                    .backgroundColor
+                                                message.options?.backgroundColor
                                             }
                                             type="color"
                                             placeholder="background"
                                             hidden
                                         />
-                                        <textarea
-                                            {...register(
-                                                `messages.${index}.message.text`
-                                            )}
-                                            onChange={(e) => {
-                                                updateContent({
-                                                    ...(content as CreateTextStory),
-                                                    id: content.id,
-                                                    text: e.target.value,
-                                                });
-                                            }}
-                                            id={`text-input-${content.id}`}
-                                            className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none w-full"
-                                            placeholder="Type a message..."
-                                            rows={3}
+                                        <CampaignPreviewActions
+                                            content={message}
+                                            setValue={setValue}
+                                            index={index}
+                                            removeMessage={removeMessage}
+                                        />
+                                        <CampaignContentPreview
+                                            content={message}
+                                            getValues={getValues}
+                                            register={register}
+                                            index={index}
                                         />
                                     </div>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     </div>
                     <div className="flex justify-center gap-5">
@@ -166,7 +154,13 @@ const CreateCampaign: React.FC = () => {
                                 "audio",
                             ] as CampaignContentType[]
                         ).map((type, index) => (
-                            <ContentTypeIcon key={index} type={type} />
+                            <div key={index}>
+                                <ContentTypeIcon
+                                    key={index}
+                                    type={type}
+                                    appendMessage={appendMessage}
+                                />
+                            </div>
                         ))}
                     </div>
                     <div>

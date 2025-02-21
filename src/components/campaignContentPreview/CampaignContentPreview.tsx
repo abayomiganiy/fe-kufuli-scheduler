@@ -1,70 +1,77 @@
-import { UseFormGetValues } from "react-hook-form";
-import {
-    CreateAudioMessage,
-    CreateAudioStory,
-    CreateImageMessage,
-    CreateTextStory,
-    CreateVideoMessage,
-    ICreateCampaignContent,
-} from "../../interfaces/campaign.interface";
+import { UseFormGetValues, UseFormRegister } from "react-hook-form";
 import { ICampaignFormInput } from "../../pages/createCampaign/CreateCampaign";
-import { useCreateCampaignContent } from "../../store/campaignStore";
+// import { useCreateCampaignContent } from "../../store/campaignStore";
+import { FC } from "react";
 import FontCodeToFont from "../../utils/fontCodeToFont";
+import { MessageTypes } from "../../interfaces/campaign.interface";
 
 interface CampaignContentPreviewProps {
-    content: ICreateCampaignContent;
+    content: MessageTypes;
     getValues: UseFormGetValues<ICampaignFormInput>;
+    // setValue: UseFormSetValue<ICampaignFormInput>;
+    register: UseFormRegister<ICampaignFormInput>;
+    index: number;
 }
 
-const CampaignContentPreview = ({
+const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
     content,
     // getValues,
-}: CampaignContentPreviewProps) => {
-    const { updateContent } = useCreateCampaignContent((state) => state);
-
-    // const values = getValues();
-
-    // console.log(values);
-
+    register,
+    index,
+}) => {
     return (
-        <div>
-            {content.mimetype === "text" ? (
-                <label
-                    htmlFor={`text-input-${content.id}`}
-                    className="w-52 h-72 rounded-lg flex items-center justify-center text-white p-4 outline-none select-none"
-                    style={{
-                        backgroundColor: (content as CreateTextStory)
-                            .backgroundColor,
-                        fontFamily: FontCodeToFont(
-                            (content as CreateTextStory).font
-                        ),
-                    }}
-                >
-                    {(content as CreateTextStory).text?.length
-                        ? (content as CreateTextStory).text
-                        : "Type a message..."}
-                </label>
-            ) : content.mimetype === "image" ? (
-                <div className="w-52 h-72 bg-gray-800 rounded-lg">
-                    <img
-                        src={(content as CreateImageMessage).image}
-                        alt={(content as CreateImageMessage).caption}
-                        className="w-full h-full object-contain"
+        <div className="flex flex-col gap-3">
+            {"text" in content.message ? (
+                <div className="flex flex-col gap-3">
+                    <div className="">
+                        <label
+                            htmlFor={`text-input-${content.id}`}
+                            className="text-white w-52 h-72 rounded-lg flex items-center justify-center p-4 outline-none select-none"
+                            style={{
+                                backgroundColor:
+                                    content.options?.backgroundColor,
+                                fontFamily: FontCodeToFont(
+                                    content.options!.font!
+                                ),
+                            }}
+                        >
+                            {content.message.text?.length
+                                ? content.message.text
+                                : "Type a message..."}
+                        </label>
+                    </div>
+                    <textarea
+                        {...register(`messages.${index}.message.text`)}
+                        id={`text-input-${content.id}`}
+                        className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none w-full"
+                        placeholder="Type a message..."
+                        rows={3}
                     />
                 </div>
-            ) : // <textarea
-            //     rows={3}
-            //     defaultValue={(content as CreateImageMessage).caption}
-            //     className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
-            //     placeholder="Write caption"
-            //     onChange={(e) => {
-            //         updateContent({
-            //             ...content,
-            //             caption: e.target.value,
-            //         });
-            //     }}
-            // />
-            content.mimetype === "video" ? (
+            ) : "image" in content.message ? (
+                <div className="flex flex-col gap-3">
+                    <div className="w-52 h-72 rounded-lg bg-black flex items-center justify-center p-4 outline-none select-none">
+                        <img
+                            src={content.message.image.url}
+                            alt={content.message.image.caption}
+                            className="w-full h-full object-contain"
+                        />
+                    </div>
+                    <textarea
+                        rows={3}
+                        defaultValue={content.message.image.caption}
+                        className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
+                        placeholder="Write caption"
+                        {...register(`messages.${index}.message.image.caption`)}
+                        // onChange={(e) => {
+                        //     updateContent({
+                        //         ...content,
+                        //         caption: e.target.value,
+                        //     });
+                        // }}
+                    />
+                </div>
+            ) : "video" in content.message ? (
                 <div className="flex flex-col gap-3">
                     <div className="w-52 h-72 rounded-lg bg-black flex items-center justify-center p-4 outline-none select-none">
                         <video
@@ -73,42 +80,28 @@ const CampaignContentPreview = ({
                             playsInline
                             className="w-52 h-full"
                         >
-                            <source
-                                src={(content as CreateVideoMessage).video}
-                            />
+                            <source src={content.message.video.url} />
                         </video>
                     </div>
                     <textarea
                         rows={3}
-                        defaultValue={(content as CreateVideoMessage).caption}
+                        defaultValue={content.message.video.caption}
                         className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
                         placeholder="Write caption"
-                        onChange={(e) => {
-                            updateContent({
-                                ...content,
-                                caption: e.target.value,
-                            });
-                        }}
+                        {...register(`messages.${index}.message.video.caption`)}
                     />
                 </div>
-            ) : content.mimetype === "audio" ? (
+            ) : "audio" in content.message ? (
                 <div className="flex flex-col gap-3">
                     <div
                         className="w-52 h-72 rounded-lg flex items-center justify-center text-white p-4 outline-none select-none"
                         style={{
-                            backgroundColor: (content as CreateAudioStory)
-                                .backgroundColor,
+                            backgroundColor: content.options?.backgroundColor,
                         }}
                     >
                         <audio controls controlsList="nofullscreen" playsInline>
                             <source
-                                src={
-                                    (
-                                        content as
-                                            | CreateAudioMessage
-                                            | CreateAudioStory
-                                    ).audio
-                                }
+                                src={content.message.audio.url}
                                 type="audio/mpeg"
                             />
                         </audio>
