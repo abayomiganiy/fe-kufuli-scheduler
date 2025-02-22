@@ -102,7 +102,7 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         />
                     </label>
                     <textarea
-                        {...register(`messages.${index}.message.image.caption`)}
+                        {...register(`messages.${index}.message.caption`)}
                         id={`image-input-${content.id}`}
                         className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
                         placeholder="Write caption"
@@ -142,7 +142,7 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         </video>
                     </label>
                     <textarea
-                        {...register(`messages.${index}.message.video.caption`)}
+                        {...register(`messages.${index}.message.caption`)}
                         id={`video-input-${content.id}`}
                         className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
                         placeholder="Write caption"

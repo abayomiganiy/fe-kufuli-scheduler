@@ -136,8 +136,8 @@ export interface MessageTypes {
     type: CampaignContentType;
     message:
         | { text: string }
-        | { image: { url: string; caption: string } }
-        | { video: { url: string; caption: string } }
+        | { image: { url: string }; caption: string }
+        | { video: { url: string }; caption: string }
         | { audio: { url: string } };
     options?: {
         font?: number;

@@ -42,8 +42,8 @@ const imageMessageSchema = z.object({
     message: z.object({
         image: z.object({
             url: z.string(),
-            caption: z.string().optional(),
         }),
+        caption: z.string().optional(),
     }),
 });
 
@@ -52,8 +52,8 @@ const videoMessageSchema = z.object({
     message: z.object({
         video: z.object({
             url: z.string(),
-            caption: z.string().optional(),
         }),
+        caption: z.string().optional(),
     }),
 });
 
