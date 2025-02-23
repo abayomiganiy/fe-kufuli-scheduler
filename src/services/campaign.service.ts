@@ -6,7 +6,6 @@ import {
     ICampaign,
     ICampaignFormInput,
 } from "../interfaces/campaign.interface";
-// import { v4 as uuidv4 } from "uuid";
 import { request } from "../utils/axios-utils";
 
 export const getCampaigns = async (filter?: {
@@ -117,7 +116,6 @@ export const getCampaigns = async (filter?: {
 };
 
 export const createCampaign = async (data: ICampaignFormInput) => {
-    // console.log(data);
     return request({
         method: "POST",
         url: "/campaigns",
