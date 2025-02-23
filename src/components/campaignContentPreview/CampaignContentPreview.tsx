@@ -3,11 +3,13 @@ import {
     UseFormGetValues,
     UseFormRegister,
 } from "react-hook-form";
-import { ICampaignFormInput } from "../../pages/createCampaign/CreateCampaign";
 // import { useCreateCampaignContent } from "../../store/campaignStore";
 import { FC } from "react";
+import {
+    ICampaignFormInput,
+    MessageTypes,
+} from "../../interfaces/campaign.interface";
 import FontCodeToFont from "../../utils/fontCodeToFont";
-import { MessageTypes } from "../../interfaces/campaign.interface";
 
 interface CampaignContentPreviewProps {
     content: MessageTypes;

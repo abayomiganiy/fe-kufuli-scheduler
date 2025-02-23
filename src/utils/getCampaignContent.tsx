@@ -7,7 +7,7 @@ export default function getCampaignContent(campaign: ICampaign) {
             content = (
                 <img
                     src={campaign.content[0].message.image.url}
-                    alt={campaign.content[0].message.image.caption}
+                    alt={campaign.content[0].message.caption}
                     className="object-cover rounded-2xl w-full h-full"
                 />
             );
@@ -33,7 +33,7 @@ export default function getCampaignContent(campaign: ICampaign) {
             content = (
                 <img
                     src={campaign.content[0].message.video.url}
-                    alt={campaign.content[0].message.video.caption}
+                    alt={campaign.content[0].message.caption}
                     className="object-cover rounded-2xl w-full h-full"
                 />
             );

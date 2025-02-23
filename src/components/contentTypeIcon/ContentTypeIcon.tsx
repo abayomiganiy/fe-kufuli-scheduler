@@ -1,11 +1,11 @@
 import { UseFieldArrayAppend } from "react-hook-form";
 import {
     CampaignContentType,
+    ICampaignFormInput,
     MessageTypes,
 } from "../../interfaces/campaign.interface";
 // import { useCreateCampaignContent } from "../../store/campaignStore";
 // import { v4 as uuidv4 } from "uuid";
-import { ICampaignFormInput } from "../../pages/createCampaign/CreateCampaign";
 import generateHexColor from "../../utils/generateHexColor";
 
 const ContentTypeIcon = ({
@@ -95,8 +95,8 @@ const ContentTypeIcon = ({
                 message: {
                     image: {
                         url: file ? URL.createObjectURL(file) : "",
-                        caption: "",
                     },
+                    caption: "",
                 },
                 options: {},
             },
@@ -105,8 +105,8 @@ const ContentTypeIcon = ({
                 message: {
                     video: {
                         url: file ? URL.createObjectURL(file) : "",
-                        caption: "",
                     },
+                    caption: "",
                 },
                 options: {},
             },

@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { UseFieldArrayRemove, UseFormSetValue } from "react-hook-form";
-import { MessageTypes } from "../../interfaces/campaign.interface";
-import { ICampaignFormInput } from "../../pages/createCampaign/CreateCampaign";
+import { ICampaignFormInput, MessageTypes } from "../../interfaces/campaign.interface";
 import FontCodeToFont from "../../utils/fontCodeToFont";
 import generateHexColor from "../../utils/generateHexColor";
 

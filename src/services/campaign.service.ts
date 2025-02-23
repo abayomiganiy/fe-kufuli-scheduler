@@ -4,15 +4,15 @@
 import {
     CampaignStatus,
     ICampaign,
+    ICampaignFormInput,
 } from "../interfaces/campaign.interface";
 // import { v4 as uuidv4 } from "uuid";
 import { request } from "../utils/axios-utils";
-import { ICampaignFormInput } from "../pages/createCampaign/CreateCampaign";
 
 export const getCampaigns = async (filter?: {
     status: CampaignStatus;
 }): Promise<ICampaign[]> => {
-    const activeCampaigns: ICampaign[] = []
+    const activeCampaigns: ICampaign[] = [];
     // [
     //     {
     //         id: "10",

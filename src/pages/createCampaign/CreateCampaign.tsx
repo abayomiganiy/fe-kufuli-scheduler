@@ -1,7 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
-import * as z from "zod";
 import Button from "../../components/button";
 import CampaignContentPreview from "../../components/campaignContentPreview";
 import CampaignPreviewActions from "../../components/campaignPreviewActions";
@@ -13,112 +12,11 @@ import { useCreateCampaign } from "../../hooks/campaign.hook";
 import { useGetContacts } from "../../hooks/contact.hook";
 import {
     CampaignContentType,
-    MessageTypes,
+    ICampaignFormInput,
 } from "../../interfaces/campaign.interface";
 import { useCurrentSocialAccount } from "../../store/currentSocialAccountStore";
-
-export interface ICampaignFormInput {
-    name: string;
-    isEighteenPlus: boolean;
-    frequency: string;
-    scheduledTime: Date;
-    messages: MessageTypes[];
-    recipients: string[];
-}
-
-const textMessageSchema = z.object({
-    type: z.literal("text"),
-    message: z.object({
-        text: z.string().min(1, "Text cannot be empty"),
-    }),
-    options: z.object({
-        font: z.number().optional(),
-        backgroundColor: z.string().optional(),
-    }),
-});
-
-const imageMessageSchema = z.object({
-    type: z.literal("image"),
-    message: z.object({
-        image: z.object({
-            url: z.string(),
-        }),
-        caption: z.string().optional(),
-    }),
-});
-
-const videoMessageSchema = z.object({
-    type: z.literal("video"),
-    message: z.object({
-        video: z.object({
-            url: z.string(),
-        }),
-        caption: z.string().optional(),
-    }),
-});
-
-const audeoMessageSchema = z.object({
-    type: z.literal("audio"),
-    message: z.object({
-        audio: z.object({
-            url: z.string(),
-        }),
-    }),
-    options: z.object({
-        backgroundColor: z.string().optional(),
-    }),
-});
-
-const messagesSchema = z.array(
-    z.discriminatedUnion("type", [
-        textMessageSchema,
-        imageMessageSchema,
-        videoMessageSchema,
-        audeoMessageSchema,
-    ])
-);
-
-const createCampaignSchema = z
-    .object({
-        // name: z.string().min(5, ""),
-        messages: messagesSchema,
-        // z.array(
-        //     z.object({
-        //         message: z.object({
-        //             text: z.string().optional(),
-        //             image: z
-        //                 .object({
-        //                     url: z.string().optional(),
-        //                     caption: z.string().optional(),
-        //                 })
-        //                 .optional(),
-        //             video: z
-        //                 .object({
-        //                     url: z.string().optional(),
-        //                     caption: z.string().optional(),
-        //                 })
-        //                 .optional(),
-        //         }).required(),
-        //         options: z
-        //             .object({
-        //                 font: z.number().optional(),
-        //                 backgroundColor: z.string().optional(),
-        //             })
-        //             .optional(),
-        //     }).required()
-        // ),
-        isEighteenPlus: z.boolean().refine((val) => val !== undefined, {
-            message: "Please select an option.",
-        }),
-        frequency: z
-            .enum(["ONCE", "DAILY", "WEEKLY", "MONTHLY", "YEARLY", "CUSTOM"])
-            .refine((val) => val !== undefined, {
-                message: "Please select a frequency.",
-            }),
-        scheduledTime: z.string().pipe(z.coerce.date()),
-        recipients: z.array(z.string()),
-    })
-    .required();
+import { IContact } from "../../interfaces/contact.interface";
+import { createCampaignSchema } from "../../schemas/campaign.schema";
 
 const CreateCampaign: React.FC = () => {
     const { currentAccount } = useCurrentSocialAccount();
@@ -144,8 +42,8 @@ const CreateCampaign: React.FC = () => {
         control,
     });
 
-    console.log(errors);
-    console.log(`getValues: ${JSON.stringify(getValues())}`);
+    // console.log(errors);
+    // console.log(`getValues: ${JSON.stringify(getValues())}`);
     // console.log(`messages: ${JSON.stringify(messages)}`);
 
     const onSubmit = (data: ICampaignFormInput) => {
@@ -155,7 +53,15 @@ const CreateCampaign: React.FC = () => {
             socialAccountId: currentAccount!.id,
         };
 
-        console.log(`hardCodedData: ${JSON.stringify(data)}`);
+        // console.log(`hardCodedData: ${JSON.stringify(data)}`);
+
+        const formData = new FormData();
+        formData.append("name", hardCodedData.name);
+        formData.append("recipients", JSON.stringify(hardCodedData.recipients));
+        formData.append("frequency", hardCodedData.frequency);
+        formData.append("messages", JSON.stringify(hardCodedData.messages));
+
+        console.log([...formData.entries()]);
 
         createCampaign(hardCodedData);
     };
@@ -170,6 +76,7 @@ const CreateCampaign: React.FC = () => {
                 <form
                     onSubmit={handleSubmit(onSubmit)}
                     className="flex flex-col gap-5 pb-5"
+                    encType="multipart/form-data"
                 >
                     <div className="flex overflow-x-auto pb-5">
                         <div className="flex justify-center gap-4 flex-nowrap">
@@ -287,20 +194,25 @@ const CreateCampaign: React.FC = () => {
                         <div className="flex flex-col gap-4 p-2">
                             <label className="cursor-pointer">Recipients</label>
                             <div className="flex flex-col gap-2 ml-2">
-                                {contacts?.map((recipient) => (
-                                    <label
-                                        key={recipient}
-                                        className="flex items-center gap-2 cursor-pointer"
-                                    >
-                                        <input
-                                            type="checkbox"
-                                            value={recipient}
-                                            {...register("recipients")}
-                                            className="cursor-pointer h-5 w-5 rounded-full"
-                                        />
-                                        +{recipient.split("@")[0]}
-                                    </label>
-                                ))}
+                                {contacts
+                                    // ?.sort((a: IContact, b: IContact) =>
+                                    //         a.name?.localeCompare(b.name)
+                                    //     )
+                                    ?.slice(0, 15)
+                                    .map((recipient: IContact) => (
+                                        <label
+                                            key={recipient.pkId}
+                                            className="flex items-center gap-2 cursor-pointer"
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                value={recipient.id}
+                                                {...register("recipients")}
+                                                className="cursor-pointer h-5 w-5 rounded-full"
+                                            />
+                                            {recipient.name}
+                                        </label>
+                                    ))}
                             </div>
                             {errors.recipients && (
                                 <p className="text-xs text-red-500">

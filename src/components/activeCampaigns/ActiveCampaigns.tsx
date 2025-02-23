@@ -80,7 +80,7 @@ const ActiveCampaign: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
         content = (
             <img
                 src={campaign.content[0].message?.image.url}
-                alt={campaign.content[0].message?.image.caption}
+                alt={campaign.content[0].message?.caption}
                 className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl"
             />
         );
@@ -88,7 +88,7 @@ const ActiveCampaign: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
         content = (
             <img
                 src={campaign.content[0].message?.video.url}
-                alt={campaign.content[0].message?.video.caption}
+                alt={campaign.content[0].message?.caption}
                 className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl"
             />
         );
