@@ -32,7 +32,7 @@ const CreateCampaign: React.FC = () => {
     } = useForm<ICampaignFormInput>({
         resolver: zodResolver(createCampaignSchema),
         defaultValues: {
-            socialAccountId: currentAccount!.id,
+            socialAccountId: currentAccount?.id,
             name: `My Business Campaign ${Date.now()}`,
             isEighteenPlus: false,
             frequency: "daily",
@@ -82,7 +82,7 @@ const CreateCampaign: React.FC = () => {
                                 return (
                                     <div
                                         className="flex flex-col gap-3 relative"
-                                        key={message.id}
+                                        key={message?.id}
                                     >
                                         <CampaignPreviewActions
                                             content={message}
@@ -204,7 +204,7 @@ const CreateCampaign: React.FC = () => {
                                         >
                                             <input
                                                 type="checkbox"
-                                                value={recipient.id}
+                                                value={recipient?.id}
                                                 {...register("recipients")}
                                                 className="cursor-pointer h-5 w-5 rounded-full"
                                             />
