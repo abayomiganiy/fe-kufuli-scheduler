@@ -36,8 +36,6 @@ export const getContacts = async (currentSocialAccount: ISocialAccount) => {
         })),
     ];
 
-    console.log(resp);
-
     return resp;
 
     // return new Promise<IContact[]>(function (resolve) {

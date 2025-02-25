@@ -10,7 +10,7 @@ import generateHexColor from "../../utils/generateHexColor";
 
 const ContentTypeIcon = ({
     type,
-    appendMessage,
+    appendMessage
 }: {
     type: CampaignContentType;
     appendMessage: UseFieldArrayAppend<ICampaignFormInput, "messages">;
@@ -94,7 +94,7 @@ const ContentTypeIcon = ({
                 type: type,
                 message: {
                     image: {
-                        url: file ? URL.createObjectURL(file) : "",
+                        url: file!,
                     },
                     caption: "",
                 },
@@ -104,7 +104,7 @@ const ContentTypeIcon = ({
                 type: type,
                 message: {
                     video: {
-                        url: file ? URL.createObjectURL(file) : "",
+                        url: file!,
                     },
                     caption: "",
                 },
@@ -114,7 +114,7 @@ const ContentTypeIcon = ({
                 type: type,
                 message: {
                     audio: {
-                        url: file ? URL.createObjectURL(file) : "",
+                        url: file!,
                     },
                 },
                 options: {
@@ -135,6 +135,7 @@ const ContentTypeIcon = ({
 
     return (
         <div>
+            
             <input
                 type="file"
                 accept={`${type}/*`}

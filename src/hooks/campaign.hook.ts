@@ -1,6 +1,9 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createCampaign, getCampaigns } from "../services/campaign.service";
-import { CampaignStatus, ICampaignFormInput } from "../interfaces/campaign.interface";
+import {
+    CampaignStatus,
+    ICampaignFormInput,
+} from "../interfaces/campaign.interface";
 import toast from "react-hot-toast";
 
 export const useGetCampaigns = (filter?: { status: CampaignStatus }) => {

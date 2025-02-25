@@ -98,7 +98,7 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         className="w-52 h-72 rounded-lg bg-black flex items-center justify-center p-4 outline-none select-none"
                     >
                         <img
-                            src={content.message.image.url}
+                            src={URL.createObjectURL(content.message.image.url)}
                             alt={content.id}
                             className="w-full h-full object-contain"
                         />
@@ -140,7 +140,7 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                             playsInline
                             className="w-52 h-full"
                         >
-                            <source src={content.message.video.url} />
+                            <source src={URL.createObjectURL(content.message.video.url)} />
                         </video>
                     </label>
                     <textarea
@@ -178,7 +178,7 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         />
                         <audio controls controlsList="nofullscreen" playsInline>
                             <source
-                                src={content.message.audio.url}
+                                src={URL.createObjectURL(content.message.audio.url)}
                                 type="audio/mpeg"
                             />
                         </audio>

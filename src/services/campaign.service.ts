@@ -116,9 +116,41 @@ export const getCampaigns = async (filter?: {
 };
 
 export const createCampaign = async (data: ICampaignFormInput) => {
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("socialAccountId", data.socialAccountId);
+    formData.append("recipients", JSON.stringify(data.recipients));
+    formData.append("frequency", data.frequency);
+    formData.append("scheduledTime", data.scheduledTime.toISOString());
+    formData.append("messages", JSON.stringify(data.messages));
+    formData.append("isEighteenPlus", JSON.stringify(data.isEighteenPlus));
+
+    data.messages.forEach((message) => {
+        switch (true) {
+            case "image" in message.message:
+                formData.append(`files`, message.message.image.url);
+                break;
+
+            case "video" in message.message:
+                formData.append(`files`, message.message.video.url);
+                break;
+
+            case "audio" in message.message:
+                formData.append(`files`, message.message.audio.url);
+                break;
+
+            default:
+                break;
+        }
+    });
+
+    console.log([...formData.entries()]);
     return request({
         method: "POST",
         url: "/campaigns",
-        data,
+        data: formData,
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
     });
 };

@@ -28,9 +28,9 @@ export interface MessageTypes {
     type: CampaignContentType;
     message:
         | { text: string }
-        | { image: { url: string }; caption: string }
-        | { video: { url: string }; caption: string }
-        | { audio: { url: string } };
+        | { image: { url: File }; caption: string }
+        | { video: { url: File }; caption: string }
+        | { audio: { url: File } };
     options?: {
         font?: number;
         backgroundColor?: string;
@@ -38,6 +38,7 @@ export interface MessageTypes {
 }
 
 export interface ICampaignFormInput {
+    socialAccountId: string;
     name: string;
     isEighteenPlus: boolean;
     frequency: string;

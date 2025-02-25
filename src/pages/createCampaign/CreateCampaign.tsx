@@ -31,6 +31,15 @@ const CreateCampaign: React.FC = () => {
         getValues,
     } = useForm<ICampaignFormInput>({
         resolver: zodResolver(createCampaignSchema),
+        defaultValues: {
+            socialAccountId: currentAccount!.id,
+            name: `My Business Campaign ${Date.now()}`,
+            isEighteenPlus: false,
+            frequency: "daily",
+            scheduledTime: new Date(),
+            messages: [],
+            recipients: [],
+        },
     });
 
     const {
@@ -42,7 +51,7 @@ const CreateCampaign: React.FC = () => {
         control,
     });
 
-    // console.log(errors);
+    console.log(errors);
     // console.log(`getValues: ${JSON.stringify(getValues())}`);
     // console.log(`messages: ${JSON.stringify(messages)}`);
 
@@ -50,18 +59,7 @@ const CreateCampaign: React.FC = () => {
         const hardCodedData = {
             ...data,
             name: `My Business Campaign ${Date.now()}`,
-            socialAccountId: currentAccount!.id,
         };
-
-        // console.log(`hardCodedData: ${JSON.stringify(data)}`);
-
-        const formData = new FormData();
-        formData.append("name", hardCodedData.name);
-        formData.append("recipients", JSON.stringify(hardCodedData.recipients));
-        formData.append("frequency", hardCodedData.frequency);
-        formData.append("messages", JSON.stringify(hardCodedData.messages));
-
-        console.log([...formData.entries()]);
 
         createCampaign(hardCodedData);
     };
