@@ -79,7 +79,7 @@ const ActiveCampaign: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
     } else if("image" in campaign.content[0].message) {
         content = (
             <img
-                src={campaign.content[0].message?.image.url}
+                src={URL.createObjectURL(campaign.content[0].message?.image.url)}
                 alt={campaign.content[0].message?.caption}
                 className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl"
             />
@@ -87,7 +87,7 @@ const ActiveCampaign: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
     } else if("video" in campaign.content[0].message) {
         content = (
             <img
-                src={campaign.content[0].message?.video.url}
+            src={URL.createObjectURL(campaign.content[0].message?.video.url)}
                 alt={campaign.content[0].message?.caption}
                 className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl"
             />
@@ -95,8 +95,8 @@ const ActiveCampaign: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
     } else if("audio" in campaign.content[0].message) {
         content = (
             <img
-                src={campaign.content[0].message?.audio.url}
-                alt={campaign.content[0].message?.audio.url}
+            src={URL.createObjectURL(campaign.content[0].message?.audio.url)}
+                // alt={campaign.content[0].message?.audio.url}
                 className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl"
             />
         );
