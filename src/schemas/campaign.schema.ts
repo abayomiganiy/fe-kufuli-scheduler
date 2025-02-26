@@ -28,9 +28,9 @@ export const imageMessageSchema = z.object({
                         ].includes(file.type),
                     { message: "Invalid image file type" }
                 )
-                .refine((file) => file.size <= 5 * 1024 * 1024, {
+                .refine((file) => file.size <= 100 * 1024 * 1024, {
                     message: "File size should not exceed 5MB",
-                }),
+                })
         }),
         caption: z.string().optional(),
     }),
