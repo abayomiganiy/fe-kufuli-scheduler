@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useState } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import Button from "../../components/button";
 import CampaignContentPreview from "../../components/campaignContentPreview";
@@ -19,6 +19,7 @@ import { IContact } from "../../interfaces/contact.interface";
 import { createCampaignSchema } from "../../schemas/campaign.schema";
 
 const CreateCampaign: React.FC = () => {
+    const [allContact, setallContact] = useState(false);
     const { currentAccount } = useCurrentSocialAccount();
     const { mutate: createCampaign } = useCreateCampaign();
     const { data: contacts } = useGetContacts();
@@ -62,6 +63,17 @@ const CreateCampaign: React.FC = () => {
         };
 
         createCampaign(hardCodedData);
+    };
+
+    const handleSelectAllContacts = () => {
+        if (!allContact) {
+            const allContactIds = contacts?.map((contact) => contact.id) || [];
+            setValue("recipients", allContactIds);
+            setallContact(true);
+        } else {
+            setValue("recipients", []);
+            setallContact(false);
+        }
     };
 
     return (
@@ -108,7 +120,7 @@ const CreateCampaign: React.FC = () => {
                                 "text",
                                 "image",
                                 "video",
-                                "audio",
+                                // "audio",
                             ] as CampaignContentType[]
                         ).map((type, index) => (
                             <div key={index}>
@@ -191,12 +203,20 @@ const CreateCampaign: React.FC = () => {
                     <div>
                         <div className="flex flex-col gap-4 p-2">
                             <label className="cursor-pointer">Recipients</label>
-                            <div className="flex flex-col gap-2 ml-2">
+                            <div className="flex flex-col gap-2 ml-2 h-[200px] overflow-y-auto">
+                                <label className="flex items-center gap-2 cursor-pointer border-b pb-2">
+                                    <input
+                                        type="checkbox"
+                                        onChange={handleSelectAllContacts}
+                                        className="cursor-pointer h-5 w-5 rounded-full"
+                                        checked={allContact}
+                                    />
+                                    Select All Contacts
+                                </label>
                                 {contacts
-                                    // ?.sort((a: IContact, b: IContact) =>
-                                    //         a.name?.localeCompare(b.name)
-                                    //     )
-                                    ?.slice(0, 15)
+                                    ?.sort((a: IContact, b: IContact) =>
+                                        a.name?.localeCompare(b.name)
+                                    )
                                     .map((recipient: IContact) => (
                                         <label
                                             key={recipient.pkId}
@@ -208,7 +228,9 @@ const CreateCampaign: React.FC = () => {
                                                 {...register("recipients")}
                                                 className="cursor-pointer h-5 w-5 rounded-full"
                                             />
-                                            {recipient.name}
+                                            {recipient.name
+                                                ? recipient.name
+                                                : recipient.notify}
                                         </label>
                                     ))}
                             </div>
