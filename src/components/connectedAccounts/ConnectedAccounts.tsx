@@ -77,6 +77,9 @@ const ConnectedAccount: React.FC<{
                 alt={connectedAccount.type as unknown as string}
                 className="object-contain w-full h-full"
             />
+            <div className="text-xs font-semibold text-center whitespace-nowrap">
+                {connectedAccount.name}
+            </div>
         </div>
     );
 };

@@ -13,12 +13,15 @@ export const connectSocialAccount = async (data: {
     type: "WHATSAPP";
 }) => {
     const resp = await request({
-        url: "/social-accounts",
+        url: "/social-accounts/connect-whatsapp",
         method: "POST",
-        data,
+        data: {
+            sessionId: data.name,
+        },
     });
     return resp;
 };
+
 export const deleteSocialAccount = async (data: {
     id: string;
     sessionId: string;

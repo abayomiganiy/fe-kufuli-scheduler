@@ -117,7 +117,8 @@ export const useConnectSocialAccount = () => {
     const queryClient = useQueryClient();
     return useMutation({
         mutationKey: ["connect-social-accounts"],
-        mutationFn: connectSocialAccount,
+        mutationFn: (data: { name: string; type: "WHATSAPP" }) =>
+            connectSocialAccount(data),
         onError: (error) => {
             // Handle error
             console.error(error);
@@ -125,9 +126,10 @@ export const useConnectSocialAccount = () => {
         onSuccess: (data) => {
             // Handle success
             console.log("Social account created successfully", data);
-            toast.success("Social account created successfully");
+            // toast.success("Social account created successfully");
             // Update the social accounts query
             queryClient.invalidateQueries({ queryKey: ["social-accounts"] });
+            return data;
         },
     });
 };
