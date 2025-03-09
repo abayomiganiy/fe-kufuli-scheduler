@@ -24,9 +24,14 @@ export const useCreateCampaign = () => {
             console.log("Campaign created successfully!");
             toast.success("Campaign created successfully!");
         },
-        onError: (error) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onError: (error: any) => {
             // Handle error
             console.error("Error creating campaign:", error);
+            toast.error(
+                error?.data?.message ||
+                    "Error creating campaign"
+            );
         },
     });
 };
