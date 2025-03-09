@@ -61,8 +61,10 @@ const CreateCampaign: React.FC = () => {
     // console.log(`messages: ${JSON.stringify(messages)}`);
 
     useEffect(() => {
-        reset();
-        setallContact(false);
+        if(createCampaignIsSuccess) {
+            reset();
+            setallContact(false);
+        }
     }, [createCampaignIsSuccess, reset]);
 
     const onSubmit = (data: ICampaignFormInput) => {
