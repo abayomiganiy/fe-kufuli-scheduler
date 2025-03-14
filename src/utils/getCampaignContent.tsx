@@ -1,9 +1,6 @@
-import { useGetMessages } from "../hooks/messages.hook";
 import { ICampaign } from "../interfaces/campaign.interface";
 
 export default function GetCampaignContent(campaign: ICampaign) {
-    const { data: messages } = useGetMessages({ campaignId: campaign.id });
-    console.log(`messages`, messages);
     
     let content;
     switch (true) {
