@@ -14,6 +14,9 @@ interface WhatsappConnectionFlowProps {
 const WhatsappConnectionFlow: React.FC<WhatsappConnectionFlowProps> = ({
     onClose,
 }) => {
+    // WEBSOCKET
+    // pulling_wa_data
+    // connected
     const [connection, setConnection] = useState<connectionType>();
     let component;
     switch (connection) {

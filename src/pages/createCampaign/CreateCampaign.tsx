@@ -14,9 +14,9 @@ import {
     CampaignContentType,
     ICampaignFormInput,
 } from "../../interfaces/campaign.interface";
-import { useCurrentSocialAccount } from "../../store/currentSocialAccountStore";
 import { IContact } from "../../interfaces/contact.interface";
 import { createCampaignSchema } from "../../schemas/campaign.schema";
+import { useCurrentSocialAccount } from "../../store/currentSocialAccountStore";
 
 const CreateCampaign: React.FC = () => {
     const [allContact, setallContact] = useState(false);
@@ -35,6 +35,7 @@ const CreateCampaign: React.FC = () => {
         setValue,
         getValues,
         reset,
+        watch,
     } = useForm<ICampaignFormInput>({
         resolver: zodResolver(createCampaignSchema),
         defaultValues: {
@@ -61,7 +62,7 @@ const CreateCampaign: React.FC = () => {
     // console.log(`messages: ${JSON.stringify(messages)}`);
 
     useEffect(() => {
-        if(createCampaignIsSuccess) {
+        if (createCampaignIsSuccess) {
             reset();
             setallContact(false);
         }
@@ -119,6 +120,7 @@ const CreateCampaign: React.FC = () => {
                                             register={register}
                                             index={index}
                                             errors={errors}
+                                            watch={watch}
                                         />
                                     </div>
                                 );

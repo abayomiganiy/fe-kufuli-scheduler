@@ -1,6 +1,10 @@
+import { useGetMessages } from "../hooks/messages.hook";
 import { ICampaign } from "../interfaces/campaign.interface";
 
-export default function getCampaignContent(campaign: ICampaign) {
+export default function GetCampaignContent(campaign: ICampaign) {
+    const { data: messages } = useGetMessages({ campaignId: campaign.id });
+    console.log(`messages`, messages);
+    
     let content;
     switch (true) {
         case "image" in campaign.content[0].message:

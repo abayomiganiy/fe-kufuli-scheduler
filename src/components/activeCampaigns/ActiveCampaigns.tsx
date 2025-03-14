@@ -61,116 +61,55 @@ const ActiveCampaigns: React.FC = () => {
 };
 
 const ActiveCampaign: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
-    let content;
 
-    if("text" in campaign.content[0].message) {
-        content = (
-            <div
-                style={{
-                    backgroundColor:
-                        (campaign.content[0]).options?.backgroundColor ?? "#000000",
-                    color: "#ffffff",
-                }}
-                className={`flex items-center justify-center p-4 laptop:p-5 w-full h-full absolute top-0 left-0 object-cover rounded-2xl`}
-            >
-                {campaign.content[0].message.text}
-            </div>
-        );
-    } else if("image" in campaign.content[0].message) {
-        content = (
-            <img
-                src={URL.createObjectURL(campaign.content[0].message?.image.url)}
-                alt={campaign.content[0].message?.caption}
-                className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl"
-            />
-        );
-    } else if("video" in campaign.content[0].message) {
-        content = (
-            <img
-            src={URL.createObjectURL(campaign.content[0].message?.video.url)}
-                alt={campaign.content[0].message?.caption}
-                className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl"
-            />
-        );
-    } else if("audio" in campaign.content[0].message) {
-        content = (
-            <img
-            src={URL.createObjectURL(campaign.content[0].message?.audio.url)}
-                // alt={campaign.content[0].message?.audio.url}
-                className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl"
-            />
-        );
-    }
+    console.log(campaign)
 
-    // switch (campaign.content[0].mimetype) {
-    //     case "image":
-    //         content = (
-    //             <img
-    //                 src={campaign.content[0]?.image}
-    //                 alt={campaign.content[0]?.caption}
-    //                 className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl"
-    //             />
-    //         );
-    //         break;
-    //     case "text":
-    //         content = (
-    //             <div
-    //                 style={{
-    //                     backgroundColor:
-    //                         (campaign.content[0]).backgroundColor ?? "#000000",
-    //                     color: "#ffffff",
-    //                 }}
-    //                 className={`flex items-center justify-center p-4 laptop:p-5 w-full h-full absolute top-0 left-0 object-cover rounded-2xl`}
-    //             >
-    //                 {campaign.content[0].text}
-    //             </div>
-    //         );
-    //         break;
-    //     case "video":
-    //         content = (
-    //             <img
-    //                 src={campaign.content[0].thumbnail}
-    //                 alt={campaign.content[0].caption}
-    //                 className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl"
-    //             />
-    //         );
-    //         break;
-    //     case "audio":
-    //         content = (
-    //             <div className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl flex justify-center items-center bg-gray-400">
-    //                 <svg
-    //                     width="63"
-    //                     height="63"
-    //                     viewBox="0 0 63 63"
-    //                     fill="none"
-    //                     xmlns="http://www.w3.org/2000/svg"
-    //                     className="object-cover rounded-lg w-12 h-16 bg-gray-400"
-    //                 >
-    //                     <path
-    //                         d="M44.625 18.375V28.875C44.625 36.1237 38.7487 42 31.5 42C24.2513 42 18.375 36.1237 18.375 28.875V18.375C18.375 11.1263 24.2513 5.25 31.5 5.25C38.7487 5.25 44.625 11.1263 44.625 18.375Z"
-    //                         stroke="white"
-    //                         strokeWidth="3.9375"
-    //                     />
-    //                     <path
-    //                         d="M52.5 28.875C52.5 40.473 43.098 49.875 31.5 49.875M31.5 49.875C19.902 49.875 10.5 40.473 10.5 28.875M31.5 49.875V57.75M31.5 57.75H39.375M31.5 57.75H23.625"
-    //                         stroke="white"
-    //                         strokeWidth="3.9375"
-    //                         strokeLinecap="round"
-    //                     />
-    //                 </svg>
-    //             </div>
-    //         );
-    //         break;
-    //     default:
-    //         break;
+    // let content;
+    // if("text" in campaign.content[0].message) {
+    //     content = (
+    //         <div
+    //             style={{
+    //                 backgroundColor:
+    //                     (campaign.content[0]).options?.backgroundColor ?? "#000000",
+    //                 color: "#ffffff",
+    //             }}
+    //             className={`flex items-center justify-center p-4 laptop:p-5 w-full h-full absolute top-0 left-0 object-cover rounded-2xl`}
+    //         >
+    //             {campaign.content[0].message.text}
+    //         </div>
+    //     );
+    // } else if("image" in campaign.content[0].message) {
+    //     content = (
+    //         <img
+    //             src={URL.createObjectURL(campaign.content[0].message?.image.url)}
+    //             alt={campaign.content[0].message?.caption}
+    //             className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl"
+    //         />
+    //     );
+    // } else if("video" in campaign.content[0].message) {
+    //     content = (
+    //         <img
+    //         src={URL.createObjectURL(campaign.content[0].message?.video.url)}
+    //             alt={campaign.content[0].message?.caption}
+    //             className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl"
+    //         />
+    //     );
+    // } else if("audio" in campaign.content[0].message) {
+    //     content = (
+    //         <img
+    //         src={URL.createObjectURL(campaign.content[0].message?.audio.url)}
+    //             // alt={campaign.content[0].message?.audio.url}
+    //             className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl"
+    //         />
+    //     );
     // }
 
     return (
         <div className="relative laptop:w-40 w-32 laptop:h-64 h-48 flex cursor-pointer items-end justify-between p-4 rounded-2xl text-white">
-            {content}
-            {"text" in campaign.content[0].message && (
+            {/* {content} */}
+            {/* {"text" in campaign.content[0].message && (
                 <div className="absolute top-0 left-0 w-full h-full rounded-2xl bg-gradient-to-t from-0 from-black to-50% to-transparent opacity-80" />
-            )}
+            )} */}
             <div className="z-40">
                 <div>
                     <div className="flex justify-center items-center space-x-1">

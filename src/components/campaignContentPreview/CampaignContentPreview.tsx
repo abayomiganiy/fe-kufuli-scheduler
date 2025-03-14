@@ -1,10 +1,10 @@
+import { FC } from "react";
 import {
     FieldErrors,
     UseFormGetValues,
     UseFormRegister,
+    UseFormWatch,
 } from "react-hook-form";
-// import { useCreateCampaignContent } from "../../store/campaignStore";
-import { FC } from "react";
 import {
     ICampaignFormInput,
     MessageTypes,
@@ -14,10 +14,10 @@ import FontCodeToFont from "../../utils/fontCodeToFont";
 interface CampaignContentPreviewProps {
     content: MessageTypes;
     getValues: UseFormGetValues<ICampaignFormInput>;
-    // setValue: UseFormSetValue<ICampaignFormInput>;
     register: UseFormRegister<ICampaignFormInput>;
     errors: FieldErrors<ICampaignFormInput>;
     index: number;
+    watch: UseFormWatch<ICampaignFormInput>;
 }
 
 const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
@@ -26,7 +26,12 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
     register,
     index,
     errors,
+    watch,
 }) => {
+    console.log(getValues().messages[index].options);
+    const backgroundColor = watch(`messages.${index}.options.backgroundColor`);
+    const font = watch(`messages.${index}.options.font`);
+    const text = watch(`messages.${index}.message.text`);
     return (
         <div className="flex flex-col gap-3">
             {"text" in content.message ? (
@@ -51,20 +56,11 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                             htmlFor={`text-input-${content.id}`}
                             className="text-white w-52 h-72 rounded-lg flex items-center justify-center p-4 outline-none select-none"
                             style={{
-                                backgroundColor:
-                                    content.options?.backgroundColor,
-                                fontFamily: FontCodeToFont(
-                                    content.options!.font!
-                                ),
+                                backgroundColor: backgroundColor,
+                                fontFamily: FontCodeToFont(font!),
                             }}
                         >
-                            {(
-                                getValues().messages[index].message as {
-                                    text: string;
-                                }
-                            ).text?.length
-                                ? content.message.text
-                                : "Type a message..."}
+                            {text?.length ? text : "Type a message..."}
                         </label>
                     </div>
                     <textarea
@@ -140,7 +136,11 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                             playsInline
                             className="w-52 h-full"
                         >
-                            <source src={URL.createObjectURL(content.message.video.url)} />
+                            <source
+                                src={URL.createObjectURL(
+                                    content.message.video.url
+                                )}
+                            />
                         </video>
                     </label>
                     <textarea
@@ -178,7 +178,9 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         />
                         <audio controls controlsList="nofullscreen" playsInline>
                             <source
-                                src={URL.createObjectURL(content.message.audio.url)}
+                                src={URL.createObjectURL(
+                                    content.message.audio.url
+                                )}
                                 type="audio/mpeg"
                             />
                         </audio>
