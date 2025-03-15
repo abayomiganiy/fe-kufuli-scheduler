@@ -28,16 +28,16 @@ export const createCampaign = async (data: ICampaignFormInput) => {
 
     data.messages.forEach((message) => {
         switch (true) {
-            case "image" in message.message:
-                formData.append(`files`, message.message.image.url);
+            case "image" in message.content:
+                formData.append(`files`, message.content.image.url);
                 break;
 
-            case "video" in message.message:
-                formData.append(`files`, message.message.video.url);
+            case "video" in message.content:
+                formData.append(`files`, message.content.video.url);
                 break;
 
-            case "audio" in message.message:
-                formData.append(`files`, message.message.audio.url);
+            case "audio" in message.content:
+                formData.append(`files`, message.content.audio.url);
                 break;
 
             default:

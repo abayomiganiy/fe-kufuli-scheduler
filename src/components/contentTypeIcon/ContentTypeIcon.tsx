@@ -84,7 +84,7 @@ const ContentTypeIcon = ({
         const contentTemplates: Record<CampaignContentType, MessageTypes> = {
             text: {
                 type: type,
-                message: { text: "" },
+                content: { text: "" },
                 options: {
                     backgroundColor: generateHexColor(),
                     font: 0,
@@ -92,7 +92,7 @@ const ContentTypeIcon = ({
             },
             image: {
                 type: type,
-                message: {
+                content: {
                     image: {
                         url: file!,
                     },
@@ -102,7 +102,7 @@ const ContentTypeIcon = ({
             },
             video: {
                 type: type,
-                message: {
+                content: {
                     video: {
                         url: file!,
                     },
@@ -112,7 +112,7 @@ const ContentTypeIcon = ({
             },
             audio: {
                 type: type,
-                message: {
+                content: {
                     audio: {
                         url: file!,
                     },

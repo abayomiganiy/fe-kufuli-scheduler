@@ -55,6 +55,6 @@ export interface ICampaignFormInput {
     isEighteenPlus: boolean;
     frequency: Frequency;
     scheduledTime: Date;
-    Messages: MessageTypes[];
+    messages: MessageTypes[];
     recipients: string[];
 }

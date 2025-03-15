@@ -45,7 +45,7 @@ const CampaingPreviewActions: React.FC<{
                 </svg>
             </div>
             <div className="flex gap-2">
-                {"text" in content.message && (
+                {"text" in content.content && (
                     <div
                         className=" cursor-pointer shadow-2xl bg-gray-600 text-white h-8 opacity-90 w-8 rounded-full flex justify-center items-center select-none"
                         onClick={() => {
@@ -63,7 +63,7 @@ const CampaingPreviewActions: React.FC<{
                         T
                     </div>
                 )}
-                {("text" in content.message || "audio" in content.message) && (
+                {("text" in content.content || "audio" in content.content) && (
                     <div
                         className=" cursor-pointer shadow-2xl bg-gray-600 text-white h-8 opacity-90 w-8 rounded-full flex justify-center items-center"
                         onClick={() => {

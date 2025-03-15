@@ -31,10 +31,10 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
     console.log(getValues().messages[index].options);
     const backgroundColor = watch(`messages.${index}.options.backgroundColor`);
     const font = watch(`messages.${index}.options.font`);
-    const text = watch(`messages.${index}.message.text`);
+    const text = watch(`messages.${index}.content.text`);
     return (
         <div className="flex flex-col gap-3">
-            {"text" in content.message ? (
+            {"text" in content.content ? (
                 <div className="flex flex-col gap-3">
                     <div className="">
                         <input
@@ -64,7 +64,7 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         </label>
                     </div>
                     <textarea
-                        {...register(`messages.${index}.message.text`)}
+                        {...register(`messages.${index}.content.text`)}
                         id={`text-input-${content.id}`}
                         className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none w-full"
                         placeholder="Type a message..."
@@ -74,14 +74,14 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         {typeof errors.messages?.[index]?.message ===
                             "object" && "text" in errors.messages[index].message
                             ? (
-                                  errors.messages[index].message.text as {
+                                  errors.messages[index].message as {
                                       message: string;
                                   }
                               )?.message
                             : null}
                     </p>
                 </div>
-            ) : "image" in content.message ? (
+            ) : "image" in content.content ? (
                 <div className="flex flex-col gap-3">
                     <input
                         {...register(`messages.${index}.type`)}
@@ -94,13 +94,13 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         className="w-52 h-72 rounded-lg bg-black flex items-center justify-center p-4 outline-none select-none"
                     >
                         <img
-                            src={URL.createObjectURL(content.message.image.url)}
+                            src={URL.createObjectURL(content.content.image.url)}
                             alt={content.id}
                             className="w-full h-full object-contain"
                         />
                     </label>
                     <textarea
-                        {...register(`messages.${index}.message.caption`)}
+                        {...register(`messages.${index}.content.caption`)}
                         id={`image-input-${content.id}`}
                         className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
                         placeholder="Write caption"
@@ -109,16 +109,17 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                     <p className="text-xs text-red-500">
                         {typeof errors.messages?.[index]?.message ===
                             "object" &&
-                        "image" in errors.messages[index].message
+                        errors.messages?.[index]?.content &&
+                        "image" in errors.messages[index].content
                             ? (
-                                  errors.messages[index].message.image as {
+                                  errors.messages[index].content.image as {
                                       message: string;
                                   }
                               )?.message
                             : null}
                     </p>
                 </div>
-            ) : "video" in content.message ? (
+            ) : "video" in content.content ? (
                 <div className="flex flex-col gap-3">
                     <input
                         {...register(`messages.${index}.type`)}
@@ -138,13 +139,13 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         >
                             <source
                                 src={URL.createObjectURL(
-                                    content.message.video.url
+                                    content.content.video.url
                                 )}
                             />
                         </video>
                     </label>
                     <textarea
-                        {...register(`messages.${index}.message.caption`)}
+                        {...register(`messages.${index}.content.caption`)}
                         id={`video-input-${content.id}`}
                         className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
                         placeholder="Write caption"
@@ -153,16 +154,17 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                     <p className="text-xs text-red-500">
                         {typeof errors.messages?.[index]?.message ===
                             "object" &&
-                        "video" in errors.messages[index].message
+                        errors.messages?.[index]?.content &&
+                        "video" in errors.messages[index].content
                             ? (
-                                  errors.messages[index].message.video as {
+                                  errors.messages[index].content.video as {
                                       message: string;
                                   }
                               )?.message
                             : null}
                     </p>
                 </div>
-            ) : "audio" in content.message ? (
+            ) : "audio" in content.content ? (
                 <div className="flex flex-col gap-3">
                     <label
                         className="w-52 h-72 rounded-lg flex items-center justify-center text-white p-4 outline-none select-none"
@@ -179,7 +181,7 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         <audio controls controlsList="nofullscreen" playsInline>
                             <source
                                 src={URL.createObjectURL(
-                                    content.message.audio.url
+                                    content.content.audio.url
                                 )}
                                 type="audio/mpeg"
                             />
