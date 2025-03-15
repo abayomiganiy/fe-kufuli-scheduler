@@ -1,6 +1,7 @@
 export type CampaignStatus = "active" | "pending" | "inactive";
 export type MessageType = "group" | "number";
 export type CampaignContentType = "text" | "image" | "video" | "audio";
+export type Frequency = "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY" | "ONCE";
 // | "document";
 
 export enum FontType {
@@ -16,17 +17,28 @@ export enum FontType {
 
 export interface ICampaign {
     id: string;
-    content: MessageTypes[];
+    messages: MessageTypes[];
     status: CampaignStatus;
     date: Date;
     createdAt?: Date;
     updatedAt?: Date;
+
+    name: string;
+    recipients: string[];
+    userId: string;
+    socialAccountId: string;
+    frequency: Frequency;
+    isActive: true;
+    isEighteenPlus: false;
+    lastUploadedAt: Date;
+    scheduledTime: Date;
+    uploadCount: number;
 }
 
 export interface MessageTypes {
     id?: string;
     type: CampaignContentType;
-    message:
+    content:
         | { text: string }
         | { image: { url: File }; caption: string }
         | { video: { url: File }; caption: string }
@@ -41,8 +53,8 @@ export interface ICampaignFormInput {
     socialAccountId: string;
     name: string;
     isEighteenPlus: boolean;
-    frequency: string;
+    frequency: Frequency;
     scheduledTime: Date;
-    messages: MessageTypes[];
+    Messages: MessageTypes[];
     recipients: string[];
 }

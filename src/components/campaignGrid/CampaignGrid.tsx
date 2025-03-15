@@ -1,13 +1,13 @@
 import React from "react";
 import Toggle from "../toggle";
 import { ICampaign } from "../../interfaces/campaign.interface";
-// import getCampaignContent from "../../utils/getCampaignContent";
+import getCampaignContent from "../../utils/getCampaignContent";
 import { Link } from "react-router-dom";
+import { format } from "date-fns";
 
 const CampaignGrid: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
-
-    // console.log(campaign);
-    // const content = getCampaignContent(campaign);
+    const content = getCampaignContent(campaign);
+    // console.log(content);
 
     // let campaignIcon;
     // switch (true) {
@@ -234,12 +234,12 @@ const CampaignGrid: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
     return (
         <div className="flex flex-col items-center space-y-2">
             <Link
-                to={campaign.id}
+                to={"campaign.id"}
                 state={campaign}
                 className="relative laptop:h-56 h-56 w-full"
             >
                 {/* <div className="absolute bottom-3 right-3">{campaignIcon}</div> */}
-                {/* {content} */}
+                {content}
             </Link>
             <div className="w-full flex flex-col gap-2">
                 <div className="flex justify-between items-center">
@@ -267,12 +267,12 @@ const CampaignGrid: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
                     </div>
                     <div className="flex justify-center items-center gap-1">
                         <h5 className="font-medium text-xs laptop:text-sm">
-                            {"Daily"}
+                            {campaign.frequency}
                         </h5>
                     </div>
                     <div className="flex justify-center items-center gap-1">
                         <h5 className="font-medium text-xs laptop:text-sm">
-                            {"5:30pm"}
+                            {format(campaign.scheduledTime, "hh:mm a")}
                         </h5>
                     </div>
                 </div>

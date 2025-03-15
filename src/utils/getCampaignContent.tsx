@@ -1,49 +1,48 @@
 import { ICampaign } from "../interfaces/campaign.interface";
 
 export default function GetCampaignContent(campaign: ICampaign) {
-    
     let content;
     switch (true) {
-        case "image" in campaign.content[0].message:
+        case "image" in campaign.messages[0].content:
             content = (
                 <img
                     src={URL.createObjectURL(
-                        campaign.content[0].message?.image.url
+                        campaign.messages[0].content?.image.url
                     )}
-                    alt={campaign.content[0].message.caption}
+                    alt={campaign.messages[0].content.caption}
                     className="object-cover rounded-2xl w-full h-full"
                 />
             );
             break;
-        case "text" in campaign.content[0].message:
+        case "text" in campaign.messages[0].content:
             content = (
                 <div className={`laptop:h-56 h-56 w-full`}>
                     <div
                         style={{
                             backgroundColor:
-                                campaign.content[0].options?.backgroundColor ??
+                                campaign.messages[0].options?.backgroundColor ??
                                 "#000000",
                             color: "#ffffff",
                         }}
                         className={`flex justify-center items-center p-4 laptop:p-5 object-cover rounded-2xl w-full h-full`}
                     >
-                        {campaign.content[0].message.text}
+                        {campaign.messages[0].content.text}
                     </div>
                 </div>
             );
             break;
-        case "video" in campaign.content[0].message:
+        case "video" in campaign.messages[0].content:
             content = (
                 <img
                     src={URL.createObjectURL(
-                        campaign.content[0].message?.video.url
+                        campaign.messages[0].content?.video.url
                     )}
-                    alt={campaign.content[0].message.caption}
+                    alt={campaign.messages[0].content.caption}
                     className="object-cover rounded-2xl w-full h-full"
                 />
             );
             break;
-        case "audio" in campaign.content[0].message:
+        case "audio" in campaign.messages[0].content:
             content = (
                 <div className="flex justify-center items-center object-cover rounded-2xl w-full h-full bg-gray-400">
                     <svg
