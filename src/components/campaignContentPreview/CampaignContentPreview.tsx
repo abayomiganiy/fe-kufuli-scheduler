@@ -12,7 +12,7 @@ import {
 import FontCodeToFont from "../../utils/fontCodeToFont";
 
 interface CampaignContentPreviewProps {
-    content: MessageTypes;
+    message: MessageTypes;
     getValues: UseFormGetValues<ICampaignFormInput>;
     register: UseFormRegister<ICampaignFormInput>;
     errors: FieldErrors<ICampaignFormInput>;
@@ -21,7 +21,7 @@ interface CampaignContentPreviewProps {
 }
 
 const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
-    content,
+    message,
     getValues,
     register,
     index,
@@ -34,7 +34,7 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
     const text = watch(`messages.${index}.content.text`);
     return (
         <div className="flex flex-col gap-3">
-            {"text" in content.content ? (
+            {"text" in message.content ? (
                 <div className="flex flex-col gap-3">
                     <div className="">
                         <input
@@ -47,13 +47,13 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                             {...register(
                                 `messages.${index}.options.backgroundColor`
                             )}
-                            defaultValue={content.options?.backgroundColor}
+                            defaultValue={message.options?.backgroundColor}
                             type="color"
                             placeholder="background"
                             hidden
                         />
                         <label
-                            htmlFor={`text-input-${content.id}`}
+                            htmlFor={`text-input-${message.id}`}
                             className="text-white w-52 h-72 rounded-lg flex items-center justify-center p-4 outline-none select-none"
                             style={{
                                 backgroundColor: backgroundColor,
@@ -65,7 +65,7 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                     </div>
                     <textarea
                         {...register(`messages.${index}.content.text`)}
-                        id={`text-input-${content.id}`}
+                        id={`text-input-${message.id}`}
                         className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none w-full"
                         placeholder="Type a message..."
                         rows={3}
@@ -81,7 +81,7 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                             : null}
                     </p>
                 </div>
-            ) : "image" in content.content ? (
+            ) : "image" in message.content ? (
                 <div className="flex flex-col gap-3">
                     <input
                         {...register(`messages.${index}.type`)}
@@ -90,18 +90,18 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         hidden
                     />
                     <label
-                        htmlFor={`image-input-${content.id}`}
+                        htmlFor={`image-input-${message.id}`}
                         className="w-52 h-72 rounded-lg bg-black flex items-center justify-center p-4 outline-none select-none"
                     >
                         <img
-                            src={URL.createObjectURL(content.content.image.url as File)}
-                            alt={content.id}
+                            src={URL.createObjectURL(message.content.image.url as File)}
+                            alt={message.id}
                             className="w-full h-full object-contain"
                         />
                     </label>
                     <textarea
                         {...register(`messages.${index}.content.caption`)}
-                        id={`image-input-${content.id}`}
+                        id={`image-input-${message.id}`}
                         className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
                         placeholder="Write caption"
                         rows={3}
@@ -119,7 +119,7 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                             : null}
                     </p>
                 </div>
-            ) : "video" in content.content ? (
+            ) : "video" in message.content ? (
                 <div className="flex flex-col gap-3">
                     <input
                         {...register(`messages.${index}.type`)}
@@ -128,7 +128,7 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         hidden
                     />
                     <label
-                        htmlFor={`video-input-${content.id}`}
+                        htmlFor={`video-input-${message.id}`}
                         className="w-52 h-72 rounded-lg bg-black flex items-center justify-center p-4 outline-none select-none"
                     >
                         <video
@@ -139,14 +139,14 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         >
                             <source
                                 src={URL.createObjectURL(
-                                    content.content.video.url as File
+                                    message.content.video.url as File
                                 )}
                             />
                         </video>
                     </label>
                     <textarea
                         {...register(`messages.${index}.content.caption`)}
-                        id={`video-input-${content.id}`}
+                        id={`video-input-${message.id}`}
                         className="p-2 rounded-lg border border-[#d9d9d9] outline-none resize-none"
                         placeholder="Write caption"
                         rows={3}
@@ -164,12 +164,12 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                             : null}
                     </p>
                 </div>
-            ) : "audio" in content.content ? (
+            ) : "audio" in message.content ? (
                 <div className="flex flex-col gap-3">
                     <label
                         className="w-52 h-72 rounded-lg flex items-center justify-center text-white p-4 outline-none select-none"
                         style={{
-                            backgroundColor: content.options?.backgroundColor,
+                            backgroundColor: message.options?.backgroundColor,
                         }}
                     >
                         <input
@@ -181,7 +181,7 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         <audio controls controlsList="nofullscreen" playsInline>
                             <source
                                 src={URL.createObjectURL(
-                                    content.content.audio.url as File
+                                    message.content.audio.url as File
                                 )}
                                 type="audio/mpeg"
                             />

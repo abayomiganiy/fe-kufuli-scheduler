@@ -1,8 +1,9 @@
 import * as z from "zod";
+import { FrequencyEnum } from "../interfaces/campaign.interface";
 
 export const textMessageSchema = z.object({
     type: z.literal("text"),
-    message: z.object({
+    content: z.object({
         text: z.string().min(1, "Text cannot be empty"),
     }),
     options: z.object({
@@ -13,7 +14,7 @@ export const textMessageSchema = z.object({
 
 export const imageMessageSchema = z.object({
     type: z.literal("image"),
-    message: z.object({
+    content: z.object({
         image: z.object({
             url: z
                 .instanceof(File)
@@ -30,7 +31,7 @@ export const imageMessageSchema = z.object({
                 )
                 .refine((file) => file.size <= 100 * 1024 * 1024, {
                     message: "File size should not exceed 5MB",
-                })
+                }),
         }),
         caption: z.string().optional(),
     }),
@@ -38,7 +39,7 @@ export const imageMessageSchema = z.object({
 
 export const videoMessageSchema = z.object({
     type: z.literal("video"),
-    message: z.object({
+    content: z.object({
         video: z.object({
             url: z
                 .instanceof(File)
@@ -56,7 +57,7 @@ export const videoMessageSchema = z.object({
 
 export const audeoMessageSchema = z.object({
     type: z.literal("audio"),
-    message: z.object({
+    content: z.object({
         audio: z.object({
             url: z
                 .instanceof(File)
@@ -95,7 +96,7 @@ export const createCampaignSchema = z
             message: "Please select an option.",
         }),
         frequency: z
-            .enum(["ONCE", "DAILY", "WEEKLY", "MONTHLY", "YEARLY", "CUSTOM"])
+            .enum(Object.values(FrequencyEnum) as [string, ...string[]])
             .refine((val) => val !== undefined, {
                 message: "Please select a frequency.",
             }),

@@ -58,8 +58,8 @@ const CreateCampaign: React.FC = () => {
     });
 
     console.log(errors);
-    // console.log(`getValues: ${JSON.stringify(getValues())}`);
-    // console.log(`messages: ${JSON.stringify(messages)}`);
+    console.log(`getValues: ${JSON.stringify(getValues())}`);
+    console.log(`messages: ${JSON.stringify(messages)}`);
 
     useEffect(() => {
         if (createCampaignIsSuccess) {
@@ -109,13 +109,13 @@ const CreateCampaign: React.FC = () => {
                                         key={message?.id}
                                     >
                                         <CampaignPreviewActions
-                                            content={message}
+                                            message={message}
                                             setValue={setValue}
                                             index={index}
                                             removeMessage={removeMessage}
                                         />
                                         <CampaignContentPreview
-                                            content={message}
+                                            message={message}
                                             getValues={getValues}
                                             register={register}
                                             index={index}

@@ -1,15 +1,18 @@
 import React, { useMemo, useState } from "react";
 import { UseFieldArrayRemove, UseFormSetValue } from "react-hook-form";
-import { ICampaignFormInput, MessageTypes } from "../../interfaces/campaign.interface";
+import {
+    ICampaignFormInput,
+    MessageTypes,
+} from "../../interfaces/campaign.interface";
 import FontCodeToFont from "../../utils/fontCodeToFont";
 import generateHexColor from "../../utils/generateHexColor";
 
 const CampaingPreviewActions: React.FC<{
-    content: MessageTypes;
+    message: MessageTypes;
     setValue: UseFormSetValue<ICampaignFormInput>;
     index: number;
     removeMessage: UseFieldArrayRemove;
-}> = ({ content, setValue, index, removeMessage }) => {
+}> = ({ message, setValue, index, removeMessage }) => {
     const [bgIndex, setBgIndex] = useState(0);
     const fontOptions = useMemo(() => [0, 8, 9, 10], []);
 
@@ -45,7 +48,7 @@ const CampaingPreviewActions: React.FC<{
                 </svg>
             </div>
             <div className="flex gap-2">
-                {"text" in content.content && (
+                {"text" in message.content && (
                     <div
                         className=" cursor-pointer shadow-2xl bg-gray-600 text-white h-8 opacity-90 w-8 rounded-full flex justify-center items-center select-none"
                         onClick={() => {
@@ -57,13 +60,13 @@ const CampaingPreviewActions: React.FC<{
                             );
                         }}
                         style={{
-                            fontFamily: FontCodeToFont(content.options!.font!),
+                            fontFamily: FontCodeToFont(message.options!.font!),
                         }}
                     >
                         T
                     </div>
                 )}
-                {("text" in content.content || "audio" in content.content) && (
+                {("text" in message.content || "audio" in message.content) && (
                     <div
                         className=" cursor-pointer shadow-2xl bg-gray-600 text-white h-8 opacity-90 w-8 rounded-full flex justify-center items-center"
                         onClick={() => {

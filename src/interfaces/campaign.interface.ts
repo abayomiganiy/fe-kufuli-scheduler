@@ -1,8 +1,23 @@
 export type CampaignStatus = "active" | "pending" | "inactive";
 export type MessageType = "group" | "number";
 export type CampaignContentType = "text" | "image" | "video" | "audio";
-export type Frequency = "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY" | "ONCE";
 // | "document";
+export type Frequency =
+    | "DAILY"
+    | "WEEKLY"
+    | "MONTHLY"
+    | "YEARLY"
+    | "ONCE"
+    | "CUSTOM";
+
+export enum FrequencyEnum {
+    DAILY = "DAILY",
+    WEEKLY = "WEEKLY",
+    MONTHLY = "MONTHLY",
+    YEARLY = "YEARLY",
+    ONCE = "ONCE",
+    CUSTOM = "CUSTOM",
+}
 
 export enum FontType {
     CALISTOGA_REGULAR = 8,
@@ -22,7 +37,6 @@ export interface ICampaign {
     date: Date;
     createdAt?: Date;
     updatedAt?: Date;
-
     name: string;
     recipients: string[];
     userId: string;
