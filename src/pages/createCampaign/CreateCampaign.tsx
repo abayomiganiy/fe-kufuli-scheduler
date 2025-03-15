@@ -133,7 +133,7 @@ const CreateCampaign: React.FC = () => {
                                 "text",
                                 "image",
                                 "video",
-                                // "audio",
+                                "audio",
                             ] as CampaignContentType[]
                         ).map((type, index) => (
                             <div key={index}>
