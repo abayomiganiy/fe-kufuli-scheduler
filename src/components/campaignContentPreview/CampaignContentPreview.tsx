@@ -94,7 +94,7 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         className="w-52 h-72 rounded-lg bg-black flex items-center justify-center p-4 outline-none select-none"
                     >
                         <img
-                            src={URL.createObjectURL(content.content.image.url)}
+                            src={URL.createObjectURL(content.content.image.url as File)}
                             alt={content.id}
                             className="w-full h-full object-contain"
                         />
@@ -139,7 +139,7 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         >
                             <source
                                 src={URL.createObjectURL(
-                                    content.content.video.url
+                                    content.content.video.url as File
                                 )}
                             />
                         </video>
@@ -181,7 +181,7 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         <audio controls controlsList="nofullscreen" playsInline>
                             <source
                                 src={URL.createObjectURL(
-                                    content.content.audio.url
+                                    content.content.audio.url as File
                                 )}
                                 type="audio/mpeg"
                             />

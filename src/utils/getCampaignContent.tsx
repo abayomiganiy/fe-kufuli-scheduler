@@ -6,9 +6,7 @@ export default function GetCampaignContent(campaign: ICampaign) {
         case "image" in campaign.messages[0].content:
             content = (
                 <img
-                    src={URL.createObjectURL(
-                        campaign.messages[0].content?.image.url
-                    )}
+                    src={campaign.messages[0].content?.image.url as string}
                     alt={campaign.messages[0].content.caption}
                     className="object-cover rounded-2xl w-full h-full"
                 />
@@ -34,9 +32,9 @@ export default function GetCampaignContent(campaign: ICampaign) {
         case "video" in campaign.messages[0].content:
             content = (
                 <img
-                    src={URL.createObjectURL(
-                        campaign.messages[0].content?.video.url
-                    )}
+                    src={
+                        campaign.messages[0].content?.video.url as string
+                    }
                     alt={campaign.messages[0].content.caption}
                     className="object-cover rounded-2xl w-full h-full"
                 />

@@ -40,9 +40,9 @@ export interface MessageTypes {
     type: CampaignContentType;
     content:
         | { text: string }
-        | { image: { url: File }; caption: string }
-        | { video: { url: File }; caption: string }
-        | { audio: { url: File } };
+        | { image: { url: File | string }; caption: string }
+        | { video: { url: File | string }; caption: string }
+        | { audio: { url: File | string } };
     options?: {
         font?: number;
         backgroundColor?: string;
