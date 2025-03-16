@@ -1,9 +1,9 @@
+import { format } from "date-fns";
 import React from "react";
-import Toggle from "../toggle";
+import { Link } from "react-router-dom";
 import { ICampaign } from "../../interfaces/campaign.interface";
 import getCampaignContent from "../../utils/getCampaignContent";
-import { Link } from "react-router-dom";
-import { format } from "date-fns";
+import Toggle from "../toggle";
 
 const CampaignGrid: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
     const content = getCampaignContent(campaign);
