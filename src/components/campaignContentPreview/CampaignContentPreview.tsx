@@ -1,7 +1,6 @@
 import { FC } from "react";
 import {
     FieldErrors,
-    UseFormGetValues,
     UseFormRegister,
     UseFormWatch,
 } from "react-hook-form";
@@ -13,7 +12,6 @@ import FontCodeToFont from "../../utils/fontCodeToFont";
 
 interface CampaignContentPreviewProps {
     message: MessageTypes;
-    getValues: UseFormGetValues<ICampaignFormInput>;
     register: UseFormRegister<ICampaignFormInput>;
     errors: FieldErrors<ICampaignFormInput>;
     index: number;
@@ -22,13 +20,11 @@ interface CampaignContentPreviewProps {
 
 const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
     message,
-    getValues,
     register,
     index,
     errors,
     watch,
 }) => {
-    console.log(getValues().messages[index].options);
     const backgroundColor = watch(`messages.${index}.options.backgroundColor`);
     const font = watch(`messages.${index}.options.font`);
     const text = watch(`messages.${index}.content.text`);

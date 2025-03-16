@@ -116,7 +116,6 @@ const CreateCampaign: React.FC = () => {
                                         />
                                         <CampaignContentPreview
                                             message={message}
-                                            getValues={getValues}
                                             register={register}
                                             index={index}
                                             errors={errors}
