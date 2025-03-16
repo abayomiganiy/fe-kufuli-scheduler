@@ -256,6 +256,7 @@ const CampaignGrid: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
                             views
                         </span>
                     </div>
+                    <div className="rounded-full h-1 w-1 bg-black"></div>
                     <div className="flex justify-center items-center gap-1">
                         <h5 className="font-medium text-xs laptop:text-sm">
                             {campaign.frequency}
