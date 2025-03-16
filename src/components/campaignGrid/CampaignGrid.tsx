@@ -242,15 +242,15 @@ const CampaignGrid: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
             </Link>
             <div className="w-full flex flex-col gap-2">
                 <div className="flex justify-between items-center">
-                    <Toggle isOn={"campaign.status" === "campaign.status"} />
-                    {/* <div className="bg-[#F2F4FC] text-[#205CE2] font-bold text-xs rounded py-1 px-2">
+                    <Toggle isOn={campaign.isActive} />
+                    <div className="bg-[#F2F4FC] text-[#205CE2] font-bold text-xs rounded py-1 px-2">
                         Upcoming
-                    </div> */}
+                    </div>
                 </div>
                 <div className="flex items-center gap-2 mt-auto">
                     <div className="flex justify-center items-center gap-1">
                         <h3 className="font-semibold text-xs laptop:text-sm">
-                            {content?.key}
+                            {100}
                         </h3>
                         <span className="font-light text-xs laptop:text-sm">
                             views
