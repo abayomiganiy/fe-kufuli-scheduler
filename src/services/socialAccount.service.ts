@@ -11,12 +11,14 @@ export const getSocialAccounts = async () => {
 export const connectSocialAccount = async (data: {
     name: string;
     type: "WHATSAPP";
+    phoneNumber?: string;
 }) => {
     const resp = await request({
         url: "/social-accounts/connect-whatsapp",
         method: "POST",
         data: {
             sessionId: data.name,
+            phoneNumber: data.phoneNumber,
         },
     });
     return resp;

@@ -14,18 +14,20 @@ interface WhatsappConnectionFlowProps {
 const WhatsappConnectionFlow: React.FC<WhatsappConnectionFlowProps> = ({
     onClose,
 }) => {
-    // WEBSOCKET
-    // pulling_wa_data
-    // connected
     const [connection, setConnection] = useState<connectionType>();
+
     let component;
     switch (connection) {
         case "QR Code":
             component = (
-                <ConnectQRCode
-                    onClose={onClose}
-                    setConnection={setConnection}
-                />
+                <>
+                    {
+                        <ConnectQRCode
+                            onClose={onClose}
+                            setConnection={setConnection}
+                        />
+                    }
+                </>
             );
             break;
         case "Phone Number":
@@ -71,6 +73,7 @@ const WhatsappConnectionFlow: React.FC<WhatsappConnectionFlowProps> = ({
                 </div>
             );
     }
+
     return (
         <div className="flex flex-col laptop:w-min px-4 laptop:py-0 py-24 laptop:h-auto laptop:overflow-hidden h-screen overflow-y-auto justify-center items-center gap-8">
             <h2 className="font-extrabold laptop:text-3xl text-xl mx-auto">

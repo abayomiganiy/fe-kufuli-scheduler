@@ -1,10 +1,12 @@
-import GridLoader from "react-spinners/GridLoader";
-import { useConnectSocialAccount } from "../../hooks/socialAccount.hook";
-import { connectionType } from "./WhatsappConnectionFlow";
-import Button from "../button";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import GridLoader from "react-spinners/GridLoader";
+import { z } from "zod";
+import { useConnectSocialAccount } from "../../hooks/socialAccount.hook";
+import { socket } from "../../socket";
+import Button from "../button";
+import { connectionType } from "./WhatsappConnectionFlow";
 
 interface IConnectionData {
     name: string;
@@ -23,10 +25,21 @@ const ConnectQRCode: React.FC<{
     setConnection: (
         connectionType: React.SetStateAction<connectionType>
     ) => void;
-}> = ({
-    // onClose,
-    setConnection,
-}) => {
+}> = ({ onClose, setConnection }) => {
+    const socketRef = useRef<ReturnType<typeof socket> | null>(null);
+    const [connectionUpdate, setConnectionUpdate] = useState<{
+        data: {
+            status: string;
+            message: string;
+            data:
+                | "connected"
+                | "disconnected"
+                | "wait_for_qrcode_auth"
+                | "pulling_wa_data";
+        };
+        event: string;
+        session_id: string;
+    }>();
     const {
         mutate: connect,
         data: connectionData,
@@ -36,7 +49,7 @@ const ConnectQRCode: React.FC<{
     const {
         register,
         handleSubmit,
-        // getValues,
+        getValues,
         formState: { errors },
     } = useForm<IConnectionData>({
         resolver: zodResolver(connectionValidationSchema),
@@ -46,10 +59,43 @@ const ConnectQRCode: React.FC<{
         },
     });
 
-    const onSubmit = (data: { name: string; type: "WHATSAPP" }) => {
+    const onSubmit = (data: IConnectionData) => {
+        if (!socketRef.current) {
+            socketRef.current = socket({
+                session_id: `${import.meta.env.VITE_KUFULI_USER_ID}-${
+                    data.name
+                }`,
+            });
+        }
         console.log(data);
         connect(data);
     };
+
+    useEffect(() => {
+        if (connectionUpdate?.data.data === "connected") onClose();
+
+        if (!socketRef.current) {
+            socketRef.current = socket({
+                session_id: `cm6tizhu70000s0qqnzkbxpiq-${getValues().name}`,
+            });
+
+            // socketRef.current.on("connect", () => setIsConnected(true));
+            // socketRef.current.on("disconnect", () => setIsConnected(false));
+            socketRef.current.on("error", (error) =>
+                console.error("Socket error:", error)
+            );
+            socketRef.current.on("connection.update", (data) =>
+                setConnectionUpdate(data)
+            );
+        }
+
+        return () => {
+            if (socketRef.current) {
+                socketRef.current.disconnect();
+                socketRef.current = null;
+            }
+        };
+    }, [connectionUpdate?.data.data, getValues, onClose]);
 
     if (connectionIsPending) {
         return <GridLoader size={30} color="#3BA0BF" />;
@@ -61,6 +107,12 @@ const ConnectQRCode: React.FC<{
 
     let component;
     switch (true) {
+        case connectionData && "pulling_wa_data" in connectionData:
+            component = "Pulling data";
+            break;
+        case connectionData && "wait_for_qrcode_auth" in connectionData:
+            component = "wait for qrcode auth";
+            break;
         case connectionData && "qr" in connectionData:
             component = (
                 <>
@@ -83,7 +135,6 @@ const ConnectQRCode: React.FC<{
                 </>
             );
             break;
-
         default:
             component = (
                 <form

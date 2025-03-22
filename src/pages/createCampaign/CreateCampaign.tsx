@@ -215,6 +215,15 @@ const CreateCampaign: React.FC = () => {
                     <div>
                         <div className="flex flex-col gap-4 p-2">
                             <label className="cursor-pointer">Recipients</label>
+                            <label className="flex items-center gap-2 cursor-pointer border-b pb-2">
+                                <input
+                                    type="checkbox"
+                                    onChange={handleSelectAllContacts}
+                                    className="cursor-pointer h-5 w-5 rounded-full"
+                                    checked={allContact}
+                                />
+                                Select All Contacts
+                            </label>
                             {contactsIsLoading ? (
                                 <p>Loading contacts...</p>
                             ) : (
@@ -223,17 +232,6 @@ const CreateCampaign: React.FC = () => {
                                         <p>No contacts available</p>
                                     ) : (
                                         <div className="flex flex-col gap-2 ml-2 h-[200px] overflow-y-auto">
-                                            <label className="flex items-center gap-2 cursor-pointer border-b pb-2">
-                                                <input
-                                                    type="checkbox"
-                                                    onChange={
-                                                        handleSelectAllContacts
-                                                    }
-                                                    className="cursor-pointer h-5 w-5 rounded-full"
-                                                    checked={allContact}
-                                                />
-                                                Select All Contacts
-                                            </label>
                                             {contacts
                                                 ?.sort(
                                                     (

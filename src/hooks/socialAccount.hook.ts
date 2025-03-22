@@ -117,8 +117,11 @@ export const useConnectSocialAccount = () => {
     const queryClient = useQueryClient();
     return useMutation({
         mutationKey: ["connect-social-accounts"],
-        mutationFn: (data: { name: string; type: "WHATSAPP" }) =>
-            connectSocialAccount(data),
+        mutationFn: (data: {
+            name: string;
+            type: "WHATSAPP";
+            phoneNumber?: string;
+        }) => connectSocialAccount(data),
         onError: (error) => {
             // Handle error
             console.error(error);
