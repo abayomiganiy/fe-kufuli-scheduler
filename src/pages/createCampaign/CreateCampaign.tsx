@@ -1,9 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import Button from "../../components/button";
 import CampaignContentPreview from "../../components/campaignContentPreview";
 import CampaignPreviewActions from "../../components/campaignPreviewActions";
+import Contacts from "../../components/Contacts";
 import ContentTypeIcon from "../../components/contentTypeIcon";
 import BackIcon from "../../components/icons/backIcon";
 import RadioGroup from "../../components/radioGroup/RadioGroup";
@@ -14,12 +15,10 @@ import {
     CampaignContentType,
     ICampaignFormInput,
 } from "../../interfaces/campaign.interface";
-import { IContact } from "../../interfaces/contact.interface";
 import { createCampaignSchema } from "../../schemas/campaign.schema";
 import { useCurrentSocialAccount } from "../../store/currentSocialAccountStore";
 
 const CreateCampaign: React.FC = () => {
-    const [allContact, setallContact] = useState(false);
     const { currentAccount } = useCurrentSocialAccount();
     const {
         mutate: createCampaign,
@@ -64,7 +63,6 @@ const CreateCampaign: React.FC = () => {
     useEffect(() => {
         if (createCampaignIsSuccess) {
             reset();
-            setallContact(false);
         }
     }, [createCampaignIsSuccess, reset]);
 
@@ -75,17 +73,6 @@ const CreateCampaign: React.FC = () => {
         };
 
         createCampaign(hardCodedData);
-    };
-
-    const handleSelectAllContacts = () => {
-        if (!allContact) {
-            const allContactIds = contacts?.map((contact) => contact.id) || [];
-            setValue("recipients", allContactIds);
-            setallContact(true);
-        } else {
-            setValue("recipients", []);
-            setallContact(false);
-        }
     };
 
     return (
@@ -213,65 +200,17 @@ const CreateCampaign: React.FC = () => {
                         </div>
                     </div>
                     <div>
-                        <div className="flex flex-col gap-4 p-2">
-                            <label className="cursor-pointer">Recipients</label>
-                            <label className="flex items-center gap-2 cursor-pointer border-b pb-2">
-                                <input
-                                    type="checkbox"
-                                    onChange={handleSelectAllContacts}
-                                    className="cursor-pointer h-5 w-5 rounded-full"
-                                    checked={allContact}
-                                />
-                                Select All Contacts
-                            </label>
-                            {contactsIsLoading ? (
-                                <p>Loading contacts...</p>
-                            ) : (
-                                <>
-                                    {!contacts?.length ? (
-                                        <p>No contacts available</p>
-                                    ) : (
-                                        <div className="flex flex-col gap-2 ml-2 h-[200px] overflow-y-auto">
-                                            {contacts
-                                                ?.sort(
-                                                    (
-                                                        a: IContact,
-                                                        b: IContact
-                                                    ) =>
-                                                        a.name?.localeCompare(
-                                                            b.name
-                                                        )
-                                                )
-                                                .map((recipient: IContact) => (
-                                                    <label
-                                                        key={recipient.pkId}
-                                                        className="flex items-center gap-2 cursor-pointer"
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            value={
-                                                                recipient?.id
-                                                            }
-                                                            {...register(
-                                                                "recipients"
-                                                            )}
-                                                            className="cursor-pointer h-5 w-5 rounded-full"
-                                                        />
-                                                        {recipient.name
-                                                            ? recipient.name
-                                                            : recipient.notify}
-                                                    </label>
-                                                ))}
-                                        </div>
-                                    )}
-                                </>
-                            )}
-                            {errors.recipients && (
-                                <p className="text-xs text-red-500">
-                                    {errors.recipients.message}
-                                </p>
-                            )}
-                        </div>
+                        <Contacts
+                            contacts={contacts ?? []}
+                            contactsIsLoading={contactsIsLoading}
+                            register={register}
+                            setValue={setValue}
+                        />
+                        {errors.recipients && (
+                            <p className="text-xs text-red-500">
+                                {errors.recipients.message}
+                            </p>
+                        )}
                     </div>
                     <Button type="submit" disabled={createCampaignIsPending}>
                         {createCampaignIsPending

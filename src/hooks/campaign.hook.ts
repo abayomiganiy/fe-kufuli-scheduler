@@ -5,6 +5,7 @@ import {
     ICampaignFormInput,
 } from "../interfaces/campaign.interface";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export const useGetCampaigns = (filter?: { status: CampaignStatus }) => {
     return useQuery({
@@ -14,6 +15,7 @@ export const useGetCampaigns = (filter?: { status: CampaignStatus }) => {
 };
 
 export const useCreateCampaign = () => {
+    const navigate = useNavigate();
     return useMutation({
         mutationKey: ["createCampaign"],
         mutationFn: async (data: ICampaignFormInput) => {
@@ -23,6 +25,7 @@ export const useCreateCampaign = () => {
             // Handle success
             console.log("Campaign created successfully!");
             toast.success("Campaign created successfully!");
+            navigate("/campaigns");
         },
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onError: (error: any) => {
