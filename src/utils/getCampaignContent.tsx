@@ -1,4 +1,5 @@
 import { ICampaign } from "../interfaces/campaign.interface";
+import FontCodeToFont from "./fontCodeToFont";
 
 export default function GetCampaignContent(campaign: ICampaign) {
     let content;
@@ -21,6 +22,9 @@ export default function GetCampaignContent(campaign: ICampaign) {
                                 campaign.messages[0].options?.backgroundColor ??
                                 "#000000",
                             color: "#ffffff",
+                            fontFamily: FontCodeToFont(
+                                campaign.messages[0].options?.font as number
+                            ),
                         }}
                         className={`flex justify-center items-center p-4 laptop:p-5 object-cover rounded-2xl w-full h-full`}
                     >

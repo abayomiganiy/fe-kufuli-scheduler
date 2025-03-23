@@ -4,6 +4,7 @@ import SectionHeader from "../../components/sectionHeader";
 import { ICampaign } from "../../interfaces/campaign.interface";
 import Toggle from "../../components/toggle";
 import Button from "../../components/button";
+import FontCodeToFont from "../../utils/fontCodeToFont";
 
 const Campaign: React.FC = () => {
     const { state }: { state: ICampaign } = useLocation();
@@ -25,6 +26,9 @@ const Campaign: React.FC = () => {
                             style={{
                                 backgroundColor:
                                     state.messages[0].options?.backgroundColor,
+                                fontFamily: FontCodeToFont(
+                                    state.messages[0].options?.font as number
+                                ),
                             }}
                         >
                             {state.messages[0].content.text}
