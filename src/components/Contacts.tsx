@@ -61,24 +61,28 @@ const Contacts: React.FC<IContactsProps> = ({
     return (
         <div className="flex flex-col gap-4 p-2">
             <label htmlFor="status">Recipients</label>
-            <select
-                id="status"
-                className="h-10 outline-none"
-                onChange={(e) =>
-                    handleRecipientOptionChange(
-                        e.target.value as RecipientOption
-                    )
-                }
-            >
-                <option value="myContacts">
-                    {contactsIsLoading
-                        ? "Loading contacts..."
-                        : `My contacts (${contacts.length})`}
-                </option>
-                <option value="onlyShareWith">
-                    Only share with ({selectedRecipients.length})
-                </option>
-            </select>
+            <>
+                {contactsIsLoading ? (
+                    "Loading contacts..."
+                ) : (
+                    <select
+                        id="status"
+                        className="h-10 outline-none"
+                        onChange={(e) =>
+                            handleRecipientOptionChange(
+                                e.target.value as RecipientOption
+                            )
+                        }
+                    >
+                        <option value="myContacts">
+                            My contacts ({contacts.length})
+                        </option>
+                        <option value="onlyShareWith">
+                            Only share with ({selectedRecipients.length})
+                        </option>
+                    </select>
+                )}
+            </>
 
             {recipientOption !== "myContacts" && (
                 <>
@@ -96,7 +100,7 @@ const Contacts: React.FC<IContactsProps> = ({
                             .map((recipient) => (
                                 <label
                                     key={recipient.id}
-                                    className="flex items-center gap-2 cursor-pointer"
+                                    className="flex items-center gap-2 cursor-pointer select-none"
                                 >
                                     <input
                                         type="checkbox"
