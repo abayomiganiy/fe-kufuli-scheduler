@@ -7,7 +7,7 @@ import Button from "../../components/button";
 
 const Campaign: React.FC = () => {
     const { state }: { state: ICampaign } = useLocation();
-    console.log(state.messages);
+    console.log(state.messages[0].options?.backgroundColor);
     return (
         <div className="pb-10">
             <SectionHeader title="Campaign Details" />
@@ -20,7 +20,15 @@ const Campaign: React.FC = () => {
                 </div>
                 <div className="flex flex-col laptop:flex-row justify-center laptop:justify-start gap-6">
                     {"text" in state.messages[0].content ? (
-                        ""
+                        <div
+                            className={`flex justify-center items-center h-96 w-64 object-cover rounded-2xl mx-auto laptop:mx-0 text-white`}
+                            style={{
+                                backgroundColor:
+                                    state.messages[0].options?.backgroundColor,
+                            }}
+                        >
+                            {state.messages[0].content.text}
+                        </div>
                     ) : "image" in state.messages[0].content ? (
                         <img
                             src={state.messages[0].content.image.url as string}
