@@ -76,7 +76,7 @@ const ConnectQRCode: React.FC<{
 
         if (!socketRef.current) {
             socketRef.current = socket({
-                session_id: `cm6tizhu70000s0qqnzkbxpiq-${getValues().name}`,
+                session_id: `${import.meta.env.VITE_KUFULI_USER_ID}-${getValues().name}`,
             });
 
             // socketRef.current.on("connect", () => setIsConnected(true));
