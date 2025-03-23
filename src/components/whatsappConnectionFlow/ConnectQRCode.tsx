@@ -76,7 +76,9 @@ const ConnectQRCode: React.FC<{
 
         if (!socketRef.current) {
             socketRef.current = socket({
-                session_id: `${import.meta.env.VITE_KUFULI_USER_ID}-${getValues().name}`,
+                session_id: `${import.meta.env.VITE_KUFULI_USER_ID}-${
+                    getValues().name
+                }`,
             });
 
             // socketRef.current.on("connect", () => setIsConnected(true));
@@ -123,13 +125,6 @@ const ConnectQRCode: React.FC<{
                                 alt="Whatsapp QR Code"
                                 className="h-[200px] w-[200px]"
                             />
-                            <button
-                                type="button"
-                                onClick={() => setConnection("Phone Number")}
-                                className="font-semibold text-xs laptop:text-base"
-                            >
-                                Use phone number instead
-                            </button>
                         </div>
                     }
                 </>
@@ -155,6 +150,13 @@ const ConnectQRCode: React.FC<{
                     <Button className="w-full" disabled={connectionIsPending}>
                         {connectionIsPending ? "Pending..." : "Connect"}
                     </Button>
+                    <button
+                        type="button"
+                        onClick={() => setConnection("Phone Number")}
+                        className="font-semibold text-xs laptop:text-base"
+                    >
+                        Use phone number instead
+                    </button>
                 </form>
             );
             break;
