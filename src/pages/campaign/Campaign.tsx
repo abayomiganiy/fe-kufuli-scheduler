@@ -1,14 +1,13 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import SectionHeader from "../../components/sectionHeader";
-import {
-    ICampaign,
-} from "../../interfaces/campaign.interface";
+import { ICampaign } from "../../interfaces/campaign.interface";
 import Toggle from "../../components/toggle";
 import Button from "../../components/button";
 
 const Campaign: React.FC = () => {
     const { state }: { state: ICampaign } = useLocation();
+    console.log(state.messages);
     return (
         <div className="pb-10">
             <SectionHeader title="Campaign Details" />
@@ -20,11 +19,21 @@ const Campaign: React.FC = () => {
                     </div>
                 </div>
                 <div className="flex flex-col laptop:flex-row justify-center laptop:justify-start gap-6">
-                    <img
-                        // src={state.content[0].message.image.url}
-                        alt={state.id}
-                        className="h-96 w-64 object-cover rounded-2xl mx-auto laptop:mx-0"
-                    />
+                    {"text" in state.messages[0].content ? (
+                        ""
+                    ) : "image" in state.messages[0].content ? (
+                        <img
+                            src={state.messages[0].content.image.url as string}
+                            alt={state.id}
+                            className="h-96 w-64 object-cover rounded-2xl mx-auto laptop:mx-0"
+                        />
+                    ) : "video" in state.messages[0].content ? (
+                        <img
+                            src={state.messages[0].content.video.url as string}
+                            alt={state.id}
+                            className="h-96 w-64 object-cover rounded-2xl mx-auto laptop:mx-0"
+                        />
+                    ) : null}
                     <div className="flex flex-col w-full">
                         <div>
                             <div>
@@ -75,10 +84,10 @@ const Campaign: React.FC = () => {
                             <div>
                                 <div className="flex">
                                     <span>Date created</span>{" "}
-                                    <h4>{state.createdAt?.getDate()}</h4>
+                                    {/* <h4>{state.createdAt?.getDate()}</h4> */}
                                 </div>
                                 <div className="flex">
-                                    <span>Cummulative views</span>{" "}
+                                    <span>Cummulative views </span>{" "}
                                     <h4>{150}</h4>
                                 </div>
                             </div>
