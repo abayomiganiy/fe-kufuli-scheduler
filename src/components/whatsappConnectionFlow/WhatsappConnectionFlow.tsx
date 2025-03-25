@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import phoneNumber from "../../assets/connect-with-phone.png";
 import qrCode from "../../assets/connect-with-qrcode.png";
-import { socket } from "../../socket";
 import Button from "../button";
 import ConnectQRCode from "./ConnectQRCode";
 import PhoneNumber from "./PhoneNumber";
@@ -15,41 +14,6 @@ interface WhatsappConnectionFlowProps {
 const WhatsappConnectionFlow: React.FC<WhatsappConnectionFlowProps> = ({
     onClose,
 }) => {
-    // WEBSOCKET
-    // pulling_wa_data
-    // connected
-    // const whatsappConnectionSocket = useMemo(() => socket({
-    //     session_id: "cm6tizhu70000s0qqnzkbxpiq-test",
-    // }), []);
-
-    // console.log("whatsappConnectionSocket", whatsappConnectionSocket);
-
-    const [isConnected, setIsConnected] = useState(false);
-
-    useEffect(() => {
-        const whatsappConnectionSocket = socket({
-            session_id: "cm6tizhu70000s0qqnzkbxpiq-test",
-        });
-        
-        function onConnect() {
-            setIsConnected(true);
-        }
-
-        function onDisconnect() {
-            setIsConnected(false);
-        }
-
-        whatsappConnectionSocket.on("connect", onConnect);
-        whatsappConnectionSocket.on("disconnect", onDisconnect);
-
-        return () => {
-            whatsappConnectionSocket.off("connect", onConnect);
-            whatsappConnectionSocket.off("disconnect", onDisconnect);
-        };
-    }, []);
-
-    console.log(`isConnected`, isConnected);
-
     const [connection, setConnection] = useState<connectionType>();
 
     let component;
