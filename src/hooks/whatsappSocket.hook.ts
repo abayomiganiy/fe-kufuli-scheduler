@@ -55,5 +55,6 @@ export const useWhatsappSocket = ({
 
     return {
         socketRef,
+        setConnectionUpdate
     };
 };

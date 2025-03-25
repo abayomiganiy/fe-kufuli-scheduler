@@ -1,14 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import PhoneInputWithCountry from "react-phone-number-input/react-hook-form";
+import "react-phone-number-input/style.css";
 import GridLoader from "react-spinners/GridLoader";
 import * as z from "zod";
 import { useConnectSocialAccount } from "../../hooks/socialAccount.hook";
-import Button from "../button";
-import { connectionType } from "./WhatsappConnectionFlow";
-import "react-phone-number-input/style.css";
-import PhoneInputWithCountry from "react-phone-number-input/react-hook-form";
 import { useWhatsappSocket } from "../../hooks/whatsappSocket.hook";
 import { socket } from "../../socket";
+import Button from "../button";
+import { connectionType } from "./WhatsappConnectionFlow";
 
 export interface IPhoneNumberData {
     name: string;
@@ -50,7 +50,10 @@ const PhoneNumber: React.FC<{
         isPending: connectionIsPending,
     } = useConnectSocialAccount();
 
-    const { socketRef } = useWhatsappSocket({ onClose, getValues });
+    const { socketRef, setConnectionUpdate } = useWhatsappSocket({
+        onClose,
+        getValues,
+    });
 
     const onSubmit = (data: IPhoneNumberData) => {
         if (!socketRef.current) {
@@ -74,6 +77,19 @@ const PhoneNumber: React.FC<{
             break;
         case connectionData && "wait_for_qrcode_auth" in connectionData:
             component = "wait for qrcode auth";
+            break;
+        case connectionData && "connected" in connectionData:
+            setConnectionUpdate({
+                data: {
+                    status: "connected",
+                    message: "Connected",
+                    data: "connected",
+                },
+                event: "connection.update",
+                session_id: `${import.meta.env.VITE_KUFULI_USER_ID}-${
+                    getValues().name
+                }`,
+            });
             break;
         case connectionData && "code" in connectionData:
             component = (

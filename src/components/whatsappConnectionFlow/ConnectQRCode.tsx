@@ -46,7 +46,10 @@ const ConnectQRCode: React.FC<{
         },
     });
 
-    const {socketRef} = useWhatsappSocket({onClose, getValues})
+    const { socketRef, setConnectionUpdate } = useWhatsappSocket({
+        onClose,
+        getValues,
+    });
 
     const onSubmit = (data: IQRConnectionData) => {
         if (!socketRef.current) {
@@ -71,6 +74,20 @@ const ConnectQRCode: React.FC<{
         case connectionData && "wait_for_qrcode_auth" in connectionData:
             component = "wait for qrcode auth";
             break;
+        case connectionData && "connected" in connectionData:
+            setConnectionUpdate({
+                data: {
+                    status: "connected",
+                    message: "Connected",
+                    data: "connected",
+                },
+                event: "connection.update",
+                session_id: `${import.meta.env.VITE_KUFULI_USER_ID}-${
+                    getValues().name
+                }`,
+            });
+            break;
+        case connectionData && "disconnected" in connectionData:
         case connectionData && "qr" in connectionData:
             component = (
                 <>
