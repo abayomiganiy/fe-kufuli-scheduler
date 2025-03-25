@@ -123,9 +123,10 @@ export const useConnectSocialAccount = () => {
             type: ConnectionNameTypes;
             phoneNumber?: string;
         }) => connectSocialAccount(data),
-        onError: (error) => {
+        onError: (error: { data: { message: string } }) => {
             // Handle error
             console.error(error);
+            toast.error(error.data.message);
         },
         onSuccess: (data) => {
             // Handle success

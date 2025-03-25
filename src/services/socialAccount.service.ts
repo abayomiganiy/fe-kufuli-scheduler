@@ -20,10 +20,7 @@ export const connectSocialAccount = async (data: {
             resp = await request({
                 url: "/social-accounts/connect-whatsapp",
                 method: "POST",
-                data: {
-                    sessionId: data.name,
-                    phoneNumber: data.phoneNumber,
-                },
+                data,
             });
             break;
         default:
