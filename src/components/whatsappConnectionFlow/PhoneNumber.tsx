@@ -98,8 +98,7 @@ const PhoneNumber: React.FC<{
                         Enter this code to connect with WhatsApp
                     </h3>
                     <div className="flex justify-center items-center gap-2 sm:gap-4 p-4 sm:p-6">
-                        {(connectionData as { code: string })?.code
-                            .split("")
+                        {(connectionData as { code: string })?.code?.split("")
                             .map((char, index, array) => (
                                 <>
                                     {index === array.length / 2 && (
