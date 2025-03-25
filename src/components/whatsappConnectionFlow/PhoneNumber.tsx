@@ -5,6 +5,8 @@ import * as z from "zod";
 import { useConnectSocialAccount } from "../../hooks/socialAccount.hook";
 import Button from "../button";
 import { connectionType } from "./WhatsappConnectionFlow";
+import "react-phone-number-input/style.css";
+import PhoneInputWithCountry from "react-phone-number-input/react-hook-form";
 
 interface IPhoneNumber {
     name: string;
@@ -30,6 +32,7 @@ const PhoneNumber: React.FC<{
         register,
         handleSubmit,
         formState: { errors },
+        control,
     } = useForm<IPhoneNumber>({
         resolver: zodResolver(phoneValidationSchema),
         defaultValues: {
@@ -74,11 +77,14 @@ const PhoneNumber: React.FC<{
                     placeholder="Enter name"
                     className="font-normal laptop:text-base text-xs w-full px-4 py-3 border-2 border-[#D9D9D9] bg-transparent rounded-lg focus:outline-none focus:border-[#4CCEF7]"
                 />
-                <input
-                    type="tel"
-                    {...register("phoneNumber")}
+                <PhoneInputWithCountry
+                    className="font-normal laptop:text-base text-xs w-full px-4 py-3 border-2 border-[#D9D9D9] bg-transparent rounded-lg [&:has(*:focus)]:border-[#4CCEF7] [&_*:focus]:outline-none"
+                    name="phoneNumber"
                     placeholder="Enter Whatsapp Number"
-                    className="font-normal laptop:text-base text-xs w-full px-4 py-3 border-2 border-[#D9D9D9] bg-transparent rounded-lg focus:outline-none focus:border-[#4CCEF7]"
+                    control={control}
+                    rules={{ required: true }}
+                    autoComplete="on"
+                    countryCallingCodeEditable={false}
                 />
                 {errors.phoneNumber && (
                     <p className="text-xs text-red-500">

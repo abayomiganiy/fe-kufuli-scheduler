@@ -1,3 +1,4 @@
+import { ConnectionNameTypes } from "../interfaces/socialAccount.interface";
 import { request } from "../utils/axios-utils";
 
 export const getSocialAccounts = async () => {
@@ -10,17 +11,25 @@ export const getSocialAccounts = async () => {
 
 export const connectSocialAccount = async (data: {
     name: string;
-    type: "WHATSAPP";
+    type: ConnectionNameTypes;
     phoneNumber?: string;
 }) => {
-    const resp = await request({
-        url: "/social-accounts/connect-whatsapp",
-        method: "POST",
-        data: {
-            sessionId: data.name,
-            phoneNumber: data.phoneNumber,
-        },
-    });
+    let resp;
+    switch (data.type) {
+        case "WHATSAPP":
+            resp = await request({
+                url: "/social-accounts/connect-whatsapp",
+                method: "POST",
+                data: {
+                    sessionId: data.name,
+                    phoneNumber: data.phoneNumber,
+                },
+            });
+            break;
+        default:
+            console.log("Invalid connection type");
+            new Error("Invalid connection type");
+    }
     return resp;
 };
 

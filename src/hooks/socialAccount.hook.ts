@@ -8,6 +8,7 @@ import {
     getSocialAccounts,
 } from "../services/socialAccount.service";
 import { useAuth } from "./auth.hook";
+import { ConnectionNameTypes } from "../interfaces/socialAccount.interface";
 
 export const useQRConnectWhatsapp = () => {
     const queryClient = useQueryClient();
@@ -119,7 +120,7 @@ export const useConnectSocialAccount = () => {
         mutationKey: ["connect-social-accounts"],
         mutationFn: (data: {
             name: string;
-            type: "WHATSAPP";
+            type: ConnectionNameTypes;
             phoneNumber?: string;
         }) => connectSocialAccount(data),
         onError: (error) => {
