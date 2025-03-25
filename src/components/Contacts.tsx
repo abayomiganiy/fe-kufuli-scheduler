@@ -78,7 +78,11 @@ const Contacts: React.FC<IContactsProps> = ({
                             My contacts ({contacts.length})
                         </option>
                         <option value="onlyShareWith">
-                            Only share with ({selectedRecipients.length})
+                            Only share with (
+                            {recipientOption === "onlyShareWith"
+                                ? selectedRecipients.length
+                                : 0}
+                            )
                         </option>
                     </select>
                 )}
