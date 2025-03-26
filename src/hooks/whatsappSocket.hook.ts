@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { socket } from "../socket";
 import { UseFormGetValues } from "react-hook-form";
 import { IQRConnectionData } from "../components/whatsappConnectionFlow/ConnectQRCode";
 import { IPhoneNumberData } from "../components/whatsappConnectionFlow/PhoneNumber";
+import { socket } from "../socket";
+import { useGetUser } from "./user.hook";
 
 type DataType =
     | "connected"
@@ -27,6 +28,7 @@ export const useWhatsappSocket = ({
         event: string;
         session_id: string;
     }>();
+    const { data: user } = useGetUser();
 
     useEffect(() => {
         if (connectionUpdate?.data.data === "connected") onClose();
@@ -34,8 +36,8 @@ export const useWhatsappSocket = ({
         if (!socketRef.current) {
             socketRef.current = socket({
                 session_id: `${import.meta.env.VITE_KUFULI_USER_ID}-${
-                    getValues().name
-                }`,
+                    user?.id
+                }-${getValues().name}`,
             });
             socketRef.current.on("error", (error) =>
                 console.error("Socket error:", error)
@@ -51,10 +53,10 @@ export const useWhatsappSocket = ({
                 socketRef.current = null;
             }
         };
-    }, [connectionUpdate?.data.data, getValues, onClose]);
+    }, [connectionUpdate?.data.data, getValues, onClose, user?.id]);
 
     return {
         socketRef,
-        setConnectionUpdate
+        setConnectionUpdate,
     };
 };
