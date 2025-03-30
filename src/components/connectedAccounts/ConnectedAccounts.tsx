@@ -36,11 +36,12 @@ const ConnectedAccount: React.FC<{
                         sessionId: connectedAccount.name,
                     })
                 }
+                title="delete social account"
                 className={`absolute top-[-10px] right-[-10px] flex justify-center items-center p-1 h-6 w-6 rounded-full ${
-                    connectedAccount.status.toLocaleLowerCase() === "active"
+                    connectedAccount.status.toLocaleLowerCase() === "connected"
                         ? "bg-[#FF3B30]"
                         : connectedAccount.status.toLocaleLowerCase() ===
-                          "disconneted"
+                          "disconnected"
                         ? "bg-[#ffff00]"
                         : "bg-[#4CD964]"
                 } `}

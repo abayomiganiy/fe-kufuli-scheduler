@@ -1,62 +1,50 @@
-import { useEffect, useRef, useState } from "react";
-import { UseFormGetValues } from "react-hook-form";
-import { IQRConnectionData } from "../components/whatsappConnectionFlow/ConnectQRCode";
-import { IPhoneNumberData } from "../components/whatsappConnectionFlow/PhoneNumber";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { socket } from "../socket";
 import { useGetUser } from "./user.hook";
 
-type DataType =
-    | "connected"
-    | "disconnected"
-    | "wait_for_qrcode_auth"
-    | "pulling_wa_data";
-
 export const useWhatsappSocket = ({
-    onClose,
-    getValues,
+    name,
 }: {
     onClose: () => void;
-    getValues: UseFormGetValues<IQRConnectionData | IPhoneNumberData>;
+    name: string;
 }) => {
+    const [connectionEvent, setConnectionEvent] = useState<string>();
     const socketRef = useRef<ReturnType<typeof socket> | null>(null);
-    const [connectionUpdate, setConnectionUpdate] = useState<{
-        data: {
-            status: string;
-            message: string;
-            data: DataType;
-        };
-        event: string;
-        session_id: string;
-    }>();
     const { data: user } = useGetUser();
 
-    useEffect(() => {
-        if (connectionUpdate?.data.data === "connected") onClose();
+    const initializeSocket = useCallback(() => {
+        if (!name || socketRef.current) return;
+        socketRef.current = socket({
+            session_id: `${import.meta.env.VITE_KUFULI_USER_ID}-${
+                user?.id
+            }-${name}`,
+        });
 
-        if (!socketRef.current) {
-            socketRef.current = socket({
-                session_id: `${import.meta.env.VITE_KUFULI_USER_ID}-${
-                    user?.id
-                }-${getValues().name}`,
-            });
-            socketRef.current.on("error", (error) =>
-                console.error("Socket error:", error)
-            );
-            socketRef.current.on("connection.update", (data) =>
-                setConnectionUpdate(data)
-            );
-        }
+        const handleError = (error: Error) =>
+            console.error("Socket error:", error);
+        const handleUpdate = (data: { data: { data: string } }) =>
+            setConnectionEvent(data.data.data);
+
+        socketRef.current.on("error", handleError);
+        socketRef.current.on("connection.update", handleUpdate);
 
         return () => {
             if (socketRef.current) {
+                socketRef.current.off("error", handleError);
+                socketRef.current.off("connection.update", handleUpdate);
                 socketRef.current.disconnect();
                 socketRef.current = null;
             }
         };
-    }, [connectionUpdate?.data.data, getValues, onClose, user?.id]);
+    }, [name, user]);
+
+    useEffect(() => {
+        const cleanup = initializeSocket();
+        return () => cleanup?.();
+    }, [initializeSocket]);
 
     return {
-        socketRef,
-        setConnectionUpdate,
+        initializeSocket,
+        connectionEvent,
     };
 };
