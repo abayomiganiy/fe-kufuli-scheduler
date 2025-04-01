@@ -160,7 +160,7 @@ const Connection: React.FC<{
                         Enter this code to connect with WhatsApp
                     </h3>
                     <div className="flex justify-center items-center gap-2 sm:gap-4 p-4 sm:p-6">
-                        {connectionData?.code && connectionData.code.split("")?.map((char: string, index: number, array: []) => (
+                        {connectionData?.code && connectionData?.code?.split("")?.map((char: string, index: number, array: []) => (
                                 <>
                                     {index === array.length / 2 && (
                                         <span className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold p-2">
