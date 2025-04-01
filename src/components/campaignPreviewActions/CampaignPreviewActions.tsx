@@ -1,17 +1,22 @@
 import React, { useMemo, useState } from "react";
-import { UseFieldArrayRemove, UseFormSetValue } from "react-hook-form";
+import {
+    UseFieldArrayRemove,
+    UseFormGetValues,
+    UseFormSetValue,
+} from "react-hook-form";
 import {
     ICampaignFormInput,
     MessageTypes,
 } from "../../interfaces/campaign.interface";
 import FontCodeToFont from "../../utils/fontCodeToFont";
 
-const CampaingPreviewActions: React.FC<{
+const CampaignPreviewActions: React.FC<{
     message: MessageTypes;
     setValue: UseFormSetValue<ICampaignFormInput>;
+    getValues: UseFormGetValues<ICampaignFormInput>;
     index: number;
     removeMessage: UseFieldArrayRemove;
-}> = ({ message, setValue, index, removeMessage }) => {
+}> = ({ message, setValue, getValues, index, removeMessage }) => {
     const [bgIndex, setBgIndex] = useState(0);
     const fontOptions = useMemo(() => [0, 8, 9, 10], []);
 
@@ -67,10 +72,12 @@ const CampaingPreviewActions: React.FC<{
                 )}
                 {("text" in message.content || "audio" in message.content) && (
                     <>
-                        <label
-                            className=" cursor-pointer shadow-2xl bg-gray-600 text-white h-8 opacity-90 w-8 rounded-full flex justify-center items-center"
-                            // onClick={}
-                            htmlFor="color"
+                        {/* <button
+                            className=" cursor-pointer shadow-2xl bg-gray-600 text-white h-8 opacity-90 w-8 rounded-full flex justify-center items-center z-50"
+                            type="button"
+                            onClick={() => {
+                                colorRef.current?.click();
+                            }}
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -128,13 +135,15 @@ const CampaingPreviewActions: React.FC<{
                                     />
                                 </g>
                             </svg>
-                        </label>
+                        </button>*/}
                         <input
                             type="color"
-                            id="color"
-                            className="hidden"
+                            id="colorPicker"
+                            defaultValue={
+                                getValues().messages[index].options
+                                    ?.backgroundColor
+                            }
                             onChange={(e) => {
-                                // const backgroundColor = generateHexColor();
                                 setValue(
                                     `messages.${index}.options.backgroundColor`,
                                     e.target.value
@@ -148,4 +157,4 @@ const CampaingPreviewActions: React.FC<{
     );
 };
 
-export default CampaingPreviewActions;
+export default CampaignPreviewActions;

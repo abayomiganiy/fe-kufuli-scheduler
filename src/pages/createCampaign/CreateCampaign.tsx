@@ -98,6 +98,7 @@ const CreateCampaign: React.FC = () => {
                                         <CampaignPreviewActions
                                             message={message}
                                             setValue={setValue}
+                                            getValues={getValues}
                                             index={index}
                                             removeMessage={removeMessage}
                                         />
