@@ -40,7 +40,7 @@ const CreateCampaign: React.FC = () => {
         defaultValues: {
             socialAccountId: currentAccount?.id,
             name: `My Business Campaign ${Date.now()}`,
-            isEighteenPlus: false,
+            isEighteenPlus: true,
             scheduledTime: new Date(),
             messages: [],
             recipients: [],
