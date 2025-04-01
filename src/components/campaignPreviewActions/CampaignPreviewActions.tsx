@@ -54,7 +54,7 @@ const CampaignPreviewActions: React.FC<{
             <div className="flex gap-2">
                 {"text" in message.content && (
                     <div
-                        className=" cursor-pointer shadow-2xl bg-gray-600 text-white h-8 opacity-90 w-8 rounded-full flex justify-center items-center select-none"
+                        className="cursor-pointer shadow-2xl bg-gray-600 text-white h-8 opacity-90 w-8 rounded-full flex justify-center items-center select-none"
                         onClick={() => {
                             const newIndex = (bgIndex + 1) % fontOptions.length;
                             setBgIndex(newIndex);
@@ -139,6 +139,7 @@ const CampaignPreviewActions: React.FC<{
                         <input
                             type="color"
                             id="colorPicker"
+                            className="cursor-pointer shadow-2xl bg-gray-600 text-white h-8 opacity-90 w-8 rounded-full flex justify-center items-center select-none"
                             defaultValue={
                                 getValues().messages[index].options
                                     ?.backgroundColor
