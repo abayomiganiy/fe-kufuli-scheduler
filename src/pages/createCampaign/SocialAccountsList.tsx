@@ -43,7 +43,7 @@ const SocialAccountsList: React.FC<SocialAccountsListProps> = ({
     }
 
     const handleAccountSelect = (account: ISocialAccount) => {
-        if (account.id === currentAccount?.id) return;
+        // if (account.id === currentAccount?.id) return;
         setCurrentAccount(account);
         setValue("socialAccountId", account.id);
         queryClient.clear();
