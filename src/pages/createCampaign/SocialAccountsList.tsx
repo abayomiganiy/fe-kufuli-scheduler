@@ -5,6 +5,8 @@ import {
     ISocialAccount,
 } from "../../interfaces/socialAccount.interface";
 import { Link } from "react-router-dom";
+import { UseFormSetValue } from "react-hook-form";
+import { ICampaignFormInput } from "../../interfaces/campaign.interface";
 
 // Props interface for component
 interface SocialAccountsListProps {
@@ -12,6 +14,7 @@ interface SocialAccountsListProps {
     currentAccount: ISocialAccount | null;
     setCurrentAccount: (account: ISocialAccount) => void;
     getAccountImageWithType: (type: ConnectionNameTypes) => string;
+    setValue: UseFormSetValue<ICampaignFormInput>;
 }
 
 const SocialAccountsList: React.FC<SocialAccountsListProps> = ({
@@ -19,6 +22,7 @@ const SocialAccountsList: React.FC<SocialAccountsListProps> = ({
     currentAccount,
     setCurrentAccount,
     getAccountImageWithType,
+    setValue,
 }) => {
     // Early return for no accounts
     if (!socialAccounts || socialAccounts.length === 0) {
@@ -34,7 +38,7 @@ const SocialAccountsList: React.FC<SocialAccountsListProps> = ({
 
     const handleAccountSelect = (account: ISocialAccount) => {
         setCurrentAccount(account);
-        console.log("Selected social account:", account.name.slice(0, 4));
+        setValue("socialAccountId", account.id);
         queryClient.clear();
     };
 

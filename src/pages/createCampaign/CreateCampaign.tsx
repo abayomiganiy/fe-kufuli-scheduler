@@ -44,7 +44,7 @@ const CreateCampaign: React.FC = () => {
     } = useForm<ICampaignFormInput>({
         resolver: zodResolver(createCampaignSchema),
         defaultValues: {
-            socialAccountId: currentAccount?.id,
+            socialAccountId: "",
             name: `My Business Campaign ${Date.now()}`,
             isEighteenPlus: true,
             scheduledTime: new Date(),
@@ -147,7 +147,13 @@ const CreateCampaign: React.FC = () => {
                             currentAccount={currentAccount}
                             setCurrentAccount={setCurrentAccount}
                             getAccountImageWithType={getAccountImageWithType}
+                            setValue={setValue}
                         />
+                        {errors.socialAccountId && (
+                            <p className="text-xs text-red-500">
+                                {errors.socialAccountId.message}
+                            </p>
+                        )}
                     </div>
                     <div>
                         <div className="flex items-center gap-4 p-2">
