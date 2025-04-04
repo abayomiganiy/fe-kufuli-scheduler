@@ -42,10 +42,7 @@ const CreateCampaign: React.FC = () => {
     } = useForm<ICampaignFormInput>({
         resolver: zodResolver(createCampaignSchema),
         defaultValues: {
-            socialAccountId: "",
             name: `My Business Campaign ${Date.now()}`,
-            isEighteenPlus: true,
-            scheduledTime: new Date(),
             messages: [],
             recipients: [],
         },
@@ -60,8 +57,8 @@ const CreateCampaign: React.FC = () => {
         control,
     });
 
-    // console.log(errors);
-    console.log(`getValues: ${JSON.stringify(getValues())}`);
+    console.log(errors);
+    // console.log(`getValues: ${JSON.stringify(getValues())}`);
     // console.log(`messages: ${JSON.stringify(messages)}`);
 
     useEffect(() => {

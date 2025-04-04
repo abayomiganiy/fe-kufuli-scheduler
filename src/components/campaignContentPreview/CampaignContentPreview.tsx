@@ -1,9 +1,5 @@
 import { FC } from "react";
-import {
-    FieldErrors,
-    UseFormRegister,
-    UseFormWatch,
-} from "react-hook-form";
+import { FieldErrors, UseFormRegister, UseFormWatch } from "react-hook-form";
 import {
     ICampaignFormInput,
     MessageTypes,
@@ -28,6 +24,7 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
     const backgroundColor = watch(`messages.${index}.options.backgroundColor`);
     const font = watch(`messages.${index}.options.font`);
     const text = watch(`messages.${index}.content.text`);
+    console.log(errors);
     return (
         <div className="flex flex-col gap-3">
             {"text" in message.content ? (
@@ -67,13 +64,13 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         rows={3}
                     />
                     <p className="text-xs text-red-500">
-                        {typeof errors.messages?.[index]?.message ===
-                            "object" && "text" in errors.messages[index].message
+                        {typeof errors.messages?.[index]?.content ===
+                            "object" && "text" in errors.messages[index].content
                             ? (
-                                  errors.messages[index].message as {
+                                  errors.messages[index].content?.text as {
                                       message: string;
                                   }
-                              )?.message
+                              ).message
                             : null}
                     </p>
                 </div>
@@ -90,7 +87,9 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         className="w-52 h-72 rounded-lg bg-black flex items-center justify-center p-4 outline-none select-none"
                     >
                         <img
-                            src={URL.createObjectURL(message.content.image.url as File)}
+                            src={URL.createObjectURL(
+                                message.content.image.url as File
+                            )}
                             alt={message.id}
                             className="w-full h-full object-contain"
                         />
@@ -103,15 +102,14 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         rows={3}
                     />
                     <p className="text-xs text-red-500">
-                        {typeof errors.messages?.[index]?.message ===
+                        {typeof errors.messages?.[index]?.content ===
                             "object" &&
-                        errors.messages?.[index]?.content &&
                         "image" in errors.messages[index].content
                             ? (
-                                  errors.messages[index].content.image as {
+                                  errors.messages[index].content?.image as {
                                       message: string;
                                   }
-                              )?.message
+                              ).message
                             : null}
                     </p>
                 </div>
@@ -148,15 +146,14 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                         rows={3}
                     />
                     <p className="text-xs text-red-500">
-                        {typeof errors.messages?.[index]?.message ===
+                        {typeof errors.messages?.[index]?.content ===
                             "object" &&
-                        errors.messages?.[index]?.content &&
                         "video" in errors.messages[index].content
                             ? (
-                                  errors.messages[index].content.video as {
+                                  errors.messages[index].content?.video as {
                                       message: string;
                                   }
-                              )?.message
+                              ).message
                             : null}
                     </p>
                 </div>
@@ -183,6 +180,17 @@ const CampaignContentPreview: FC<CampaignContentPreviewProps> = ({
                             />
                         </audio>
                     </label>
+                    <p className="text-xs text-red-500">
+                        {typeof errors.messages?.[index]?.content ===
+                            "object" &&
+                        "audio" in errors.messages[index].content
+                            ? (
+                                  errors.messages[index].content?.audio as {
+                                      message: string;
+                                  }
+                              ).message
+                            : null}
+                    </p>
                 </div>
             ) : null}
         </div>
