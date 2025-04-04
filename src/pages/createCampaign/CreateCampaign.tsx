@@ -11,7 +11,6 @@ import RadioGroup from "../../components/radioGroup/RadioGroup";
 import SectionHeader from "../../components/sectionHeader";
 import { useCreateCampaign } from "../../hooks/campaign.hook";
 import { useGetContacts } from "../../hooks/contact.hook";
-import { useGetSocialAccounts } from "../../hooks/socialAccount.hook";
 import {
     CampaignContentType,
     ICampaignFormInput,
@@ -31,7 +30,6 @@ const CreateCampaign: React.FC = () => {
     const { data: contacts, isLoading: contactsIsLoading } = useGetContacts({
         currentSocialAccount: currentAccount!,
     });
-    const { data: socialAccounts } = useGetSocialAccounts();
     const {
         handleSubmit,
         control,
@@ -143,7 +141,6 @@ const CreateCampaign: React.FC = () => {
                             Social account
                         </label>
                         <SocialAccountsList
-                            socialAccounts={socialAccounts}
                             currentAccount={currentAccount}
                             setCurrentAccount={setCurrentAccount}
                             getAccountImageWithType={getAccountImageWithType}

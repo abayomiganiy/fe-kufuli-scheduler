@@ -7,10 +7,10 @@ import {
 import { Link } from "react-router-dom";
 import { UseFormSetValue } from "react-hook-form";
 import { ICampaignFormInput } from "../../interfaces/campaign.interface";
+import { useGetSocialAccounts } from "../../hooks/socialAccount.hook";
 
 // Props interface for component
 interface SocialAccountsListProps {
-    socialAccounts: ISocialAccount[] | undefined;
     currentAccount: ISocialAccount | null;
     setCurrentAccount: (account: ISocialAccount) => void;
     getAccountImageWithType: (type: ConnectionNameTypes) => string;
@@ -18,12 +18,18 @@ interface SocialAccountsListProps {
 }
 
 const SocialAccountsList: React.FC<SocialAccountsListProps> = ({
-    socialAccounts,
     currentAccount,
     setCurrentAccount,
     getAccountImageWithType,
     setValue,
 }) => {
+    const { data: socialAccounts, isLoading: isLoadingSocialAccount } =
+        useGetSocialAccounts();
+    if (isLoadingSocialAccount) {
+        return (
+            <div className="p-4 text-gray-500">Loading social accounts...</div>
+        );
+    }
     // Early return for no accounts
     if (!socialAccounts || socialAccounts.length === 0) {
         return (
@@ -49,7 +55,7 @@ const SocialAccountsList: React.FC<SocialAccountsListProps> = ({
 
     return (
         <div className="flex gap-4 p-4 overflow-x-scroll">
-            {socialAccounts.map((account) => {
+            {socialAccounts.map((account: ISocialAccount) => {
                 const isSelected = account.id === currentAccount?.id;
                 const formattedName = formatAccountName(account.name);
 
