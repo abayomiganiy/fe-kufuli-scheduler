@@ -55,7 +55,7 @@ const SocialAccountsList: React.FC<SocialAccountsListProps> = ({
     };
 
     return (
-        <div className="flex gap-4 p-4 overflow-x-scroll">
+        <div className="flex gap-4 p-4 overflow-x-scroll no-scrollbar">
             {socialAccounts.map((account: ISocialAccount) => {
                 const isSelected = account.id === currentAccount?.id;
                 const formattedName = formatAccountName(account.name);
@@ -64,8 +64,8 @@ const SocialAccountsList: React.FC<SocialAccountsListProps> = ({
                     <div
                         className={`flex items-center gap-3 p-2 rounded-lg transition-colors cursor-pointer ${
                             isSelected
-                                ? "bg-gray-100 dark:bg-gray-800"
-                                : "hover:bg-gray-50 dark:hover:bg-gray-900"
+                                ? "bg-gray-100"
+                                : "hover:bg-gray-50"
                         }`}
                         key={account.id}
                         onClick={() => handleAccountSelect(account)}

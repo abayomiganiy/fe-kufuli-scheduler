@@ -61,7 +61,7 @@ const CreateCampaign: React.FC = () => {
     });
 
     // console.log(errors);
-    // console.log(`getValues: ${JSON.stringify(getValues())}`);
+    console.log(`getValues: ${JSON.stringify(getValues())}`);
     // console.log(`messages: ${JSON.stringify(messages)}`);
 
     useEffect(() => {
