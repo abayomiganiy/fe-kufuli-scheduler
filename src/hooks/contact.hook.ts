@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { getContacts } from "../services/contact.service";
-import { useCurrentSocialAccount } from "../store/currentSocialAccountStore";
+import { ISocialAccount } from "../interfaces/socialAccount.interface";
 
-export const useGetContacts = () => {
-    const currentSocialAccount = useCurrentSocialAccount(
-        (state) => state.currentAccount
-    );
+export const useGetContacts = ({
+    currentSocialAccount,
+}: {
+    currentSocialAccount: ISocialAccount;
+}) => {
     return useQuery({
         queryKey: ["contacts"],
         queryFn: () => getContacts(currentSocialAccount!),

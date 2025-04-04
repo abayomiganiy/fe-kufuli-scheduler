@@ -1,21 +1,21 @@
 import { Link } from "react-router-dom";
-import { useGetSocialAccounts } from "../../hooks/socialAccount.hook";
-import { ISocialAccount } from "../../interfaces/socialAccount.interface";
-import { useCurrentSocialAccount } from "../../store/currentSocialAccountStore";
-import { getAccountImageWithType } from "../../utils/getAccountImageWithType";
+// import { useGetSocialAccounts } from "../../hooks/socialAccount.hook";
+// import { ISocialAccount } from "../../interfaces/socialAccount.interface";
+// import { useCurrentSocialAccount } from "../../store/currentSocialAccountStore";
+// import { getAccountImageWithType } from "../../utils/getAccountImageWithType";
 
 const ConnectedSocialAccounts = () => {
-    const { data: connectedAccounts } = useGetSocialAccounts();
-    const currentSocialAccount = useCurrentSocialAccount(
-        (state) => state.currentAccount
-    );
-    const setCurrentSocialAccount = useCurrentSocialAccount(
-        (state) => state.setCurrentAccount
-    );
+    // const { data: connectedAccounts } = useGetSocialAccounts();
+    // const currentSocialAccount = useCurrentSocialAccount(
+    //     (state) => state.currentAccount
+    // );
+    // const setCurrentSocialAccount = useCurrentSocialAccount(
+    //     (state) => state.setCurrentAccount
+    // );
 
     return (
         <div className="flex flex-col w-full p-2 gap-2 border-gray-400 border-2 rounded-2xl shadow-xl">
-            {connectedAccounts?.map((account: ISocialAccount) => (
+            {/* {connectedAccounts?.map((account: ISocialAccount) => (
                 <button
                     className="flex justify-between items-center gap-2"
                     onClick={() => setCurrentSocialAccount(account)}
@@ -56,7 +56,7 @@ const ConnectedSocialAccounts = () => {
                         </div>
                     )}
                 </button>
-            ))}
+            ))} */}
             <Link to="/connect-account">Connect Account</Link>
         </div>
     );

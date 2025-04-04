@@ -11,21 +11,27 @@ import RadioGroup from "../../components/radioGroup/RadioGroup";
 import SectionHeader from "../../components/sectionHeader";
 import { useCreateCampaign } from "../../hooks/campaign.hook";
 import { useGetContacts } from "../../hooks/contact.hook";
+import { useGetSocialAccounts } from "../../hooks/socialAccount.hook";
 import {
     CampaignContentType,
     ICampaignFormInput,
 } from "../../interfaces/campaign.interface";
 import { createCampaignSchema } from "../../schemas/campaign.schema";
 import { useCurrentSocialAccount } from "../../store/currentSocialAccountStore";
+import { getAccountImageWithType } from "../../utils/getAccountImageWithType";
+import SocialAccountsList from "./SocialAccountsList";
 
 const CreateCampaign: React.FC = () => {
-    const { currentAccount } = useCurrentSocialAccount();
+    const { currentAccount, setCurrentAccount } = useCurrentSocialAccount();
     const {
         mutate: createCampaign,
         isPending: createCampaignIsPending,
         isSuccess: createCampaignIsSuccess,
     } = useCreateCampaign();
-    const { data: contacts, isLoading: contactsIsLoading } = useGetContacts();
+    const { data: contacts, isLoading: contactsIsLoading } = useGetContacts({
+        currentSocialAccount: currentAccount!,
+    });
+    const { data: socialAccounts } = useGetSocialAccounts();
     const {
         handleSubmit,
         control,
@@ -56,9 +62,9 @@ const CreateCampaign: React.FC = () => {
         control,
     });
 
-    console.log(errors);
-    console.log(`getValues: ${JSON.stringify(getValues())}`);
-    console.log(`messages: ${JSON.stringify(messages)}`);
+    // console.log(errors);
+    // console.log(`getValues: ${JSON.stringify(getValues())}`);
+    // console.log(`messages: ${JSON.stringify(messages)}`);
 
     useEffect(() => {
         if (createCampaignIsSuccess) {
@@ -133,6 +139,17 @@ const CreateCampaign: React.FC = () => {
                         ))}
                     </div>
                     <div>
+                        <label className="text-lg font-medium mb-2">
+                            Social account
+                        </label>
+                        <SocialAccountsList
+                            socialAccounts={socialAccounts}
+                            currentAccount={currentAccount}
+                            setCurrentAccount={setCurrentAccount}
+                            getAccountImageWithType={getAccountImageWithType}
+                        />
+                    </div>
+                    <div>
                         <div className="flex items-center gap-4 p-2">
                             <input
                                 type="checkbox"
@@ -142,11 +159,10 @@ const CreateCampaign: React.FC = () => {
                             />
                             <label
                                 htmlFor={`isEighteenPlus`}
-                                className="cursor-pointer"
+                                className="cursor-pointer text-lg font-medium"
                             >
                                 Is this rated 18+
                             </label>
-
                             {errors.isEighteenPlus && (
                                 <p className="text-xs text-red-500">
                                     {errors.isEighteenPlus.message}
@@ -183,7 +199,7 @@ const CreateCampaign: React.FC = () => {
                         <div className="flex flex-col gap-4 p-2">
                             <label
                                 htmlFor={`scheduledTime`}
-                                className="cursor-pointer"
+                                className="cursor-pointer text-lg font-medium"
                             >
                                 Schedule
                             </label>

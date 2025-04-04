@@ -60,7 +60,7 @@ const Contacts: React.FC<IContactsProps> = ({
 
     return (
         <div className="flex flex-col gap-4 p-2">
-            <label htmlFor="status">Recipients</label>
+            <label htmlFor="status" className="text-lg font-medium">Recipients</label>
             <>
                 {contactsIsLoading ? (
                     "Loading contacts..."
