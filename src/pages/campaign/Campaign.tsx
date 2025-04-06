@@ -5,32 +5,35 @@ import { ICampaign } from "../../interfaces/campaign.interface";
 import Toggle from "../../components/toggle";
 import Button from "../../components/button";
 import FontCodeToFont from "../../utils/fontCodeToFont";
+import replaceUrlsWithShortened from "../../utils/shortenUrl";
 
 const Campaign: React.FC = () => {
     const { state }: { state: ICampaign } = useLocation();
     const [currentIndex, setCurrentIndex] = useState(0);
     const carouselRef = useRef<HTMLDivElement>(null);
-    
+
     const totalMessages = state.messages.length;
-    
+
     const scrollToMessage = (index: number) => {
         if (carouselRef.current) {
             const scrollAmount = index * 272; // 272 = width (256px) + gap (16px)
             carouselRef.current.scrollTo({
                 left: scrollAmount,
-                behavior: 'smooth'
+                behavior: "smooth",
             });
         }
         setCurrentIndex(index);
     };
-    
+
     const handlePrevious = () => {
-        const newIndex = currentIndex > 0 ? currentIndex - 1 : totalMessages - 1;
+        const newIndex =
+            currentIndex > 0 ? currentIndex - 1 : totalMessages - 1;
         scrollToMessage(newIndex);
     };
-    
+
     const handleNext = () => {
-        const newIndex = currentIndex < totalMessages - 1 ? currentIndex + 1 : 0;
+        const newIndex =
+            currentIndex < totalMessages - 1 ? currentIndex + 1 : 0;
         scrollToMessage(newIndex);
     };
     return (
@@ -48,59 +51,97 @@ const Campaign: React.FC = () => {
                         {/* Carousel Navigation Buttons */}
                         {totalMessages > 1 && (
                             <>
-                                <button 
+                                <button
                                     onClick={handlePrevious}
                                     className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white rounded-full p-2 shadow-md"
                                     aria-label="Previous message"
                                 >
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M15 18L9 12L15 6" stroke="#202020" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <svg
+                                        width="20"
+                                        height="20"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M15 18L9 12L15 6"
+                                            stroke="#202020"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
                                     </svg>
                                 </button>
-                                <button 
+                                <button
                                     onClick={handleNext}
                                     className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white rounded-full p-2 shadow-md"
                                     aria-label="Next message"
                                 >
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M9 6L15 12L9 18" stroke="#202020" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <svg
+                                        width="20"
+                                        height="20"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M9 6L15 12L9 18"
+                                            stroke="#202020"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
                                     </svg>
                                 </button>
                             </>
                         )}
-                        
+
                         {/* Carousel Container */}
-                        <div 
+                        <div
                             ref={carouselRef}
                             className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory"
-                            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                            style={{
+                                scrollbarWidth: "none",
+                                msOverflowStyle: "none",
+                            }}
                         >
                             {state.messages.map((message, index) => (
-                                <div 
-                                    key={index} 
+                                <div
+                                    key={index}
                                     className="flex-shrink-0 w-64 snap-center mr-4"
                                 >
                                     {"text" in message.content ? (
                                         <div
                                             className={`flex justify-center items-center h-96 w-64 object-cover rounded-2xl mx-auto laptop:mx-0 text-white`}
                                             style={{
-                                                backgroundColor: message.options?.backgroundColor,
+                                                backgroundColor:
+                                                    message.options
+                                                        ?.backgroundColor,
                                                 fontFamily: FontCodeToFont(
-                                                    message.options?.font as number
+                                                    message.options
+                                                        ?.font as number
                                                 ),
                                             }}
                                         >
-                                            {message.content.text}
+                                            {replaceUrlsWithShortened(
+                                                message.content.text
+                                            )}
                                         </div>
                                     ) : "image" in message.content ? (
                                         <img
-                                            src={message.content.image.url as string}
+                                            src={
+                                                message.content.image
+                                                    .url as string
+                                            }
                                             alt={`message-${index}`}
                                             className="h-96 w-64 object-cover rounded-2xl mx-auto laptop:mx-0"
                                         />
                                     ) : "video" in message.content ? (
                                         <img
-                                            src={message.content.video.url as string}
+                                            src={
+                                                message.content.video
+                                                    .url as string
+                                            }
                                             alt={`message-${index}`}
                                             className="h-96 w-64 object-cover rounded-2xl mx-auto laptop:mx-0"
                                         />
@@ -108,20 +149,28 @@ const Campaign: React.FC = () => {
                                 </div>
                             ))}
                         </div>
-                        
+
                         {/* Carousel Indicators */}
                         {totalMessages > 1 && (
                             <div className="flex justify-center mt-4 gap-2">
-                                {Array.from({ length: totalMessages }).map((_, index) => (
-                                    <button
-                                        key={index}
-                                        onClick={() => scrollToMessage(index)}
-                                        className={`h-2 rounded-full transition-all ${
-                                            currentIndex === index ? "w-4 bg-blue-600" : "w-2 bg-gray-300"
-                                        }`}
-                                        aria-label={`Go to message ${index + 1}`}
-                                    />
-                                ))}
+                                {Array.from({ length: totalMessages }).map(
+                                    (_, index) => (
+                                        <button
+                                            key={index}
+                                            onClick={() =>
+                                                scrollToMessage(index)
+                                            }
+                                            className={`h-2 rounded-full transition-all ${
+                                                currentIndex === index
+                                                    ? "w-4 bg-blue-600"
+                                                    : "w-2 bg-gray-300"
+                                            }`}
+                                            aria-label={`Go to message ${
+                                                index + 1
+                                            }`}
+                                        />
+                                    )
+                                )}
                             </div>
                         )}
                     </div>

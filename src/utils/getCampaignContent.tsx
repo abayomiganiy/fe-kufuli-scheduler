@@ -1,5 +1,6 @@
 import { ICampaign } from "../interfaces/campaign.interface";
 import FontCodeToFont from "./fontCodeToFont";
+import replaceUrlsWithShortened from "./shortenUrl";
 
 export default function GetCampaignContent(campaign: ICampaign) {
     let content;
@@ -28,7 +29,9 @@ export default function GetCampaignContent(campaign: ICampaign) {
                         }}
                         className={`flex justify-center items-center p-4 laptop:p-5 object-cover rounded-2xl w-full h-full`}
                     >
-                        {campaign.messages[0].content.text}
+                        {replaceUrlsWithShortened(
+                            campaign.messages[0].content.text
+                        )}
                     </div>
                 </div>
             );
@@ -36,9 +39,7 @@ export default function GetCampaignContent(campaign: ICampaign) {
         case "video" in campaign.messages[0].content:
             content = (
                 <img
-                    src={
-                        campaign.messages[0].content?.video.url as string
-                    }
+                    src={campaign.messages[0].content?.video.url as string}
                     alt={campaign.messages[0].content.caption}
                     className="object-cover rounded-2xl w-full h-full"
                 />
