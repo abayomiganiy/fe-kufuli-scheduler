@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import SectionHeader from "../../components/sectionHeader";
+// import SectionHeader from "../../components/sectionHeader";
 import { ICampaign } from "../../interfaces/campaign.interface";
 import Toggle from "../../components/toggle";
 import Button from "../../components/button";
@@ -8,10 +8,34 @@ import FontCodeToFont from "../../utils/fontCodeToFont";
 
 const Campaign: React.FC = () => {
     const { state }: { state: ICampaign } = useLocation();
-    console.log(state.messages[0].options?.backgroundColor);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const carouselRef = useRef<HTMLDivElement>(null);
+    
+    const totalMessages = state.messages.length;
+    
+    const scrollToMessage = (index: number) => {
+        if (carouselRef.current) {
+            const scrollAmount = index * 272; // 272 = width (256px) + gap (16px)
+            carouselRef.current.scrollTo({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+        setCurrentIndex(index);
+    };
+    
+    const handlePrevious = () => {
+        const newIndex = currentIndex > 0 ? currentIndex - 1 : totalMessages - 1;
+        scrollToMessage(newIndex);
+    };
+    
+    const handleNext = () => {
+        const newIndex = currentIndex < totalMessages - 1 ? currentIndex + 1 : 0;
+        scrollToMessage(newIndex);
+    };
     return (
         <div className="pb-10">
-            <SectionHeader title="Campaign Details" />
+            {/* <SectionHeader title="Campaign Details" /> */}
             <div className="flex flex-col gap-4">
                 <div className="flex items-center justify-between">
                     <div>Status</div>
@@ -20,32 +44,87 @@ const Campaign: React.FC = () => {
                     </div>
                 </div>
                 <div className="flex flex-col laptop:flex-row justify-center laptop:justify-start gap-6">
-                    {"text" in state.messages[0].content ? (
-                        <div
-                            className={`flex justify-center items-center h-96 w-64 object-cover rounded-2xl mx-auto laptop:mx-0 text-white`}
-                            style={{
-                                backgroundColor:
-                                    state.messages[0].options?.backgroundColor,
-                                fontFamily: FontCodeToFont(
-                                    state.messages[0].options?.font as number
-                                ),
-                            }}
+                    <div className="relative">
+                        {/* Carousel Navigation Buttons */}
+                        {totalMessages > 1 && (
+                            <>
+                                <button 
+                                    onClick={handlePrevious}
+                                    className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white rounded-full p-2 shadow-md"
+                                    aria-label="Previous message"
+                                >
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M15 18L9 12L15 6" stroke="#202020" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                    </svg>
+                                </button>
+                                <button 
+                                    onClick={handleNext}
+                                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white rounded-full p-2 shadow-md"
+                                    aria-label="Next message"
+                                >
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 6L15 12L9 18" stroke="#202020" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                    </svg>
+                                </button>
+                            </>
+                        )}
+                        
+                        {/* Carousel Container */}
+                        <div 
+                            ref={carouselRef}
+                            className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory"
+                            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                         >
-                            {state.messages[0].content.text}
+                            {state.messages.map((message, index) => (
+                                <div 
+                                    key={index} 
+                                    className="flex-shrink-0 w-64 snap-center mr-4"
+                                >
+                                    {"text" in message.content ? (
+                                        <div
+                                            className={`flex justify-center items-center h-96 w-64 object-cover rounded-2xl mx-auto laptop:mx-0 text-white`}
+                                            style={{
+                                                backgroundColor: message.options?.backgroundColor,
+                                                fontFamily: FontCodeToFont(
+                                                    message.options?.font as number
+                                                ),
+                                            }}
+                                        >
+                                            {message.content.text}
+                                        </div>
+                                    ) : "image" in message.content ? (
+                                        <img
+                                            src={message.content.image.url as string}
+                                            alt={`message-${index}`}
+                                            className="h-96 w-64 object-cover rounded-2xl mx-auto laptop:mx-0"
+                                        />
+                                    ) : "video" in message.content ? (
+                                        <img
+                                            src={message.content.video.url as string}
+                                            alt={`message-${index}`}
+                                            className="h-96 w-64 object-cover rounded-2xl mx-auto laptop:mx-0"
+                                        />
+                                    ) : null}
+                                </div>
+                            ))}
                         </div>
-                    ) : "image" in state.messages[0].content ? (
-                        <img
-                            src={state.messages[0].content.image.url as string}
-                            alt={state.id}
-                            className="h-96 w-64 object-cover rounded-2xl mx-auto laptop:mx-0"
-                        />
-                    ) : "video" in state.messages[0].content ? (
-                        <img
-                            src={state.messages[0].content.video.url as string}
-                            alt={state.id}
-                            className="h-96 w-64 object-cover rounded-2xl mx-auto laptop:mx-0"
-                        />
-                    ) : null}
+                        
+                        {/* Carousel Indicators */}
+                        {totalMessages > 1 && (
+                            <div className="flex justify-center mt-4 gap-2">
+                                {Array.from({ length: totalMessages }).map((_, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => scrollToMessage(index)}
+                                        className={`h-2 rounded-full transition-all ${
+                                            currentIndex === index ? "w-4 bg-blue-600" : "w-2 bg-gray-300"
+                                        }`}
+                                        aria-label={`Go to message ${index + 1}`}
+                                    />
+                                ))}
+                            </div>
+                        )}
+                    </div>
                     <div className="flex flex-col w-full">
                         <div>
                             <div>
