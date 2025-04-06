@@ -11,7 +11,7 @@ export const getCampaigns = async (filter?: {
     console.log(filter);
     const campaigns = await request({
         method: "GET",
-        url: "/campaigns",
+        url: "/campaigns/?limit=1000",
     });
     return campaigns;
 };
