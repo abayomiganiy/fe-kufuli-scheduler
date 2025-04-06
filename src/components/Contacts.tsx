@@ -22,7 +22,6 @@ const Contacts: React.FC<IContactsProps> = ({
     const [search, setSearch] = useState<string>("");
     const [selectedRecipients, setSelectedRecipients] = useState<string[]>([]);
 
-    // Select all contacts on mount
     useEffect(() => {
         if (contacts.length) {
             const allContactIds = contacts.map((contact) => contact.id);
@@ -37,7 +36,15 @@ const Contacts: React.FC<IContactsProps> = ({
                 ? prev.filter((recipientId) => recipientId !== id)
                 : [...prev, id];
 
-            setValue("recipients", updated);
+            if (recipientOption === "myContactExcept") {
+                // For exclude option, we want to send all contacts EXCEPT selected ones
+                const excludedIds = contacts
+                    .map((contact) => contact.id)
+                    .filter((contactId) => !updated.includes(contactId));
+                setValue("recipients", excludedIds);
+            } else {
+                setValue("recipients", updated);
+            }
             return updated;
         });
     };
@@ -60,7 +67,9 @@ const Contacts: React.FC<IContactsProps> = ({
 
     return (
         <div className="flex flex-col gap-4 p-2">
-            <label htmlFor="status" className="text-lg font-medium">Recipients</label>
+            <label htmlFor="status" className="text-lg font-medium">
+                Recipients
+            </label>
             <>
                 {contactsIsLoading ? (
                     "Loading contacts..."
@@ -76,6 +85,13 @@ const Contacts: React.FC<IContactsProps> = ({
                     >
                         <option value="myContacts">
                             My contacts ({contacts.length})
+                        </option>
+                        <option value="myContactExcept">
+                            My contacts except (
+                            {recipientOption === "myContactExcept"
+                                ? selectedRecipients.length
+                                : 0}
+                            )
                         </option>
                         <option value="onlyShareWith">
                             Only share with (
