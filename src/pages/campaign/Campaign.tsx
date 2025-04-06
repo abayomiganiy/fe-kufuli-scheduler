@@ -6,11 +6,15 @@ import Toggle from "../../components/toggle";
 import Button from "../../components/button";
 import FontCodeToFont from "../../utils/fontCodeToFont";
 import replaceUrlsWithShortened from "../../utils/shortenUrl";
+import { useDeleteCampaign } from "../../hooks/campaign.hook";
 
 const Campaign: React.FC = () => {
     const { state }: { state: ICampaign } = useLocation();
     const [currentIndex, setCurrentIndex] = useState(0);
+    const { mutate: deleteCampaign } = useDeleteCampaign();
     const carouselRef = useRef<HTMLDivElement>(null);
+
+    console.log(state);
 
     const totalMessages = state.messages.length;
 
@@ -36,6 +40,7 @@ const Campaign: React.FC = () => {
             currentIndex < totalMessages - 1 ? currentIndex + 1 : 0;
         scrollToMessage(newIndex);
     };
+
     return (
         <div className="pb-10">
             {/* <SectionHeader title="Campaign Details" /> */}
@@ -231,6 +236,24 @@ const Campaign: React.FC = () => {
                                     <h4>{150}</h4>
                                 </div>
                             </div>
+                        </div>
+                        <div className="flex items-center gap-2 my-4">
+                            <Button
+                                variant="secondary"
+                                onClick={() => {
+                                    deleteCampaign(state.id);
+                                }}
+                                className="w-full laptop:w-auto items-center"
+                            >
+                                Delete Campaign
+                            </Button>
+                            <Button
+                                variant="primary"
+                                onClick={() => {}}
+                                className="w-full laptop:w-auto items-center"
+                            >
+                                Edit Campaign
+                            </Button>
                         </div>
                         <div className="laptop:ml-auto">
                             <Button

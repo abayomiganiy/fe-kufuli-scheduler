@@ -54,3 +54,10 @@ export const createCampaign = async (data: ICampaignFormInput) => {
         },
     });
 };
+
+export const deleteCampaign = async (campaignId: string) => {
+    return request({
+        method: "DELETE",
+        url: `/campaigns/${campaignId}`,
+    });
+};
