@@ -30,12 +30,19 @@ const ConnectedAccount: React.FC<{
     return (
         <div className="relative w-20 h-20 mx-3">
             <button
-                onClick={() =>
-                    deleteSocialAccont({
-                        id: connectedAccount.id,
-                        sessionId: connectedAccount.name,
-                    })
-                }
+                onClick={() => {
+                    if (
+                        confirm("Are you sure you want to delete account?") ==
+                        true
+                    ) {
+                        deleteSocialAccont({
+                            id: connectedAccount.id,
+                            sessionId: connectedAccount.name,
+                        });
+                    } else {
+                        console.log("Delete social account canceled");
+                    }
+                }}
                 title="delete social account"
                 className={`absolute top-[-10px] right-[-10px] flex justify-center items-center p-1 h-6 w-6 rounded-full ${
                     connectedAccount.status.toLocaleLowerCase() === "connected"
@@ -45,6 +52,7 @@ const ConnectedAccount: React.FC<{
                         ? "bg-[#ffff00]"
                         : "bg-[#4CD964]"
                 } `}
+                disabled={deleteSocialAccontIsLoading}
             >
                 {deleteSocialAccontIsLoading ? (
                     <ClipLoader size={10} color="#fff" />
