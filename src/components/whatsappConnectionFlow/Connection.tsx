@@ -19,7 +19,13 @@ export interface IConnectionData {
 }
 
 const connectionValidationSchema = z.object({
-    name: z.string().min(3).max(20),
+    name: z
+        .string()
+        .min(3)
+        .max(20)
+        .refine((val) => !/\s/.test(val), {
+            message: "Name cannot contain spaces",
+        }),
     type: z.literal("WHATSAPP"),
     phoneNumber: z.string().optional(),
 });
@@ -122,6 +128,11 @@ const Connection: React.FC<{
                         placeholder="Enter name"
                         className="font-normal laptop:text-base text-xs w-full px-4 py-3 border-2 border-[#D9D9D9] bg-transparent rounded-lg focus:outline-none focus:border-[#4CCEF7]"
                     />
+                    {errors.name && (
+                        <p className="text-xs text-red-500">
+                            {errors.name.message}
+                        </p>
+                    )}
                     <PhoneInputWithCountry
                         className="font-normal laptop:text-base text-xs w-full px-4 py-3 border-2 border-[#D9D9D9] bg-transparent rounded-lg [&:has(*:focus)]:border-[#4CCEF7] [&_*:focus]:outline-none"
                         name="phoneNumber"
@@ -160,25 +171,34 @@ const Connection: React.FC<{
                         Enter this code to connect with WhatsApp
                     </h3>
                     <div className="flex justify-center items-center gap-2 sm:gap-4 p-4 sm:p-6">
-                        {connectionData?.code && connectionData?.code?.split("")?.map((char: string, index: number, array: []) => (
-                                <>
-                                    {index === array.length / 2 && (
-                                        <span className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold p-2">
-                                            -
-                                        </span>
-                                    )}
-                                    <span
-                                        key={index}
-                                        className="inline-flex justify-center items-center
+                        {connectionData?.code &&
+                            connectionData?.code
+                                ?.split("")
+                                ?.map(
+                                    (
+                                        char: string,
+                                        index: number,
+                                        array: []
+                                    ) => (
+                                        <>
+                                            {index === array.length / 2 && (
+                                                <span className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold p-2">
+                                                    -
+                                                </span>
+                                            )}
+                                            <span
+                                                key={index}
+                                                className="inline-flex justify-center items-center
                                         text-lg sm:text-2xl md:text-3xl lg:text-4xl
                                         font-bold bg-gray-100 rounded-lg
                                         w-8 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16
                                         transition-all duration-200 hover:bg-gray-200"
-                                    >
-                                        {char}
-                                    </span>
-                                </>
-                            ))}
+                                            >
+                                                {char}
+                                            </span>
+                                        </>
+                                    )
+                                )}
                     </div>
                 </div>
             );

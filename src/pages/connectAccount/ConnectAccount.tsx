@@ -148,8 +148,14 @@ const ConnectAccount: React.FC = () => {
                                     <button
                                         disabled={!connectedAccounts?.length}
                                         className="h-12 font-semibold laptop:text-xl text-base rounded-lg focus:border-2 focus:outline-none bg-black text-white disabled:bg-[#E0E0E0] disabled:text-black"
+                                        onClick={() => {
+                                            localStorage.removeItem(
+                                                "showConnectAccount"
+                                            );
+                                            navigate("/");
+                                        }}
                                     >
-                                        Create Account
+                                        Continue
                                     </button>
                                 </div>
                             </div>
