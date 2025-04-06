@@ -21,10 +21,10 @@ export interface IConnectionData {
 const connectionValidationSchema = z.object({
     name: z
         .string()
-        .min(3)
-        .max(20)
-        .refine((val) => !/\s/.test(val), {
-            message: "Name cannot contain spaces",
+        .min(3, "Name must contain at least 3 characters")
+        .max(20, "Name must contain at most 20 characters")
+        .refine((val) => /^[^\s-]+$/.test(val), {
+            message: "Name cannot contain spaces or hyphens",
         }),
     type: z.literal("WHATSAPP"),
     phoneNumber: z.string().optional(),
