@@ -43,8 +43,6 @@ const Connection: React.FC<{
         isPending: connectionIsPending,
     } = useConnectSocialAccount();
 
-    console.log(`connectionData: ${JSON.stringify(connectionData)}`);
-
     const {
         register,
         handleSubmit,
@@ -65,7 +63,6 @@ const Connection: React.FC<{
     });
 
     const onSubmit = (data: IConnectionData) => {
-        console.log(data);
         initializeSocket();
         connect(data);
     };
