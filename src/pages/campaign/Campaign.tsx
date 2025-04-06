@@ -11,7 +11,8 @@ import { useDeleteCampaign } from "../../hooks/campaign.hook";
 const Campaign: React.FC = () => {
     const { state }: { state: ICampaign } = useLocation();
     const [currentIndex, setCurrentIndex] = useState(0);
-    const { mutate: deleteCampaign } = useDeleteCampaign();
+    const { mutate: deleteCampaign, isPending: deleteCampaignIsPending } =
+        useDeleteCampaign();
     const carouselRef = useRef<HTMLDivElement>(null);
 
     console.log(state);
@@ -241,9 +242,18 @@ const Campaign: React.FC = () => {
                             <Button
                                 variant="secondary"
                                 onClick={() => {
-                                    deleteCampaign(state.id);
+                                    if (
+                                        confirm(
+                                            "Are you sure you want to delete campaign?"
+                                        ) == true
+                                    ) {
+                                        deleteCampaign(state.id);
+                                    } else {
+                                        console.log("Delete campaign canceled");
+                                    }
                                 }}
                                 className="w-full laptop:w-auto items-center"
+                                disabled={deleteCampaignIsPending}
                             >
                                 Delete Campaign
                             </Button>
