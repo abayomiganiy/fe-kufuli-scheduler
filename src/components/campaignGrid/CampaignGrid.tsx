@@ -233,7 +233,7 @@ const CampaignGrid: React.FC<{ campaign: ICampaign }> = ({ campaign }) => {
     return (
         <div className="flex flex-col items-center space-y-2">
             <Link
-                to={"campaign.id"}
+                to={`/campaigns/${campaign.id}`}
                 state={campaign}
                 className="relative laptop:h-56 h-56 w-full flex-wrap"
             >

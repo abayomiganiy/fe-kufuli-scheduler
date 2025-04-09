@@ -1,7 +1,7 @@
 import React from "react";
 import { useGetCampaigns } from "../../hooks/campaign.hook";
 import { ICampaign } from "../../interfaces/campaign.interface";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ActiveCampaigns: React.FC = () => {
     const navigate = useNavigate();
@@ -97,7 +97,6 @@ const ActiveCampaign: React.FC<{ campaigns: ICampaign[] }> = ({
             content = (
                 <img
                     src={campaign.messages[0].content?.audio.url as string}
-                    // alt={campaign.messages[0].content?.audio.url}
                     className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl"
                 />
             );
@@ -108,11 +107,12 @@ const ActiveCampaign: React.FC<{ campaigns: ICampaign[] }> = ({
     return (
         <>
             {campaigns.map((campaign) => (
-                <div className="relative laptop:w-40 w-32 laptop:h-64 h-48 flex cursor-pointer items-end justify-between p-4 rounded-2xl text-white">
+                <Link
+                    to={`/campaigns/${campaign.id}`}
+                    state={campaign}
+                    className="relative laptop:w-40 w-32 laptop:h-64 h-48 flex cursor-pointer items-end justify-between p-4 rounded-2xl text-white"
+                >
                     {renderActiveCampaignContent(campaign)}
-                    {/* {"text" in campaign.messages[0].content && (
-                    <div className="absolute top-0 left-0 w-full h-full rounded-2xl bg-gradient-to-t from-0 from-black to-50% to-transparent opacity-80" />
-                )} */}
                     <div className="z-40">
                         <div>
                             <div className="flex justify-center items-center space-x-1">
@@ -139,7 +139,7 @@ const ActiveCampaign: React.FC<{ campaigns: ICampaign[] }> = ({
                             </div>
                         </div>
                     </div>
-                </div>
+                </Link>
             ))}
         </>
     );
