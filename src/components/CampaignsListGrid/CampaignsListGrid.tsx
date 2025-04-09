@@ -6,8 +6,8 @@ const CampaignsListGrid: React.FC<{ campaigns: ICampaign[] }> = ({
 }) => {
     return (
         <div className="grid laptop:grid-cols-5 tablet:grid-cols-4 grid-cols-2 gap-5">
-            {campaigns?.map((campaign, index) => (
-                <CampaignGrid key={index} campaign={campaign} />
+            {campaigns?.map((campaign) => (
+                <CampaignGrid key={campaign.id} campaign={campaign} />
             ))}
         </div>
     );

@@ -5,13 +5,19 @@ import {
 } from "../interfaces/campaign.interface";
 import { request } from "../utils/axios-utils";
 
-export const getCampaigns = async (filter?: {
-    status: CampaignStatus;
+export const getCampaigns = async ({
+    filter,
+    pageParam,
+}: {
+    filter?: {
+        status: CampaignStatus;
+    };
+    pageParam?: number;
 }): Promise<ICampaign[]> => {
     console.log(filter);
     const campaigns = await request({
         method: "GET",
-        url: "/campaigns/?limit=1000",
+        url: `/campaigns/?limit=10&skip=${pageParam || 0}`,
     });
     return campaigns;
 };

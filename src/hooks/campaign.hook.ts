@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
 import {
     createCampaign,
     deleteCampaign,
@@ -6,15 +6,29 @@ import {
 } from "../services/campaign.service";
 import {
     CampaignStatus,
+    ICampaign,
     ICampaignFormInput,
 } from "../interfaces/campaign.interface";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 export const useGetCampaigns = (filter?: { status: CampaignStatus }) => {
-    return useQuery({
+    return useInfiniteQuery({
         queryKey: ["campaigns", filter],
-        queryFn: () => getCampaigns(filter),
+        queryFn: ({
+            pageParam,
+        }: {
+            pageParam?: number;
+        }): Promise<ICampaign[]> => getCampaigns({ filter, pageParam }),
+        initialPageParam: 0,
+        getNextPageParam: (lastPage, allPages) => {
+            // If the last page is empty or smaller than expected page size, we've reached the end
+            if (lastPage.length === 0 || lastPage.length < 10) {
+                return undefined; // Return undefined to signal end of pagination
+            }
+            // Return the total count of all items fetched so far
+            return allPages.flatMap(page => page).length;
+        },
     });
 };
 

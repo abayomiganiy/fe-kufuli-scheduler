@@ -1,18 +1,48 @@
+import { useEffect } from "react";
 import CampaignsListGrid from "../../components/CampaignsListGrid";
 import SectionHeader from "../../components/sectionHeader";
 import { useGetCampaigns } from "../../hooks/campaign.hook";
+import { useInView } from "react-intersection-observer";
 
 const CampaignsContainer: React.FC = () => {
-    const { data: campaigns, isLoading: campaignsIsLoading } =
-        useGetCampaigns();
+    const { ref: campaignsRef, inView: campaignsInView } = useInView({
+        threshold: 1,
+    });
+
+    const {
+        data: campaigns,
+        fetchNextPage: campaignsFetchNextPage,
+        isFetchingNextPage: campaignsIsFetchingNextPage,
+        status: campaignsStatus,
+        error: campaignsError,
+    } = useGetCampaigns();
+
+    useEffect(() => {
+        if (campaignsInView) {
+            campaignsFetchNextPage();
+        }
+    }, [campaignsFetchNextPage, campaignsInView]);
 
     return (
         <div className="pb-16">
             <SectionHeader title="Campaigns" />
-            {campaignsIsLoading ? (
+            {campaignsStatus === "pending" ? (
                 <CampaignsLoading />
+            ) : campaignsStatus === "error" ? (
+                <div className="flex justify-center items-center h-screen">
+                    <h1 className="text-2xl text-red-500">
+                        {campaignsError?.message}
+                    </h1>
+                </div>
             ) : (
-                <CampaignsListGrid campaigns={campaigns!} />
+                <>
+                    {campaigns?.pages.map((campaigns) => (
+                        <CampaignsListGrid campaigns={campaigns} />
+                    ))}
+                    <div ref={campaignsRef}>
+                        {campaignsIsFetchingNextPage && <CampaignsLoading />}
+                    </div>
+                </>
             )}
         </div>
     );

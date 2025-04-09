@@ -25,7 +25,6 @@ const CreateCampaign: React.FC = () => {
     const {
         mutate: createCampaign,
         isPending: createCampaignIsPending,
-        isSuccess: createCampaignIsSuccess,
     } = useCreateCampaign();
     const { data: contacts, isLoading: contactsIsLoading } = useGetContacts({
         currentSocialAccount: currentAccount!,
@@ -37,7 +36,6 @@ const CreateCampaign: React.FC = () => {
         register,
         setValue,
         getValues,
-        reset,
         watch,
     } = useForm<ICampaignFormInput>({
         resolver: zodResolver(createCampaignSchema),
@@ -62,10 +60,8 @@ const CreateCampaign: React.FC = () => {
     // console.log(`messages: ${JSON.stringify(messages)}`);
 
     useEffect(() => {
-        if (createCampaignIsSuccess) {
-            reset();
-        }
-    }, [createCampaignIsSuccess, reset]);
+        if (currentAccount) setValue("socialAccountId", currentAccount?.id);
+    }, [currentAccount, setValue]);
 
     const onSubmit = (data: ICampaignFormInput) => {
         const hardCodedData = {
