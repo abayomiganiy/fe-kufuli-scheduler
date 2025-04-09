@@ -35,14 +35,16 @@ const CampaignsContainer: React.FC = () => {
                     </h1>
                 </div>
             ) : (
-                <>
-                    {campaigns?.pages.map((campaigns) => (
-                        <CampaignsListGrid campaigns={campaigns} />
+                <div>
+                    {campaigns?.pages.map((campaigns, index) => (
+                        <div key={index} className="mb-5"> {/* Add spacing between loaded campaigns */}
+                            <CampaignsListGrid campaigns={campaigns} />
+                        </div>
                     ))}
                     <div ref={campaignsRef}>
                         {campaignsIsFetchingNextPage && <CampaignsLoading />}
                     </div>
-                </>
+                </div>
             )}
         </div>
     );
