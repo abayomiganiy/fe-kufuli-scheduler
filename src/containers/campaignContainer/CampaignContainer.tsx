@@ -14,7 +14,7 @@ const CampaignContainer: React.FC = () => {
             </div>
         );
     }
-    return <CampaignsListGrid campaigns={campaigns!} />;
+    return <CampaignsListGrid campaigns={campaigns?.pages?.flat() ?? []} />;
 };
 
 const CampaignsLoading = () => {
