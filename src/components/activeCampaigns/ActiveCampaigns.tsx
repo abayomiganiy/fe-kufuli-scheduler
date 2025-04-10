@@ -72,9 +72,11 @@ const ActiveCampaign: React.FC<{ campaigns: ICampaign[] }> = ({
                             "#000000",
                         color: "#ffffff",
                     }}
-                    className={`flex items-center justify-center p-4 laptop:p-5 w-full h-full absolute top-0 left-0 object-cover rounded-2xl`}
+                    className={`flex flex-flex-wrap items-center justify-center p-4 laptop:p-5 w-full h-full absolute top-0 left-0 object-cover rounded-2xl`}
                 >
-                    {campaign.messages[0].content.text}
+                    {campaign.messages[0].content.text.length > 40
+                        ? `${campaign.messages[0].content.text.slice(40)}...`
+                        : campaign.messages[0].content.text}
                 </div>
             );
         } else if ("image" in campaign.messages[0].content) {
