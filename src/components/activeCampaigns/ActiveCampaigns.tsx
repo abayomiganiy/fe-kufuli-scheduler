@@ -11,7 +11,7 @@ const ActiveCampaigns: React.FC = () => {
     if (activeCampaignsIsLoading) {
         return (
             <div className="flex overflow-auto no-scrollbar">
-                <div className="flex gap-4 flex-nowrap">
+                <div className="flex gap-2 flex-nowrap">
                     {[1, 2, 3]?.map((_, index) => (
                         <ActiveCampaignLoading key={index} />
                     ))}
@@ -22,7 +22,7 @@ const ActiveCampaigns: React.FC = () => {
 
     return (
         <div className="flex overflow-auto no-scrollbar">
-            <div className="flex gap-4 flex-nowrap">
+            <div className="flex gap-2 flex-nowrap">
                 <button
                     className="laptop:w-40 w-32 laptop:h-64 h-48 cursor-pointer flex flex-col items-center justify-between bg-[#E5E5E5] p-4 rounded-2xl border border-gray-200"
                     onClick={() => navigate("/create-campaign")}
@@ -75,7 +75,7 @@ const ActiveCampaign: React.FC<{ campaigns: ICampaign[] }> = ({
                     className={`flex flex-flex-wrap items-center justify-center p-4 laptop:p-5 w-full h-full absolute top-0 left-0 object-cover rounded-2xl`}
                 >
                     {campaign.messages[0].content.text.length > 20
-                        ? `${campaign.messages[0].content.text.slice(20)}...`
+                        ? `${campaign.messages[0].content.text.slice(0, 20)}...`
                         : campaign.messages[0].content.text}
                 </div>
             );
