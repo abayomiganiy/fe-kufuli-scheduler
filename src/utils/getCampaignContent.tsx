@@ -31,9 +31,9 @@ export default function GetCampaignContent(campaign: ICampaign) {
                     >
                         {replaceUrlsWithShortened(
                             campaign.messages[0].content.text
-                        ).length > 40
+                        ).length > 20
                             ? `${replaceUrlsWithShortened(
-                                  campaign.messages[0].content.text.slice(40)
+                                  campaign.messages[0].content.text.slice(20)
                               )}..`
                             : replaceUrlsWithShortened(
                                   campaign.messages[0].content.text

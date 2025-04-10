@@ -74,8 +74,8 @@ const ActiveCampaign: React.FC<{ campaigns: ICampaign[] }> = ({
                     }}
                     className={`flex flex-flex-wrap items-center justify-center p-4 laptop:p-5 w-full h-full absolute top-0 left-0 object-cover rounded-2xl`}
                 >
-                    {campaign.messages[0].content.text.length > 40
-                        ? `${campaign.messages[0].content.text.slice(40)}...`
+                    {campaign.messages[0].content.text.length > 20
+                        ? `${campaign.messages[0].content.text.slice(20)}...`
                         : campaign.messages[0].content.text}
                 </div>
             );
