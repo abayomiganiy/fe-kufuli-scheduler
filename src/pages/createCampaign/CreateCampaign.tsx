@@ -22,10 +22,8 @@ import SocialAccountsList from "./SocialAccountsList";
 
 const CreateCampaign: React.FC = () => {
     const { currentAccount, setCurrentAccount } = useCurrentSocialAccount();
-    const {
-        mutate: createCampaign,
-        isPending: createCampaignIsPending,
-    } = useCreateCampaign();
+    const { mutate: createCampaign, isPending: createCampaignIsPending } =
+        useCreateCampaign();
     const { data: contacts, isLoading: contactsIsLoading } = useGetContacts({
         currentSocialAccount: currentAccount!,
     });
@@ -111,23 +109,32 @@ const CreateCampaign: React.FC = () => {
                             })}
                         </div>
                     </div>
-                    <div className="flex justify-center gap-5">
-                        {(
-                            [
-                                "text",
-                                "image",
-                                "video",
-                                "audio",
-                            ] as CampaignContentType[]
-                        ).map((type, index) => (
-                            <div key={index}>
-                                <ContentTypeIcon
-                                    key={index}
-                                    type={type}
-                                    appendMessage={appendMessage}
-                                />
-                            </div>
-                        ))}
+                    <div>
+                        <div className="flex justify-center gap-5">
+                            {(
+                                [
+                                    "text",
+                                    "image",
+                                    "video",
+                                    "audio",
+                                ] as CampaignContentType[]
+                            ).map((type, index) => (
+                                <div key={index}>
+                                    <ContentTypeIcon
+                                        key={index}
+                                        type={type}
+                                        appendMessage={appendMessage}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                        <div className="flex text-center justify-center gap-4 p-2">
+                            {errors.messages && (
+                                <p className="text-xs text-red-500">
+                                    {errors.messages.message}
+                                </p>
+                            )}
+                        </div>
                     </div>
                     <div>
                         <label className="text-lg font-medium mb-2">

@@ -78,14 +78,16 @@ export const audeoMessageSchema = z.object({
     }),
 });
 
-export const messagesSchema = z.array(
-    z.discriminatedUnion("type", [
-        textMessageSchema,
-        imageMessageSchema,
-        videoMessageSchema,
-        audeoMessageSchema,
-    ])
-);
+export const messagesSchema = z
+    .array(
+        z.discriminatedUnion("type", [
+            textMessageSchema,
+            imageMessageSchema,
+            videoMessageSchema,
+            audeoMessageSchema,
+        ])
+    )
+    .min(1, { message: "Please add at least one message." });
 
 export const createCampaignSchema = z
     .object({
