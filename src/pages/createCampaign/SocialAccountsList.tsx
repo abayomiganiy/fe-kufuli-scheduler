@@ -62,19 +62,13 @@ const SocialAccountsList: React.FC<SocialAccountsListProps> = ({
 
                 return (
                     <div
-                        className={`flex items-center gap-3 p-2 rounded-lg transition-colors cursor-pointer ${
+                        className={`flex items-center min-w-max gap-3 p-2 rounded-lg transition-colors cursor-pointer ${
                             isSelected
                                 ? "bg-gray-100"
                                 : "hover:bg-gray-50"
                         }`}
                         key={account.id}
                         onClick={() => handleAccountSelect(account)}
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter" || e.key === " ") {
-                                e.preventDefault();
-                                handleAccountSelect(account);
-                            }
-                        }}
                         role="button"
                         tabIndex={0}
                         aria-pressed={isSelected}
