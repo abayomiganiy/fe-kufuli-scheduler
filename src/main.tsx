@@ -7,13 +7,16 @@ export const queryClient = new QueryClient();
 
 import { Toaster } from "react-hot-toast";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import ErrorBoundary from "./components/ErrorBoundary .tsx";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
         <QueryClientProvider client={queryClient}>
             <Toaster />
             <ReactQueryDevtools />
-            <App />
+            <ErrorBoundary>
+                <App />
+            </ErrorBoundary>
         </QueryClientProvider>
     </StrictMode>
 );
