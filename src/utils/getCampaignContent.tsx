@@ -3,82 +3,119 @@ import FontCodeToFont from "./fontCodeToFont";
 import replaceUrlsWithShortened from "./shortenUrl";
 
 export default function GetCampaignContent(campaign: ICampaign) {
+    // Guard against missing messages
+    if (!campaign?.messages?.length) {
+        return (
+            <div className="flex justify-center items-center p-4 laptop:p-5 object-cover rounded-2xl w-full h-full bg-gray-200">
+                <p className="text-gray-600 text-sm">No content available</p>
+            </div>
+        );
+    }
+
+    const message = campaign.messages[0];
+    // Guard against missing content
+    if (!message?.content) {
+        return (
+            <div className="flex justify-center items-center p-4 laptop:p-5 object-cover rounded-2xl w-full h-full bg-gray-200">
+                <p className="text-gray-600 text-sm">Invalid content</p>
+            </div>
+        );
+    }
+
     let content;
     switch (true) {
-        case "image" in campaign.messages[0].content:
+        case "image" in message.content:
+            if (!message.content.image?.url) {
+                content = (
+                    <div className="flex justify-center items-center p-4 laptop:p-5 object-cover rounded-2xl w-full h-full bg-gray-200">
+                        <p className="text-gray-600 text-sm">Invalid image</p>
+                    </div>
+                );
+                break;
+            }
             content = (
                 <img
-                    src={campaign.messages[0].content?.image.url as string}
-                    alt={campaign.messages[0].content.caption}
+                    src={
+                        typeof message.content.image.url === "string"
+                            ? message.content.image.url
+                            : URL.createObjectURL(message.content.image.url)
+                    }
+                    alt={message.content.caption || "Campaign image"}
                     className="object-cover rounded-2xl w-full h-full"
                 />
             );
             break;
-        case "text" in campaign.messages[0].content:
+
+        case "text" in message.content:
             content = (
-                <div className={`laptop:h-56 h-56 w-full`}>
+                <div className="laptop:h-56 h-56 w-full">
                     <div
                         style={{
                             backgroundColor:
-                                campaign.messages[0].options?.backgroundColor ??
-                                "#000000",
+                                message.options?.backgroundColor ?? "#000000",
                             color: "#ffffff",
                             fontFamily: FontCodeToFont(
-                                campaign.messages[0].options?.font as number
+                                message.options?.font as number
                             ),
                         }}
-                        className={`flex justify-center items-center p-4 laptop:p-5 object-cover rounded-2xl w-full h-full`}
+                        className="flex justify-center items-center p-4 laptop:p-5 object-cover rounded-2xl w-full h-full"
                     >
-                        {replaceUrlsWithShortened(
-                            campaign.messages[0].content.text
-                        ).length > 20
+                        {message.content.text.length > 20
                             ? `${replaceUrlsWithShortened(
-                                  campaign.messages[0].content.text.slice(0, 20)
-                              )}..`
-                            : replaceUrlsWithShortened(
-                                  campaign.messages[0].content.text
-                              )}
+                                  message.content.text.slice(0, 20)
+                              )}...`
+                            : replaceUrlsWithShortened(message.content.text)}
                     </div>
                 </div>
             );
             break;
-        case "video" in campaign.messages[0].content:
+
+        case "video" in message.content:
+            if (!message.content.video?.url) {
+                content = (
+                    <div className="flex justify-center items-center p-4 laptop:p-5 object-cover rounded-2xl w-full h-full bg-gray-200">
+                        <p className="text-gray-600 text-sm">Invalid video</p>
+                    </div>
+                );
+                break;
+            }
             content = (
                 <img
-                    src={campaign.messages[0].content?.video.url as string}
-                    alt={campaign.messages[0].content.caption}
+                    src={
+                        typeof message.content.video.url === "string"
+                            ? message.content.video.url
+                            : URL.createObjectURL(message.content.video.url)
+                    }
+                    alt={message.content.caption || "Campaign video"}
                     className="object-cover rounded-2xl w-full h-full"
                 />
             );
             break;
-        case "audio" in campaign.messages[0].content:
+
+        case "audio" in message.content:
             content = (
-                <div className="flex justify-center items-center object-cover rounded-2xl w-full h-full bg-gray-400">
+                <div className="flex justify-center items-center object-cover rounded-2xl w-full h-full bg-gray-800">
                     <svg
-                        width="63"
-                        height="63"
-                        viewBox="0 0 63 63"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="object-cover rounded-lg w-12 h-16 bg-gray-400"
+                        className="w-12 h-12 text-white"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
                     >
-                        <path
-                            d="M44.625 18.375V28.875C44.625 36.1237 38.7487 42 31.5 42C24.2513 42 18.375 36.1237 18.375 28.875V18.375C18.375 11.1263 24.2513 5.25 31.5 5.25C38.7487 5.25 44.625 11.1263 44.625 18.375Z"
-                            stroke="white"
-                            strokeWidth="3.9375"
-                        />
-                        <path
-                            d="M52.5 28.875C52.5 40.473 43.098 49.875 31.5 49.875M31.5 49.875C19.902 49.875 10.5 40.473 10.5 28.875M31.5 49.875V57.75M31.5 57.75H39.375M31.5 57.75H23.625"
-                            stroke="white"
-                            strokeWidth="3.9375"
-                            strokeLinecap="round"
-                        />
+                        <path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z" />
                     </svg>
                 </div>
             );
             break;
+
         default:
+            content = (
+                <div className="flex justify-center items-center p-4 laptop:p-5 object-cover rounded-2xl w-full h-full bg-gray-200">
+                    <p className="text-gray-600 text-sm">
+                        Unsupported content type
+                    </p>
+                </div>
+            );
             break;
     }
+
     return content;
 }

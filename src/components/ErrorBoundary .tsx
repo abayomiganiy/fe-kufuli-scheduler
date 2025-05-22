@@ -1,4 +1,4 @@
-import React, { ErrorInfo } from "react";
+import { Component, ErrorInfo, ReactNode } from "react";
 
 interface ErrorBoundaryState {
     hasError: boolean;
@@ -6,13 +6,11 @@ interface ErrorBoundaryState {
 }
 
 interface ErrorBoundaryProps {
-    children: React.ReactNode;
+    children: ReactNode;
+    fallback?: ReactNode;
 }
 
-class ErrorBoundary extends React.Component<
-    ErrorBoundaryProps,
-    ErrorBoundaryState
-> {
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     constructor(props: ErrorBoundaryProps) {
         super(props);
         this.state = { hasError: false, error: null };
@@ -23,35 +21,50 @@ class ErrorBoundary extends React.Component<
     }
 
     componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-        // You can log the error to an error reporting service here
-        console.error("Caught by ErrorBoundary:", error, errorInfo);
+        // You can integrate with an error reporting service here
+        console.error("ErrorBoundary caught an error:", error, errorInfo);
     }
 
-    handleReload = (): void => {
-        // Optionally reset state if needed
+    handleReset = (): void => {
         this.setState({ hasError: false, error: null });
-        // Reload the page or trigger recovery
+    };
+
+    handleReload = (): void => {
         window.location.reload();
     };
 
     render() {
         if (this.state.hasError) {
+            // If a custom fallback is provided, use it
+            if (this.props.fallback) {
+                return this.props.fallback;
+            }
+
+            // Default error UI
             return (
                 <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
                     <div className="max-w-md w-full text-center p-8 rounded-2xl shadow-lg bg-white border border-gray-200">
                         <h1 className="text-3xl font-bold text-red-600 mb-4">
-                            Oops! Something went wrong.
+                            {this.state.error?.name || "Error"}
                         </h1>
-                        <p className="text-gray-600 mb-6">
+                        <p className="text-gray-700 mb-6">
                             {this.state.error?.message ||
-                                "An unexpected error occurred. Please try again later."}
+                                "An unexpected error occurred."}
                         </p>
-                        <button
-                            onClick={this.handleReload}
-                            className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl transition-all duration-200"
-                        >
-                            Try Again
-                        </button>
+                        <div className="space-x-4">
+                            <button
+                                onClick={this.handleReset}
+                                className="px-6 py-2 bg-gray-600 hover:bg-gray-700 text-white font-semibold rounded-xl transition-all duration-200"
+                            >
+                                Try Again
+                            </button>
+                            <button
+                                onClick={this.handleReload}
+                                className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl transition-all duration-200"
+                            >
+                                Reload Page
+                            </button>
+                        </div>
                     </div>
                 </div>
             );

@@ -62,45 +62,87 @@ const ActiveCampaign: React.FC<{ campaigns: ICampaign[] }> = ({
     campaigns,
 }) => {
     const renderActiveCampaignContent = (campaign: ICampaign) => {
+        // Early return if no messages exist
+        if (!campaign.messages?.length) {
+            return (
+                <div className="flex flex-flex-wrap items-center justify-center p-4 laptop:p-5 w-full h-full absolute top-0 left-0 object-cover rounded-2xl bg-gray-200">
+                    <p className="text-gray-600 text-sm">
+                        No content available
+                    </p>
+                </div>
+            );
+        }
+
+        const message = campaign.messages[0];
+        if (!message.content) {
+            return (
+                <div className="flex flex-flex-wrap items-center justify-center p-4 laptop:p-5 w-full h-full absolute top-0 left-0 object-cover rounded-2xl bg-gray-200">
+                    <p className="text-gray-600 text-sm">Invalid content</p>
+                </div>
+            );
+        }
+
         let content;
-        if ("text" in campaign.messages[0].content) {
+        if ("text" in message.content) {
             content = (
                 <div
                     style={{
                         backgroundColor:
-                            campaign.messages[0].options?.backgroundColor ??
-                            "#000000",
+                            message.options?.backgroundColor ?? "#000000",
                         color: "#ffffff",
                     }}
-                    className={`flex flex-flex-wrap items-center justify-center p-4 laptop:p-5 w-full h-full absolute top-0 left-0 object-cover rounded-2xl`}
+                    className="flex flex-flex-wrap items-center justify-center p-4 laptop:p-5 w-full h-full absolute top-0 left-0 object-cover rounded-2xl"
                 >
-                    {campaign.messages[0].content.text.length > 20
-                        ? `${campaign.messages[0].content.text.slice(0, 20)}...`
-                        : campaign.messages[0].content.text}
+                    {message.content.text.length > 20
+                        ? `${message.content.text.slice(0, 20)}...`
+                        : message.content.text}
                 </div>
             );
-        } else if ("image" in campaign.messages[0].content) {
+        } else if ("image" in message.content && message.content.image?.url) {
+            const imageUrl = message.content.image.url;
             content = (
                 <img
-                    src={campaign.messages[0].content.image.url as string}
-                    alt={campaign.messages[0].content?.caption}
+                    src={
+                        typeof imageUrl === "string"
+                            ? imageUrl
+                            : URL.createObjectURL(imageUrl)
+                    }
+                    alt={message.content?.caption || "Campaign image"}
                     className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl"
                 />
             );
-        } else if ("video" in campaign.messages[0].content) {
+        } else if ("video" in message.content && message.content.video?.url) {
+            const videoUrl = message.content.video.url;
             content = (
                 <img
-                    src={campaign.messages[0].content?.video.url as string}
-                    alt={campaign.messages[0].content?.caption}
+                    src={
+                        typeof videoUrl === "string"
+                            ? videoUrl
+                            : URL.createObjectURL(videoUrl)
+                    }
+                    alt={message.content?.caption || "Campaign video thumbnail"}
                     className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl"
                 />
             );
-        } else if ("audio" in campaign.messages[0].content) {
+        } else if ("audio" in message.content && message.content.audio?.url) {
+            // const audioUrl = message.content.audio.url;
             content = (
-                <img
-                    src={campaign.messages[0].content?.audio.url as string}
-                    className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl"
-                />
+                <div className="w-full h-full absolute top-0 left-0 object-cover rounded-2xl bg-gray-800 flex items-center justify-center">
+                    <svg
+                        className="w-12 h-12 text-white"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                    >
+                        <path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z" />
+                    </svg>
+                </div>
+            );
+        } else {
+            // Fallback for unknown content type
+            content = (
+                <div className="flex flex-flex-wrap items-center justify-center p-4 laptop:p-5 w-full h-full absolute top-0 left-0 object-cover rounded-2xl bg-gray-200">
+                    <p className="text-gray-600 text-sm">Unsupported content</p>
+                </div>
             );
         }
         return content;
@@ -110,35 +152,35 @@ const ActiveCampaign: React.FC<{ campaigns: ICampaign[] }> = ({
         <>
             {campaigns.map((campaign) => (
                 <Link
+                    key={campaign.id}
                     to={`/campaigns/${campaign.id}`}
                     state={campaign}
                     className="relative laptop:w-40 w-32 laptop:h-64 h-48 flex cursor-pointer items-end justify-between p-4 rounded-2xl text-white"
                 >
                     {renderActiveCampaignContent(campaign)}
-                    <div className="z-40">
-                        <div>
-                            <div className="flex justify-center items-center space-x-1">
-                                <svg
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="font-semibold text-xs laptop:text-base h-4 w-4 laptop:h-6 laptop:w-6"
-                                >
-                                    <path
-                                        d="M21.544 11.045C21.848 11.4713 22 11.6845 22 12C22 12.3155 21.848 12.5287 21.544 12.955C20.1779 14.8706 16.6892 19 12 19C7.31078 19 3.8221 14.8706 2.45604 12.955C2.15201 12.5287 2 12.3155 2 12C2 11.6845 2.15201 11.4713 2.45604 11.045C3.8221 9.12944 7.31078 5 12 5C16.6892 5 20.1779 9.12944 21.544 11.045Z"
-                                        stroke="white"
-                                        strokeWidth="1.5"
-                                    />
-                                    <path
-                                        d="M15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12Z"
-                                        stroke="white"
-                                        strokeWidth="1.5"
-                                    />
-                                </svg>
-                                <h3 className="text-sm font-medium line-clamp-1">
-                                    {/* {(campaign.messages[0].content).views} */}
-                                </h3>
-                            </div>
+                    <div className="z-40 bg-black bg-opacity-30 absolute bottom-0 left-0 right-0 p-4 rounded-b-2xl">
+                        <div className="flex justify-center items-center space-x-1">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="font-semibold text-xs laptop:text-base h-4 w-4 laptop:h-6 laptop:w-6"
+                            >
+                                <path
+                                    d="M21.544 11.045C21.848 11.4713 22 11.6845 22 12C22 12.3155 21.848 12.5287 21.544 12.955C20.1779 14.8706 16.6892 19 12 19C7.31078 19 3.8221 14.8706 2.45604 12.955C2.15201 12.5287 2 12.3155 2 12C2 11.6845 2.15201 11.4713 2.45604 11.045C3.8221 9.12944 7.31078 5 12 5C16.6892 5 20.1779 9.12944 21.544 11.045Z"
+                                    stroke="white"
+                                    strokeWidth="1.5"
+                                />
+                                <path
+                                    d="M15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12Z"
+                                    stroke="white"
+                                    strokeWidth="1.5"
+                                />
+                            </svg>
+                            <h3 className="text-sm font-medium line-clamp-1">
+                                {/* For now, removing views since it's not in the content type */}
+                                {/* Add views when the backend provides this information */}
+                            </h3>
                         </div>
                     </div>
                 </Link>
