@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { socket } from "../socket";
 import { useGetUser } from "./user.hook";
+import { useDebounce } from "../utils/debounce";
 
 export const useWhatsappSocket = ({
     name,
@@ -11,13 +12,25 @@ export const useWhatsappSocket = ({
     const [connectionEvent, setConnectionEvent] = useState<string>();
     const socketRef = useRef<ReturnType<typeof socket> | null>(null);
     const { data: user } = useGetUser();
+    const [debouncedName, setDebouncedName] = useState(name);
+
+    // Debounce the name changes
+    const debouncedSetName = useDebounce((newName: unknown) => {
+        if (typeof newName === "string") {
+            setDebouncedName(newName);
+        }
+    }, 500);
+
+    useEffect(() => {
+        debouncedSetName(name);
+    }, [name, debouncedSetName]);
 
     const initializeSocket = useCallback(() => {
-        if (!name || socketRef.current) return;
+        if (!debouncedName || socketRef.current) return;
         socketRef.current = socket({
             session_id: `${import.meta.env.VITE_KUFULI_USER_ID}-${
                 user?.id
-            }-${name}`,
+            }-${debouncedName}`,
         });
 
         const handleError = (error: Error) =>
@@ -36,7 +49,7 @@ export const useWhatsappSocket = ({
                 socketRef.current = null;
             }
         };
-    }, [name, user]);
+    }, [debouncedName, user]);
 
     useEffect(() => {
         const cleanup = initializeSocket();

@@ -15,7 +15,6 @@ const Connections: React.FC = () => {
             type: "WHATSAPP",
             available: true,
             handleConnect: () => {
-                console.log("Whatsapp");
                 setShowModal({ isOpen: true, accountType: "WHATSAPP" });
                 // refetch();
             },
